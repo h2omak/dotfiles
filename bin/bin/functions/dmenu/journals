@@ -1,0 +1,23 @@
+# sdothum - 2016 (c) wtfpl
+
+# X11 Dynamic Menu
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# ..................................................................... Sysadmin
+
+# Usage: dmenu journals [watch]
+
+# view systemd journal logs
+[ $1 ] && mode=Watch || mode=View
+cd /usr/lib/systemd/system/
+
+service=$(previous journals)
+service=$(stest -fl . | sort | sed 's/.service$//' | rmenu "$mode Journal" $service -no-custom) || exit
+
+mhistory journals $service
+case $mode in
+View ) [ $service ] && term "$service" journalctl -u $service.service ;;
+Watch) [ $service ] && term "$service" journalctl -fu $service.service ;;
+esac
+
+# vim: set ft=sh: #

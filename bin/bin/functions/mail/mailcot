@@ -1,0 +1,38 @@
+#!/usr/bin/dash
+# sdothum - 2016 (c) wtfpl
+
+# Mail
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# ....................................................................... Server
+
+# Usage: mailcot [<hostname> [<user> [<password>]]]
+
+# test dovecot installation
+echo '# set timeout 5
+set host [lindex $argv 0]
+set user [lindex $argv 1]
+set password [lindex $argv 2]
+spawn telnet $host 143
+expect "\*\ OK"
+send "a login \"$user\" \"$password\"\n"
+expect "a\ OK"
+send "b list \"\" *\n"
+expect "b\ OK"
+send "c logout\n"
+' >/tmp/mailcot
+
+systemd restart dovecot
+# expect cmdfile host user password
+# expect /tmp/mailcot ${1:-$(hostname)} ${2:-$USER} ${3:-dovecot}
+
+host=${1:-$(hostname)}
+user=${2:-$USER}
+password=${3:-dovecot}
+telnet $host 143 <<EOF
+a login "$user" "$password"
+b list "" *
+c logout
+EOF
+
+# vim: set ft=sh: #

@@ -1,0 +1,30 @@
+# sdothum - 2016 (c) wtfpl
+
+# X11 Dynamic Menu
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# ......................................................................... Edit
+
+# Format: <tag> :: [ <filename> | $<(eval>) ]*
+#               where, tag      - dmenu search tag
+#                      filename - posix filename expression
+#                      eval     - posix shell expression that evaluates to a list of filenames
+
+EDIT='[ edit tags ]'
+
+# tag file containing project specs
+PROJECTS=$CONFIG/projects
+history=$HISTORY/projects
+
+projects() { sed "s/  *::  */^$SEP /" $PROJECTS | mhistory projects | column -s^ -t | sed "1i$EDIT" ;}
+
+while files=$(projects | rmenu 'Edit Project' 1 -no-custom) || exit ;do
+  case $files in
+  "$EDIT") gvim -f $PROJECTS $history ;;
+
+  *      ) mhistory projects "$(echo $files | sed "s/ *$SEP/^$SEP/")"
+           eval exec v ${files#*$SEP} ;;
+   esac
+done
+
+# vim: set ft=sh: #

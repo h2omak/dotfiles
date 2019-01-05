@@ -1,0 +1,16 @@
+#!/usr/bin/dash
+# sdothum - 2016 (c) wtfpl
+
+# X11 Desktop
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# ................................................................. Conky colorN
+
+usage() {
+  echo "usage: conky $(basename $0) <colorN>"
+  exit 1
+}
+
+[ $1 ] && grep $1 $THEME | cut -d= -f2 || usage
+
+# vim: set ft=sh: #

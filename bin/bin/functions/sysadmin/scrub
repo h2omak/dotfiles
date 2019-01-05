@@ -1,0 +1,50 @@
+#!/usr/bin/dash
+# sdothum - 2016 (c) wtfpl
+
+# Sysadmin
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# .......................................................... Btrfs scrub wrapper
+
+usage() {
+  echo "usage: $(basename $0) a'll | c'ancel | I'nitialize | s'tatus [boot | net | share | backup]"
+  exit 1
+}
+
+interval=15
+
+# butterfs maintenance
+volume() {
+  case $@ in
+  boot | root) echo /boot ;;
+  net | share) echo /net ;;
+  backup     ) echo /backup ;;
+  *          ) echo $@ ;;
+  esac
+}
+
+show() {
+  V=$(volume $@)
+  [ $V ] || usage
+  p scrub | grep -q "btrfs scrub start -Bd $V" || in_progress=$@
+  while : ;do
+    trace "$@"
+    sudo btrfs scrub status $V
+    p scrub | grep -q "btrfs scrub start -Bd $V" || break
+    sleep $interval
+  done
+  [ $in_progress ] || press_enter
+}
+
+case $1 in
+'') usage ;;
+a*) scrub boot ; scrub share ; scrub backup ;;
+c*) sudo btrfs scrub cancel $(volume $2) ;;
+I*) sudo rm -f /var/lib/btrfs/*.* ;;
+s*) show $(volume $2) ;;
+
+* ) nohup sudo btrfs scrub start -Bd $(volume $@) &
+    exists term && (term "$@" SHELL "scrub s $@" &) || scrub s $@ ;;
+esac
+
+# vim: set ft=sh: #

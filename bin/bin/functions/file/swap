@@ -1,0 +1,27 @@
+#!/usr/bin/dash
+# sdothum - 2016 (c) wtfpl
+
+# File
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# ......................................................................... Copy
+
+usage() {
+  echo "usage: $(basename $0) <file> <file>"
+  exit 1
+}
+
+[ $# -eq 2 ] || usage
+
+# file and directory swapping
+target=${1%/}
+destination=${2%/}
+hold=$RANDOM.$target
+if ([ -e $target ] && [ -e $destination ]) || ([ -d $target ] && [ -d $destination ]) ;then
+  sudo mv $target $hold
+  sudo mv $destination $target
+  sudo mv $hold $destination
+  ditto "$destination -> $target" "$target -> $destination"
+fi
+
+# vim: set ft=sh: #

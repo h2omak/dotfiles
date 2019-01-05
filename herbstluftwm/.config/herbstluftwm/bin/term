@@ -1,0 +1,83 @@
+#!/usr/bin/dash
+# sdothum - 2016 (c) wtfpl
+[ $TRACE ] && CHILD="bin/term $@" . $PARENT
+
+# herbstluftwm
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# ..................................................................... Terminal
+
+# Usage: term [<title>] [ FLOAT | STACK | MAX | VERTICAL | HORIZONTAL | GRID | BLACKBOARD | VISIBLE | WAIT | FORTUNE ] [[SHELL] <command>]
+#        title (and default name string)
+#        FLOAT, STACK, MAX, VERTICAL, HORIZONTAL, GRID herbstluftwm hooks for setting layout and geometry
+#        FORTUNE, login notifier message
+#        BLACKBOARD, cinema background mode for omxplayer
+#        VISIBLE, wait for window visibility
+#        WAIT, for process to complete before returning
+#        SHELL <command>, for simpler unquoted command passing
+# Note:  title may not contain spaces, use hyphen or underscore in place
+
+SHELL=/usr/bin/dash
+blackboard='#000000'
+
+[ -e /usr/bin/alacritty ] && TERM=alacritty || TERM=urxvt
+case $TERM in
+alacritty) TITLE=--title
+           NAME=--class
+           blackboard="--config-file $HOME/.config/alacritty/blackboard.yml"
+           XY='--dimensions 120 30' ;;
+
+urxvt    ) TITLE=-title
+           NAME=-name
+           blackboard="-bg '$blackboard' -fg '$blackboard' -cr '$blackboard'"
+           XY='-geometry 1024x600+0+0' ;;
+esac
+
+# first parameter may be title
+if [ "$1" ] ;then
+  if echo $1 | egrep -qv 'FLOAT|STACK|MAX|VERTICAL|HORIZONTAL|GRID|BLACKBOARD|VISIBLE|WAIT|FORTUNE|SHELL' ;then
+    title="$TITLE $(echo $1 | sed 's/ /_/g')"
+    shift
+  fi
+fi
+
+# menu border calculation
+border() { echo $(( $(query displayheight) * 2 / 15 )) ;}
+
+while [ "$1" ] ;do
+  case $1 in
+  BLACKBOARD) theme=$blackboard ;;
+  FLOAT     ) name="$NAME float" ; geometry=$XY ;;
+  FORTUNE   ) touch $FORTUNE:term ;;
+  GRID      ) name="$NAME grid" ;;
+  HORIZONTAL) name="$NAME horizontal" ;;
+  MAX       ) name="$NAME max" ;;
+  STACK     ) stack=true ;;
+  VERTICAL  ) name="$NAME vertical" ;;
+  VISIBLE   ) visible=true ;;
+  WAIT      ) wait=true ;;
+
+  SHELL     ) shift
+              process=$@
+              [ "$1" ] && cmd="-e $SHELL -c '$@'"
+              break ;;
+
+  *         ) process="$@"
+              cmd="-e $@"
+              break ;;
+  esac
+  shift
+done
+
+[ -z "$name" ] && [ "$title" ] && name="$NAME ${title#* }"
+
+if [ $stack ] ;then
+  $TERM $title $name $geometry $theme $cmd &
+else
+  focus $TERM $title $name $geometry $theme $cmd
+fi
+
+[ $visible ] && [ "$title" ] && xdotool search --sync --onlyvisible --limit 1 --classname "${title#* }"
+[ $wait    ] && pwait "$process"
+
+# vim: set ft=sh: #

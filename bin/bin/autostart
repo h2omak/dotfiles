@@ -1,0 +1,111 @@
+#!/usr/bin/dash
+# sdothum - 2016 (c) wtfpl
+
+# X11 Startup
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# ....................................................... Window manager restart
+
+# initial window applications (flags)
+AUTOCONNECT=$SESSION/autoconnect
+CMST=$SESSION/cmst
+CALENDAR=$SESSION/calendar
+IM=$SESSION/im
+IRC=$SESSION/irc
+MAIL=$SESSION/mail
+PING=$SESSION/ping
+REMINDER=$SESSION/reminder
+TERM=$SESSION/term
+THEDARNEDESTTHING=$SESSION/thedarnedestthing
+WEB=$SESSION/browser
+
+# reminder delay (allow desktop to initialize)
+delay=2
+
+killall -TERM imapfilter 2>/dev/null
+killall -TERM offlineimap 2>/dev/null
+
+# ....................................................... Session initialization
+
+rm -f $HOME/.msmtpqueue/.lock
+rm -f /tmp/setroot
+rm -f /srv/http/tt-rss/lock/*
+
+gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg &
+# laptop && synclient VertEdgeScroll=1 &
+# laptop && synclient TapButton1=1 &
+pstat gpg-agent || gpg-agent --homedir $HOME/.gnupg --use-standard-socket --daemon 2>/tmp/gpg-agent.log &
+server && ipfilter &
+xrdb -merge $HOME/.Xresources &
+
+# ........................................................... Daemons and caches
+
+# pstat dunst || dunst 2>/dev/null &
+if server && ! pstat mpd ;then
+  sleep 2
+  mpd &
+fi
+# pstat urxvtd || urxvtd -q -o -f &
+# pstat xflux || xflux -l 45.4 -g -75.7
+server && dmenu movies cache
+if [ -e $AUTOCONNECT ] ;then
+  killall autoconnect
+  term 'Autoconnect' autoconnect
+else
+  [ -e $CMST ] && cmst &
+fi
+
+# ....................................................... Desktop initialization
+
+# enable cut and paste
+# autocutsel -fork &
+autocutsel -selection PRIMARY -fork &
+
+# if server ;then
+#   dispread -v -d2 -c1 -yl "-P0.012987012987,1,4.11345646438" \
+#           -k "L3007WFPHC 2014-02-04 2.2 M-S 3xCurve+MTX.cal" \
+#           -s "L3007WFPHC 2014-02-04 2.2 M-S 3xCurve+MTX" 2>/dev/null
+#   dispread -v -d1 -c1 -yl "-P0.0195488721805,1,4.07630522088" \
+#           -k "L 2209WA 2014-02-04 2.2 M-S 3xCurve+MTX.cal" \
+#           -s "L 2209WA 2014-02-04 2.2 M-S 3xCurve+MTX" 2>/dev/null
+# fi
+# server && dmenu screensaver on
+
+# ................................................................. Systray apps
+
+pstat 'autokey-gtk --verbose' || autokey-gtk --verbose >/tmp/autokey.log 2>/dev/null &
+pstat gpaste-client || gpaste-client start &
+pstat xfce4-power-manager || xfce4-power-manager 2>/dev/null &
+
+# ................................................................ Terminal apps
+
+if [ -e $IM ] ;then
+  server && herbstclient focus_monitor 1 || switch tag $CHAT
+  # wait for window visibility before switching monitors, for urxvt font handling
+  term 'IM' VISIBLE centerim5
+fi
+if [ -e $IRC ] ;then
+  server && herbstclient focus_monitor 1 || switch tag $CHAT
+  # wait for window visibility before switching monitors, for urxvt font handling
+  tmux_session irc weechat
+fi
+server && herbstclient focus_monitor 0
+[ -e $CALENDAR ] && term 'Calendar' wyrd
+[ -e $MAIL     ] && tmux_session mail alot
+[ -e $PING     ] && term 'Ping' pingchk
+
+# .................................................................. Window apps
+
+[ -e $THEDARNEDESTTHING ] && thedarnedestthing
+switch tag $WEB
+[ -e $WEB      ] && $BROWSER &
+[ -e $TERM     ] && toggle scratchpad
+[ -e $REMINDER ] && (sleep $delay ; dmenu reminder) &
+
+# .............................................................. Cleanup desktop
+
+[ -e $UNCLUTTER ] && { pstat unclutter || toggle unclutter ;}
+# autocutsel leaves a small square of black pixels in the bottom right corner
+(xdotool search --sync --onlyvisible --name autocutsel windowunmap) &
+
+# vim: set ft=sh: #

@@ -1,0 +1,138 @@
+# sdothum - 2016 (c) wtfpl
+# to enable tracing, export TRACE=/tmp/herbstluftwm.log in .xinitrc
+export PARENT=$HOME/bin/functions/log/parent
+[ $TRACE ] && CHILD="config/ENV $@" . $PARENT
+
+# herbstluftwm
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# export Mod=Mod4 # Use super key as the main modifier
+export Mod=Mod1   # Use alt as the main modifier
+
+# don't set shell else dmenu history functions may be non-functional
+export SHELL=/usr/bin/dash
+export XDG_CONFIG_HOME=$HOME/.config
+export ROOT=${ROOT:-/tmp}
+export HLWM=$ROOT/herbstluftwm
+export SESSION=$HOME/.session
+
+# .................................................................... WM states
+
+export PALETTE=$HOME/images/colors
+export BACKGROUND=$PALETTE/default
+export COLOR=$BACKGROUND:color
+export WALLPAPER=$HOME/images/backgrounds/default
+
+export BLACKBOARD=$HLWM:blackboard
+export BLANK=$HLWM:blank
+export BORDER=$HLWM:border
+export COMPTON=$HLWM:compton
+export CONKY=$HLWM:conky
+export CONTRAST=$CONKY:contrast
+export DYNAMIC=$HLWM:dynamic
+export FORTUNE=$HLWM:fortune
+export FOCUS=$HLWM:focus
+export FULLSCREEN=$HLWM:fullscreen
+export LAYOUT=$HLWM:layout
+export LOCK=$HLWM:lock
+export MONOCLE=$HLWM:monocle
+export PANEL=$HLWM:panel
+export PULSAR=$HLWM:pulsar
+export THEME=$HLWM:theme
+
+# select wallpaper subdirectory
+export WALL=${WALL:-.}
+
+export PANEL_FIFO=${PANEL_FIFO:-${PANEL}-fifo}
+
+# ............................................................... Session states
+
+# wm states
+export CONTRAST=$SESSION/contrast
+export NOBLUR=$SESSION/noblur
+export SETROOT=$SESSION/setroot
+export UNCLUTTER=$SESSION/unclutter
+
+# application states
+export MENU=$SESSION/term:menu
+export NCURSES=$SESSION/ncurses
+export PROOF=$SESSION/proof
+export SCOMPTON=$SESSION/compton
+export WSYNC=$SESSION/wsync
+
+# panel attributes
+export SPANEL=$SESSION/panel
+export TICKER=$SPANEL:ticker
+export PCONKY=$SPANEL:conky
+export WEATHER=$SPANEL:weather
+
+# ..................................................................... Desktops
+
+# desktops, see config/tags
+export TAG_NAMES='WEB CHAT MAIL WIKI MEDIA ADMIN'
+export TAGS="$(seq 1 $(echo $TAG_NAMES | sed 's/ /\n/g' | wc -l))"
+# export TAG_NAME = TAG
+for key in $TAGS ;do export $(echo $TAG_NAMES | awk "{ print \$$key }")=$key ;done
+
+# dmenu window state icons
+export VISIBLE='■'
+export INVISIBLE='□'
+
+# focus aid, see focus border
+export FOCUS_WIDTH=5
+export BORDER_WIDTH=2
+export NORMAL='#808080'
+
+# ........................................................... Margin adjustments
+
+# minimun display width for conky/panel monitor rules
+export MIN_DISPLAY=1360
+
+# left shift right monitor margin by shadow-radius*shadow_factor so conky doesn't cover shadow area
+export SHADOW_FACTOR=3
+
+# conky lua syntax filter
+conkyrc() {
+  [ -e $HOME/.conkyrc ] && grep "^ *$1" $HOME/.conkyrc | sed -r 's/.*= *([0-9]*),.*/\1/' ||
+                           echo 0
+}
+
+export CONKY_GAP=$(conkyrc 'gap_x')
+export CONKY_INNER=$(conkyrc 'border_inner_margin')
+export CONKY_OUTER=$(conkyrc 'border_outer_margin')
+export CONKY_WIDTH=$(conkyrc 'maximum_width')
+
+# compton shadow left shift pixel adjustment for conky panel edge (0) none
+if [ ! -e $HOME/.compton.conf ] ;then
+  export SHADOW=0
+elif grep -q '^shadow-opacity = 0.0' $HOME/.compton.conf ;then
+  export SHADOW=0
+else
+  # assumes shadow-offset = -(shadow-radius)
+  export SHADOW=$(( $(grep '^shadow-radius =' $HOME/.compton.conf | sed -r 's/.*= *([0-9]*).*/\1/') * $SHADOW_FACTOR ))
+fi
+
+# to maintain constant monitor margins around (above or below) the panel, export in .xinitrc
+gui && [ $(query displaywidth 0) -lt $MIN_DISPLAY ] && PANEL_MARGIN=true
+# assumes startx on primary display
+# is display -min && PANEL_MARGIN=true
+
+# ................................................................ Miscellaneous
+
+# conky clock secondary monitor
+# export CONKY_Q2=$STOW/conky/$(query displaywidth 1)x$(query displayheight 1)/.conkyrc.qclocktwo
+export CONKY_Q2=$STOW/conky/1680x1050/.conkyrc.qclocktwo
+
+# terminal font
+export MONOFONT=Iosevka
+
+# dmenu line column delimeter (must not match dmenu content), see restore hidden, focus hlwm
+export DLM='$'
+# dmenu line item marker
+export SEP='∙'
+
+# panel info separators
+export LSEP='    '
+export RSEP='    '
+
+# vim: set ft=sh: #

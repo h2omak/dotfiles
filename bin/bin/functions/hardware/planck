@@ -1,0 +1,77 @@
+#!/usr/bin/dash
+# sdothum - 2016 (c) wtfpl
+
+# Hardware
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# ....................................................................... Planck
+
+usage() {
+  echo "usage: $(basename $0) <keymap> [adnw* | beakl* | colem* | qwerty | default ]  [steno [nomouse]]  [<string>] [dfu]"
+  exit 1
+}
+
+KEYMAPS='(ADNW|BEAKL|COLEM|QWERTY).*'
+
+QMK=$HOME/qmk_firmware
+PLANCK=$QMK/keyboards/planck
+KEYMAP=$PLANCK/keymaps/$1
+CONFIG=$KEYMAP/config.h
+MAKEFILE=$KEYMAP/Makefile
+PRIVATE=$KEYMAP/private_string.h
+
+export CPATH=$KEYMAP/common
+
+[ $1 ] || usage
+keymap=$1
+shift
+
+ditto "$QMK" "$keymap"
+ifno 'sync qmk_firmware repo' || {
+  cd $QMK
+  git remote add upstream https://github.com/qmk/qmk_firmware.git
+  git fetch upstream
+  git checkout master
+  git rebase upstream/master
+}
+
+# update keymap from stow repo
+mkdir $KEYMAP 2>/dev/null
+rsync -avq -KL --delete --exclude .deprecated $STOW/planck/${KEYMAP#$HOME/}/* $KEYMAP/
+
+# default keymap
+case $1 in
+adnw*   |\
+beakl*  |\
+colem*  |\
+qwerty  |\
+default ) sed -i -r "s/#define.*$KEYMAPS/#define $(echo $1 | uppercase)/" $CONFIG ; shift ;;
+
+*       ) usage ;;
+esac
+
+# steno (mouse may need to be mandisabled in config.h)
+if [ "$1" = steno ] ;then
+  sed -i -e '/STENO_ENABLE/s/= no /= yes/' $MAKEFILE
+  shift
+  [ "$1" = nomouse ] && { sed -i -e '/MOUSEKEY_ENABLE/s/= yes/= no /' $MAKEFILE ; shift ;}
+fi
+
+# compile time macro sting
+grep -q PRIVATE_STRING $CONFIG || sed -i '$a#define PRIVATE_STRING' $CONFIG
+case $1 in
+'' |\
+dfu) sed -i 's|.*PRIVATE_STRING|// #define PRIVATE_STRING|' $CONFIG ;;
+
+*  ) trap "rm -f $PRIVATE" EXIT
+     sed -i 's/.*PRIVATE_STRING/#define PRIVATE_STRING/' $CONFIG
+     echo "SEND_STRING(\"$1\");" >$PRIVATE
+     shift ;;
+esac
+
+cd $QMK
+sudo make planck:$keymap:clean
+[ "$1" = dfu ] && sudo CPATH=$CPATH make planck:$keymap:dfu || make planck:$keymap
+sudo chown -R $USER:users $QMK
+
+# vim: set ft=sh: #

@@ -1,0 +1,21 @@
+#!/usr/bin/dash
+# sdothum - 2016 (c) wtfpl
+
+# Mail
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# .................................................................. Mail client
+
+
+maildir=$HOME/Maildir/thedarnedestthing
+
+if ! server ;then
+  if [ ! -d $maildir ] ;then
+    ssh $SERVER sudo systemctl restart nfs-server
+    sudo mount $HOME/Maildir
+  fi
+fi
+
+/usr/bin/alot
+
+# vim: set ft=sh: #

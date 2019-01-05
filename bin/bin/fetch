@@ -1,0 +1,21 @@
+#!/usr/bin/dash
+# sdothum - 2016 (c) wtfpl
+
+# Terminal
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# ........................................................................ Fetch
+
+fetch=/usr/bin/neofetch
+
+# fetch wrapper
+[ $1 ] && exec $fetch --help
+
+focus frame
+# hide cursor (make it dark!)
+xterm -cr '#010101' \
+      -e "$fetch --config off --block_range 0 15 --gap 5 --size 340 --xoffset 55 --yoffset 30 \
+                 --backend w3m --w3m $(lname $HOME/images/backgrounds/default) \
+          && echo && read CLOSE"
+
+# vim: set ft=sh: #

@@ -1,0 +1,35 @@
+#!/usr/bin/dash
+# sdothum - 2016 (c) wtfpl
+
+# Sysadmin
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# .................................................................. Ssh wrapper
+
+# Usage: ssh <host> [<X11 application>]
+# Note:  trap rsync to avoid spawning X11 sessions
+
+ps -ef | grep $PPID | grep rsync | grep -qv grep || notrsync=true
+
+if gui ;then
+  # X11 test made network specific (to avoid git ssh conflict)
+  if [ $notrsync ] && [ $# -gt 1 ] && $(grep -q $1 /etc/hosts) ;then
+    # open remote X11 session
+    host=$1
+    shift
+    Y="-Y $USER@$host"
+  elif pstat tmux ;then
+    # update tmux window as required
+    if [ "$(query wname 2>/dev/null)" = scratchpad ] ;then
+      title="^$(tmux list-windows | grep '\*' | cut -d' ' -f2 | sed 's/\*//')"
+      # rsync command expands to "host rsync .."
+      host=$1
+      tmux rename-window "${host%% *}:"
+    fi
+  fi
+fi
+
+/usr/bin/ssh $Y "$@"
+[ "$title" ] && tmux rename-window "${title#^}"
+
+# vim: set ft=sh: #

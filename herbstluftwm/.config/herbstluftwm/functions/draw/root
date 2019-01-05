@@ -1,0 +1,211 @@
+# sdothum - 2016 (c) wtfpl
+[ $TRACE ] && CHILD="draw/root $@" . $PARENT
+
+# herbstluftwm
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# .............................................................. Draw background
+
+# Usage: draw root [ blank [<color>] | restore | save ]
+#        draw root [ select | shuffle | blur | wallpaper ]
+#        draw root, refresh background if necessary, shuffling if set
+#        draw root blank, draw random background color
+#        draw root restore, restore background color
+#        draw root save, save background color
+#        draw root select, select default background and disable shuffling
+#        draw root shuffle, enable random background shuffling
+#        draw root blur, toggle background blur mode
+#        draw root wallpaper, draw background
+
+# cpu arm && exit
+
+SETBLUR=$HLWM:setblur
+SHUFFLE=$HLWM:shuffle
+
+[ -e $BLACKBOARD ] && exit
+toggle compton on
+
+# blur radius, brightness (to slightly darken and enhance transparency)
+blur=50
+brighten=-0.025
+# modulo of random number for random desktop wallpaper
+modulo=3
+
+[ -e $SETBLUR ] || echo '0: :0: ' >$SETBLUR
+
+# linked file reference
+exists() {
+  if lname $1 >/dev/null ;then
+    [ -e $(lname $1) ]
+  else
+    return 1
+  fi
+}
+
+# ............................................................. Per monitor blur
+
+[ "$1" = blur ] && { [ -e $NOBLUR ] && rm -f $NOBLUR || touch $NOBLUR ;}
+# occupied or empty desktop, setroot record structure:
+# 1: occupied (blurred image)
+# 0: empty (raw image)
+root() {
+  if [ ! -e $NOBLUR ] && is nonempty $(herbstclient attr monitors.$1.tag) ;then
+    echo "1: --on $1 --blur $blur --brighten $brighten --zoom $WALLPAPER"
+  else
+    echo "0: --on $1 --zoom $WALLPAPER"
+  fi
+}
+
+setblur() {
+  if [ ! -e $BLANK ] ;then
+    primary=$(root 0)
+    is multihead && secondary=$(root 1)
+  fi
+  echo "${primary}:${secondary}"
+}
+
+# ....................................................... Generate border colors
+
+# create pulsar border color gradient
+set_border() {
+  # echo $1 >$BORDER
+  conky palette $1 'Monochromatic' >$PULSAR
+  # set border to midtone
+  cut -d' ' -f1 $PULSAR >$BORDER
+  # refresh border of active window
+  herbstclient attr theme.active.color "#$(cat $BORDER)"
+}
+
+# ............................................................... Set background
+
+blank() {
+  if [ $1 ] ;then
+    color=$1
+    # blackboard reserved for media playback background to allow desktop restoration
+    [ $color = 000000 ] || echo blank >$SETROOT
+  else
+    color=$(randcolor)
+    rm -f $SETROOT
+  fi
+  setroot --blank-color "#$color" 2>/dev/null
+  # blackboard reserved for media playback background
+  if [ $color != 000000 ] ;then
+    echo $color >$COLOR
+    contrast=$(find $PALETTE -name $color.png | sed -r 's/.*(dark|light).*/\1/')
+    if [ "$contrast" = dark ] ;then
+      set_border "$(conky theme light $color)"
+    elif [ "$contrast" = light ] ;then
+      set_border "$(conky theme dark $color)"
+    else
+      set_border "$(conky theme contrast $color)"
+    fi
+  fi
+  echo $color >$BLANK
+  # make inactive border invisible!
+  herbstclient attr theme.normal.color "#$color"
+}
+
+color() {
+  # initialize default link
+  [ -L $BACKGROUND ] && exists $BACKGROUND || ln -sf $(find $PALETTE -name '*.png' | head -1) $BACKGROUND
+}
+
+select_blank() {
+  notify time=5 low 'Root Background' '<Space>  Show next\n<Enter>  Select color'
+  color
+  # to use office/feh and focus, the quoted --action must be escaped and pwait invoked..
+  /usr/bin/feh -B black --scale-down -r \
+               -A "ln -sf %f $BACKGROUND && xdotool type 'q'" \
+               --start-at $(lname $BACKGROUND) $(find $PALETTE -name '*.png')
+  blank $(basename $(ls -l $BACKGROUND | cut -d'>' -f2) .png)
+}
+
+# ................................................................ Set wallpaper
+
+wallpaper() {
+  # initialize default link
+  [ -L $WALLPAPER ] && exists $WALLPAPER || ln -sf $(ls -1 ${WALLPAPER%/default}/$WALL/*.png | head -1) $WALLPAPER
+  rm -f $BLANK
+  rm -f $THEME
+  herbstclient attr theme.normal.color $NORMAL
+}
+
+# set background wallpaper
+select_wallpaper() {
+  notify time=5 low 'Desktop Wallpaper' '<Space>  Show next\n<Enter>  Select image'
+  wallpaper
+  # to use office/feh and focus, the quoted --action must be escaped and pwait invoked.. see ENV
+  /usr/bin/feh -B black --scale-down -r --start-at $(lname $WALLPAPER) \
+               -A "ln -sf %f $WALLPAPER && xdotool type 'q'" \
+               ${WALLPAPER%/default}/${WALL#.}
+}
+
+shuffle() {
+  ln -sf $(find ${WALLPAPER%/default} -name '*.png' | shuf -n1) $WALLPAPER
+  rm -f $BLANK
+  rm -f $THEME
+}
+
+# ...................................................................... Setroot
+
+unblur() {
+  # (0) ignore, (1) change of state to unblurred
+  expr $1 '<' $(cut -d: -f$2 $SETBLUR)
+}
+
+# remember current background state for autostart
+case $1 in
+blank    ) blank $2 ;;
+restore  ) select_blank ;;
+wallpaper) wallpaper ;;
+
+save     ) color=$(cat $COLOR)
+           swatch $color
+           notify low 'Background Color' "$color saved" ;;
+
+select   ) rm -f $SHUFFLE
+           select_wallpaper
+           echo wallpaper >$SETROOT ;;
+
+shuffle  ) touch $SHUFFLE
+           shuffle
+           echo wallpaper >$SETROOT ;;
+
+*        ) [ "$(setblur)" = "$(cat $SETBLUR)" ] && exit
+           # echo "= setblur -> $(setblur)\n= setroot -> $(cat $SETBLUR)" >>$TRACE
+           # random background selection on un-blur change of state
+           if [ -e $SHUFFLE ] ;then
+             if [ $(unblur ${primary%%:*} 1) ] || [ $(unblur ${secondary%%:*} 3) ] ;then
+               # increase modulo to reduce frequency of shuffle
+               one_in $modulo && shuffle
+             fi
+           fi ;;
+esac
+
+# .................................................................. Apply theme
+
+setblur >$SETBLUR
+[ -e $BLANK ] || setroot ${primary#?:} ${secondary#?:} &
+
+# apply conky theme to .conkyrc, $THEME unset above if new background
+if [ -e $HOME/.conkyrc ] ;then
+  if [ ! -e $BLANK ] ;then
+    [ -e $THEME ] && exit
+    background=$(query theme)
+    # load theme or generate a theme from the border colour
+    if [ -e $background ] ;then
+      cp $background $THEME
+      is display +1920 && draw conky
+    else
+      term 'Theme' STACK SHELL walpick
+      pwait walpick
+    fi
+    set_border $(conky palette $(grep 'default_color=' $THEME | cut -d= -f2) 'Triadic' | cut -d' ' -f2)
+  fi
+fi
+
+# restart panels with new theme
+pkill -TERM -f 'draw panel'
+restore panel
+
+# vim: set ft=sh: #

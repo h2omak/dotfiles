@@ -1,0 +1,22 @@
+# sdothum - 2016 (c) wtfpl
+
+# X11 Dynamic Menu
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# ............................................................... System monitor
+
+# meta dmenu menu!
+system=$(previous system)
+system=$(echo "journal ^$SEP inspect\njournal ^$SEP watch\nlog ^$SEP inspect\nlog ^$SEP watch\nsystem ^$SEP diagnostic" |
+    column -s^ -t | rmenu 'System' "$system" -no-custom) || exit
+
+mhistory system "$system"
+case $system in
+journal*inspect  ) dmenu journals ;;
+journal*watch    ) dmenu journals watch ;;
+log*inspect      ) dmenu logs ;;
+log*watch        ) dmenu logs watch ;;
+system*diagnostic) dmenu diagnostic ;;
+esac
+
+# vim: set ft=sh: #

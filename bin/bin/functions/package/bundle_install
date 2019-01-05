@@ -1,0 +1,117 @@
+#!/usr/bin/dash
+# sdothum - 2016 (c) wtfpl
+
+# Package
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# ......................................................... Distribution install
+
+# Usage: bundle_install [check | init | list ] <bundle>*
+#
+# format: # inline comment
+#         = title
+#         " quote
+#         + package                    (to manually install afterwards)
+#         - package        [condition] (to remove)
+#         ? package        [condition] (confirm, see pm_install)
+#           package        [condition] (noconfirm)
+#         * package        [condition] (noconfirm)
+#         @ aur            [condition] (aur makepkg)
+#         a arm            [condition] (aur makepkg for raspberry pi)
+#         d action package [condition] (deferred install)
+#         g gem            [condition]
+#         m make           [condition] (make_install script)
+#         ! command        [options]   (execute)
+#
+#         where, condition = [command] or [[[expression]]] as short form for test
+#                     e.g. package [[[ $(hostname) = server ]]]
+#                make script may contain options with double backslashes
+#                     e.g. m iosevka\\ amphetype [server]
+#                use '\' as default (space) action placeholder for deferred rule
+#                     e.g. d \ package [condition]
+
+[ $1 ] || exit
+console && export VISUAL='vim -f'
+unset HTTP_PROXY # ignore local network proxy
+
+case $1 in
+check) check=true ; gems=$(gem list | cut -d' ' -f1) ; shift ;;
+list ) list=true ; shift ;;
+init ) init=--init ; shift ;;
+esac
+
+echo $1 | grep -q '/' && BDIR=${1%/*} || BDIR=.
+deferred=$BDIR/900-deferred
+[ $list ] || { [ -e $deferred ] && { ifno 'clear last defer bundle' || rm -f $deferred ;};}
+
+rule() { echo "$@" | sed 's/\[// ; s/\]//' || echo true ;}
+
+for i in $@ ;do
+  [ $list ] || subject $(basename $i | cut -d- -f2-9)
+
+  # preserve stdin fd for package manager prompts
+  # note: (action package) map to (package condition) for default noconfirm install
+  #       (package condition) map to (command options) for ! execute
+  while read action package condition <&3 ;do
+    # echo "action=$action package=$package condition=$condition"
+    case $action in
+    ''  ) continue ;;
+    '#' ) continue ;;
+    '=' ) [ $list ] || { echo $package | grep -q '^[[:alpha:]]' && title "$package $condition" ;}; continue ;;
+    '"' ) [ $check ] || ditto "$package $condition" ;                                           continue ;;
+    '!' ) [ $check ] || $package $condition ;                                                   continue ;;
+    '+' ) [ $list ] || { [ -z $check ] && { heading "[ Manual install required.. ]  $package" ; continue ;};} ;;
+    d   ) rule=true ;;
+
+    '-' |\
+    '?' |\
+    '*' |\
+    '@' |\
+    a   |\
+    g   |\
+    m   ) rule=$(rule "$condition") ;;
+
+    *   ) set -- $package $condition
+          package=$action
+          rule=$(rule "$@") ;;
+    esac
+
+    [ $list ] && { echo "$action $package $condition" | sed -r '/^d "/d ; s/^([-?*@"adgm] )*// ; s/ *([^ ]*).*/\1/' ; continue ;}
+    eval $rule || continue
+
+    if [ $check ] ;then
+      unset installed
+      unset pkg
+      # check deferred actions
+      echo "$package" | grep -q '^.$' && package=$(echo $condition | cut -d' ' -f1)
+      case $action in
+      '-') continue ;;
+      g  ) echo "$gems" | grep -q "^$package$" && installed=true || pkg='gem ' ;;
+      m  ) pkg='make_install possibly ' ;;
+      *  ) pacman -Q $package >/dev/null 2>&1 && installed=true ;;
+      esac
+      [ $installed ] && ditto $package || ditto "$package  ${__RED}${BLINK}[${pkg}not installed]"
+      continue
+    fi
+
+    # package management
+    case $action in
+    '-') heading "--Uninstalling--  $package" ; pm R $package ;;
+    '?') pm_install --confirm $package ;;
+    '@') aur_install $package ;;
+    a  ) arm_install $package ;;
+    d  ) echo "$package $condition" >>$deferred ;;
+    g  ) gem_install $package ;;
+    m  ) make_install $package ;;
+    *  ) pm_install $init $package ;;
+    esac
+  done 3< $i
+done
+
+[ $list ] && exit
+if [ -e $deferred ] ;then
+  cat $deferred
+  ifno 'install deferred pacages' || bundle_install $deferred
+fi
+
+# vim: set ft=sh: 

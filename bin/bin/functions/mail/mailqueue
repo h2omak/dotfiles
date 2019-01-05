@@ -1,0 +1,42 @@
+#!/usr/bin/dash
+# sdothum - 2016 (c) wtfpl
+
+# Mail
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+
+# ......................................................................... Send
+
+# Usage: mailqueue [purge]
+
+# send mail poller with error notifier
+queue=$HOME/.msmtpqueue
+if [ "$1" = purge ] ;then
+  rm -rfv $queue/*
+  exit
+fi
+
+# import user path
+. $HOME/bin/functions/shell/user_path
+
+slock $(basename $0) $$ || exit 1
+# trace 'Starting mailqueue..'
+
+# mailqueue daemon (cron task)
+if [ $(ls -l $queue | wc -l) -gt 1 ] ;then
+  trace 'Sending mail..'
+  # count=$(echo $(ls -l $queue | wc -l) / 2 | bc)
+  count=$(( $(ls -l $queue | wc -l) / 2 ))
+  # reset any mangled mail permissions
+  [ $(stat --format '%a' $STOW/msmtp/.msmtprc) -ne 600 ] && chmod -c 600 $HOME/.msmtprc
+  errmsg=$(/usr/local/bin/msmtp-runqueue.sh)
+  echo "$errmsg"
+  if echo "$errmsg" | grep -q FAILURE ;then
+    notify X critical 'Check Mail Queue..' "$(echo $errmsg | sed -n 2p)"
+  else
+    [ $count -eq 1 ] && notify X 'Mail Queue' '1 message sent' || notify X 'Mail Queue' "$count messages sent"
+  fi
+else
+  trace 'No mail'
+fi
+
+# vim: set ft=sh: #
