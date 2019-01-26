@@ -271,6 +271,7 @@ void tilde(qk_tap_dance_state_t *state, void *user_data)
     if (state->count > 1) {
       if (state->pressed)                     { register_shift(KC_GRV); }
       else if (state->count == 2)             { send_string("~/"); } 
+      else if (state->count == 3)             { send_string("=~"); }
       else for (i = 0; i < state->count; i++) { tap_shift(KC_GRV); }
     }
     else { state->pressed ? register_shift(KC_GRV) : tap_shift(KC_GRV); }
