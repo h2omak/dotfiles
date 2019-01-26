@@ -96,7 +96,7 @@ help   ) usage ;;
 ''     ) for i in $dotfiles ;do git add -v $i ;done
          pending ;;
 
-add    ) shift; add ;;
+add    ) shift; add $@ ;;
 
 amend  |\
 comment) shift; DESC=$@
