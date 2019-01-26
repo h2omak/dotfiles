@@ -20,8 +20,8 @@
       " Iosevka custom compiled, with nerd-fonts awesome patches, see make_install/iosevka
       let g:source_font     = 'Iosevka\'
       let g:prose_font      = 'Iosevka-proof\'
-      let g:font_type       = -1            " current font setting (0) source (1) prose
-      let g:font_step       = 1             " font size increase (point size) for prose
+      let g:font_type       = -1 " current font setting (0) source (1) prose
+      let g:font_step       = 1  " font size increase (point size) for prose
 
     " .............................................................. Color codes
 
@@ -49,14 +49,14 @@
       let g:mono_2          = '#696c77'
       let g:mono_3          = '#a0a1a7'
       let g:mono_4          = '#c2c2c3'
-      let g:hue_1           = '#0184bc'     " cyan
-      let g:hue_2           = '#4078f2'     " blue
-      let g:hue_3           = '#a626a4'     " purple
-      let g:hue_4           = '#50a14f'     " green
-      let g:hue_5           = '#e45649'     " red 1
-      let g:hue_5_2         = '#ca1243'     " red 2
-      let g:hue_6           = '#986801'     " orange 1
-      let g:hue_6_2         = '#c18401'     " orange 2
+      let g:hue_1           = '#0184bc' " cyan
+      let g:hue_2           = '#4078f2' " blue
+      let g:hue_3           = '#a626a4' " purple
+      let g:hue_4           = '#50a14f' " green
+      let g:hue_5           = '#e45649' " red 1
+      let g:hue_5_2         = '#ca1243' " red 2
+      let g:hue_6           = '#986801' " orange 1
+      let g:hue_6_2         = '#c18401' " orange 2
       let g:syntax_bg       = '#fafafa'
       let g:syntax_gutter   = '#9e9e9e'
       let g:syntax_cursor   = '#f0f0f0'
@@ -68,31 +68,31 @@
       let g:pmenu           = '#dfdfdf'
 
       " quantum colour palette (dark)
-      let g:gray1           = '#263238'     " 023 (005f5f)
-      let g:gray2           = '#2c3a41'     " 023 (005f5f)
-      let g:gray3           = '#425762'     " 059 (5f5f5f)
-      let g:gray4           = '#658494'     " 066 (5f8787)
-      let g:gray5           = '#aebbc5'     " 146 (afafd7)
-      let g:blue            = '#70ace5'     " 074 (5fafd7)
-      let g:cyan            = '#69c5ce'     " 080 (5fd7d7)
-      let g:green           = '#87bb7c'     " 108 (87af87)
-      let g:indigo          = '#7681de'     " 104 (8787d7)
-      let g:orange          = '#d7956e'     " 173 (d7875f)
-      let g:purple          = '#a48add'     " 140 (af87d7)
-      let g:red             = '#dd7186'     " 168 (d75f87)
-      let g:yellow          = '#d5b875'     " 180 (d7af87)
+      let g:gray1           = '#263238' " 023 (005f5f)
+      let g:gray2           = '#2c3a41' " 023 (005f5f)
+      let g:gray3           = '#425762' " 059 (5f5f5f)
+      let g:gray4           = '#658494' " 066 (5f8787)
+      let g:gray5           = '#aebbc5' " 146 (afafd7)
+      let g:blue            = '#70ace5' " 074 (5fafd7)
+      let g:cyan            = '#69c5ce' " 080 (5fd7d7)
+      let g:green           = '#87bb7c' " 108 (87af87)
+      let g:indigo          = '#7681de' " 104 (8787d7)
+      let g:orange          = '#d7956e' " 173 (d7875f)
+      let g:purple          = '#a48add' " 140 (af87d7)
+      let g:red             = '#dd7186' " 168 (d75f87)
+      let g:yellow          = '#d5b875' " 180 (d7af87)
 
       " cursor, highlight
-      let g:cursor          = '#20fccf'     " analogous iA Writer '#20bbfc' cursor color
-      let g:black           = g:gray1       " cursor foreground
-      let g:white           = g:base7       " cursor foreground
-      let g:spell           = '#ffd1dc'     " light spelling/grammar error
-      let g:column          = '#ffe3d5'     " light column
+      let g:cursor          = '#20fccf' " analogous iA Writer '#20bbfc' cursor color
+      let g:black           = '#0000e6' " cursor foreground
+      let g:white           = g:base7   " cursor foreground
+      let g:spell           = '#ffd1dc' " light spelling/grammar error
+      let g:column          = '#ffe3d5' " light column
       " hyperfocus
-      let g:light_fg        = g:mono_2      " light cursorline (adjust to preferred highlight)
-      let g:dark_fg         = g:gray5       " dark cursorline (adjust to preferred highlight)
-      let g:light           = '#dddddd'     " light hyperfocus fade
-      let g:dark            = '#444444'     " dark hyperfocus fade
+      let g:light_fg        = g:mono_2  " light cursorline (adjust to preferred highlight)
+      let g:dark_fg         = g:gray5   " dark cursorline (adjust to preferred highlight)
+      let g:light           = '#dddddd' " light hyperfocus fade
+      let g:dark            = '#444444' " dark hyperfocus fade
 
       augroup theme
         autocmd!

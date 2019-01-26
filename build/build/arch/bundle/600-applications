@@ -73,18 +73,18 @@ d plover
 
 = productivity
 = ▔▔▔▔▔▔▔▔▔▔▔▔
-  abiword
+# abiword
 d amphetype-svn
   calc
 # calcurse
 # galculator
-  gnumeric
+# gnumeric
 # gsimplecal
 # kdeedu-ktouch [server]
 # klavaro
   remind
-  sc-im
-  simpletimer-git
+# sc-im
+# simpletimer-git
   speedcrunch
 # todotxt
 # wps-office    [server]

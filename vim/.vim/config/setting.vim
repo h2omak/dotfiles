@@ -29,9 +29,9 @@
 
     " ............................................................... Auto-pairs
 
-      let g:AutoPairsMapBS                = 1      " auto delete symbol pairs
-      " let g:AutoPairsMapSpace           = 1      " disable to make iabbrev work!
-      " let g:AutoPairsFlyMode            = 1      " auto pair jumping
+      let g:AutoPairsMapBS                = 1 " auto delete symbol pairs
+      " let g:AutoPairsMapSpace           = 1 " disable to make iabbrev work!
+      " let g:AutoPairsFlyMode            = 1 " auto pair jumping
       let g:AutoPairsShortcutBackInsert = '<C-BS>' " undo auto pair jump -> close pair
 
     " ............................................................... Easy-align
@@ -47,7 +47,7 @@
           \, '/' : { 'pattern' : '//',       'left_margin' : 1 }
           \}
 
-      let g:easy_align_ignore_groups = []   " process comments
+      let g:easy_align_ignore_groups = [] " process comments
 
       vmap <Enter>   <Plug>(EasyAlign)
       nmap <leader>a <Plug>(EasyAlign)
@@ -105,17 +105,17 @@
       nmap <silent><leader>b :CloseDiff<CR>:Buffers<CR>
       nmap <silent><leader>l :Lines<CR>
       nmap <silent><leader>m :Marks<CR>
-      " nmap <leader>f       :FZF<CR>       " see notational-fzf for extended content search
+      " nmap <leader>f       :FZF<CR> " see notational-fzf for extended content search
 
     " ........................................................... Graphical undo
 
       let g:gundo_width           = 30
       let g:gundo_preview_bottom  = 1
       let g:gundo_preview_height  = 20
-      let g:gundo_close_on_revert = 1       " automatically close windows
+      let g:gundo_close_on_revert = 1 " automatically close windows
 
       function! s:toggleUndo()
-        let l:filetype = &filetype          " gundo alters markdown filetype to conf (autocmd buffer side-effect?)
+        let l:filetype = &filetype    " gundo alters markdown filetype to conf (autocmd buffer side-effect?)
         GundoToggle
         let &filetype = l:filetype
       endfunction
@@ -137,8 +137,8 @@
     " ................................................................ Limelight
 
       " let g:limelight_default_coefficient = 0.8
-      let g:limelight_paragraph_span = 0    " include preceding/following paragraphs
-      let g:limelight_priority       = 1    " -1 to hlsearch highlight all paragraphs, 1 per paragraph
+      let g:limelight_paragraph_span = 0 " include preceding/following paragraphs
+      let g:limelight_priority       = 1 " -1 to hlsearch highlight all paragraphs, 1 per paragraph
 
     " .............................................................. Litecorrect
 
@@ -164,16 +164,16 @@
 
     " .................................................................. LiteDFM
 
-      let g:lite_dfm_left_offset = 22       " see theme#Margin()
+      let g:lite_dfm_left_offset = 22 " see theme#Margin()
 
     " ............................................................ Narrow region
 
-      let g:nrrw_rgn_vert          = 0      " open in horizontal split buffer
+      let g:nrrw_rgn_vert          = 0  " open in horizontal split buffer
       let g:nrrw_topbot_leftright  = 'botright'
-      let g:nrrw_rgn_nomap_nr      = 1      " disable nr mappings
+      let g:nrrw_rgn_nomap_nr      = 1  " disable nr mappings
       let g:nrrw_rgn_nomap_Nr      = 1
       let g:nrrw_rgn_resize_window = 'relative'
-      let g:nrrw_rgn_rel_min       = 50     " relative window size
+      let g:nrrw_rgn_rel_min       = 50 " relative window size
 
       function! s:closeNR()
         if expand('%t') =~ 'NrrwRgn'
@@ -222,12 +222,12 @@
 
     " ............................................................ Nerdcommenter
 
-      let g:NERDSpaceDelims            = 1  " space after comment delimiter
-      let g:NERDCompactSexyComs        = 1  " prettify multi-line
+      let g:NERDSpaceDelims            = 1 " space after comment delimiter
+      let g:NERDCompactSexyComs        = 1 " prettify multi-line
       let g:NERDDefaultAlign           = 'left'
       let g:NERDCustomDelimiters       = { 'c' : { 'left' : '//', 'right' : '' } }
-      let g:NERDCommentEmptyLines      = 1  " comment blank lines
-      let g:NERDTrimTrailingWhitespace = 1  " trim trailing whitespace
+      let g:NERDCommentEmptyLines      = 1 " comment blank lines
+      let g:NERDTrimTrailingWhitespace = 1 " trim trailing whitespace
 
       " <leader>cs to force commenting of first line comment
       map  <leader>c <Plug>NERDCommenterToggle
@@ -238,7 +238,7 @@
       " buffers load after plugins so parse command line for filename
       function! s:argFile()
         if argc() > 0
-          return argv(argc() - 1)
+          return argv(0)
         endif
         return ''
       endfunction
@@ -293,7 +293,7 @@
 
     " .................................................................. Quantum
 
-      let g:quantum_italics=1               " italicize comments
+      let g:quantum_italics=1 " italicize comments
 
     " ................................................................ Signature
 
@@ -327,17 +327,17 @@
     " .................................................................. Signify
 
       let g:signify_vcs_list = ['hg']
-      let g:signify_realtime = 1            " async updates
+      let g:signify_realtime = 1 " async updates
 
     " .................................................................... Sneak
 
       " by default, use cc, cl for s, S
-      let g:sneak#streak       = 1          " streak mode
-      let g:sneak#s_next       = 1          " clever next, use s S for ; .
-      let g:sneak#absolute_dir = 0          " next follows direction of invocation
-      let g:sneak#use_ic_scs   = 1          " use vim case setting
-      let g:sneak#prompt       = '>'        " prompt
-      let g:sneak#label        = 1          " label mode
+      let g:sneak#streak       = 1   " streak mode
+      let g:sneak#s_next       = 1   " clever next, use s S for ; .
+      let g:sneak#absolute_dir = 0   " next follows direction of invocation
+      let g:sneak#use_ic_scs   = 1   " use vim case setting
+      let g:sneak#prompt       = '>' " prompt
+      let g:sneak#label        = 1   " label mode
 
       " " remap sneak_s to preserve s
       " function! s:sneak_f()
@@ -374,15 +374,15 @@
 
     " ................................................................ Solarized
 
-      let g:solarized_termtrans = 1         " terminal transparency (0) off (1) on
-      set termguicolors                     " for neovim
+      let g:solarized_termtrans = 1 " terminal transparency (0) off (1) on
+      set termguicolors             " for neovim
 
       syntax enable
 
     " ................................................................... Tagbar
 
       " let g:tagbar_ctags_bin    = 'ctags-exuberant'
-      let g:tagbar_map_togglesort = 'r'     " preserve sneak s
+      let g:tagbar_map_togglesort = 'r' " preserve sneak s
 
       nmap <silent><leader>t :TagbarOpenAutoClose<CR>
 
@@ -396,7 +396,7 @@
         " html <p> content shortcuts
         if s:educate
           Educate
-          " ToggleColumnWrap 0              " disable line wrap column highlight to show spelling errors
+          " ToggleColumnWrap 0 " disable line wrap column highlight to show spelling errors
           imap ...      …<Space>
           imap --       <Space>&ndash;<Space>
           imap .<Space> .<Space><CR>
@@ -404,7 +404,7 @@
           imap !<Space> !<Space><CR>
         else
           NoEducate
-          " ToggleColumnWrap 1              " restore line wrap column highlight
+          " ToggleColumnWrap 1 " restore line wrap column highlight
           iunmap ...
           iunmap --
           iunmap .<Space>

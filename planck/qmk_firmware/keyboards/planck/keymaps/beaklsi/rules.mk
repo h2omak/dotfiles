@@ -1,1 +1,0 @@
-../../../../../../splitography/qmk_firmware/keyboards/splitography/keymaps/beaklsi/rules.mk

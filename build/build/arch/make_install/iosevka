@@ -12,7 +12,7 @@ usage() {
 
 nerdfonts='--fontawesome --fontawesomeextension --octicons --powersymbols'
 
-shift                                       # basename is make_install, $1 == iosevka
+shift # basename is make_install, $1 == iosevka
 
 storey=double
 leading=1250
@@ -20,13 +20,13 @@ descender=0
 
 while [ $1 ] ;do
   case $1 in
-    amphetype) storey=double ; family=-amphetype ; leading=1875 ;; # 1.5 spacing
-    code     ) storey=double ; design="'ligset-haskell'" ;;        # default family
-    double   ) storey=double ;;                                    # "a"
-    leading  ) leading=$2 ; shift ;;                               # line spacing
-    patch    ) patch=true ;;                                       # nerdfonts
-    proof    ) storey=double ; family=-proof ; leading=2250 ;;     # 1.8 spacing
-    single   ) storey=single ;;                                    # "a"
+    amphetype) storey=double; family=-amphetype; leading=1875 ;; # 1.5 spacing
+    code     ) storey=double; design="'ligset-haskell'" ;;       # default family
+    double   ) storey=double ;;                                  # "a"
+    leading  ) leading=$2; shift ;;                              # line spacing
+    patch    ) patch=true ;;                                     # nerdfonts
+    proof    ) storey=double; family=-proof; leading=2250 ;;     # 1.8 spacing
+    single   ) storey=single ;;                                  # "a"
     *        ) usage ;;
   esac
   shift

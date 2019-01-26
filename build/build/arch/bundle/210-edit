@@ -7,8 +7,7 @@
 = document formatting
 = ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
   csslint
-  csstidy
-  enscript
+# csstidy
 
 
 = editor
@@ -19,7 +18,7 @@
 # emacs           [server]
 # focuswriter
 # markdown
-# neovim
+  neovim
 # neovim-git
 # nvpy-git
 # pyroom
@@ -28,7 +27,7 @@
 # sublime-text
 # ted             [server]
 d texlive-core
-  texlive-latexextra
+d texlive-latexextra
 d universal-ctags-git
 # wordgrinder
 

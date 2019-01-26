@@ -32,6 +32,7 @@ hc rule class=VimbT                        tag=1 once
 # hc rule title=IRC                        tag=2 index=1 focus=on
 hc rule title=IM                           tag=2 focus=on
 hc rule title=irc                          tag=2
+hc rule title=jabber                       tag=2
 hc rule title=Messenger                    tag=2 focus=on
 hc rule class=Pidgin                       tag=2
 hc rule title=Twitter                      tag=2
@@ -95,7 +96,7 @@ hc rule class=Simpletimer                  pseudotile=on
 hc rule class=Slickpicker                  pseudotile=on
 hc rule class=Surf                         focus=on hook=max
 # hc rule title=Trace                      focus=on
-hc rule class=Vimb                         focus=on hook=max
+hc rule class=rimb                         focus=on hook=max
 hc rule class=Vlc                          focus=on switchtag=on fullscreen=on hook=fullscreen
 hc rule class=Zathura                      focus=on hook=max
 

@@ -295,11 +295,11 @@ d ? vimb
 
 = chat/twitter
 = ▔▔▔▔▔▔▔▔▔▔▔▔
-# bitlbee
+  bitlbee
 # d " add armv7h to arch in pkgbuild
-d ? centerim5-git
+# d ? centerim5-git
 # libotr
-# weechat
+  weechat
 # xmpppy
 
 
@@ -359,5 +359,6 @@ d ? amphetype-svn
 = ▔▔▔▔▔▔▔
 d " drops internet connection (do last!)
 d * connman
+
 
 # vim: set ft=conf: #

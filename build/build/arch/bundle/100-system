@@ -37,7 +37,7 @@ d mbpfan-git                [gpu macbook]
 
 = security
 = ▔▔▔▔▔▔▔▔
-d gksu
+# d gksu
   gnome-keyring
 # keepassx
 d * pass

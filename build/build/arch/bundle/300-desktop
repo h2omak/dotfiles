@@ -74,7 +74,7 @@ d ? conky-lua-archers
 # ttf-iosevka-hooky
 # ttf-liberation
 # ttf-mac-fonts
-  ttf-ms-fonts
+# ttf-ms-fonts
 # ttf-noto-sans-ib
   ttf-robobo
   ttf-symbola
@@ -127,7 +127,7 @@ d paper-icon-theme
 = ▔▔▔▔▔▔▔▔▔▔▔▔▔▔
   autocutsel
 # autokey-gtk
-  autokey-py3
+# autokey-py3
 # clipit
 # "stest contained in dmenu package"
   dmenu

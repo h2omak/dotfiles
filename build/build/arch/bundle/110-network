@@ -22,7 +22,7 @@ d * cmst
 = network
 = ▔▔▔▔▔▔▔
   bind-tools
-  dnsmasq
+  dnsmasq       [server]
   dnsutils
 
 
@@ -47,7 +47,7 @@ d * cmst
 
 = network share
 = ▔▔▔▔▔▔▔▔▔▔▔▔▔
-  avahi
+# avahi
 # dropbox-experimental
   nfs-utils
 # nmap
@@ -70,12 +70,12 @@ d * cmst
 # adsuck
 # polipo        [server]
 # privoxy       [server]
-  squid
+  squid         [server]
 
 
 = socket
 = ▔▔▔▔▔▔
-  socat
+# socat
 
 
 # vim: set ft=conf: #

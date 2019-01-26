@@ -8,7 +8,7 @@
 
 # Usage: tmux_session [name [command]]*
 
-[ $1   ] && { export TMUX=$1 ; shift ;} || export TMUX=tmux
+[ $1   ] && { export TMUX=$1; shift; } || export TMUX=tmux
 [ "$1" ] || fortune=FORTUNE
 # force rox terminal sessions to open in current rox directory
 [ $TMUX = roxterm ] && pkill -f ' -s roxterm' # <space> -s, as pattern 

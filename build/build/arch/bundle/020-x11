@@ -47,6 +47,7 @@
   arandr               [server]
   lxrandr              [server]
 # xorg-apps
+  xorg-xbacklight
   xorg-xev
   xorg-xinput
   xorg-xmessage

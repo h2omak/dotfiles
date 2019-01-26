@@ -22,7 +22,7 @@
       " ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
       function! heading#Drawline(delimiter)
         call heading#Underline(a:delimiter)
-        if virtcol('.') < g:linewidth       " for mirrored left/right margin spacing
+        if virtcol('.') < g:linewidth " for mirrored left/right margin spacing
           " let l:col = g:linewidth - virtcol('.') - l:col + 1
           let l:col   = g:linewidth - virtcol('.')
           execute 'normal! ' . l:col . 'a' . a:delimiter
@@ -43,7 +43,7 @@
           normal! $
           let l:col = g:linewidth - virtcol('.') - 1
           if l:col > 0
-            set formatoptions-=c            " suppress potential comment line wrapping
+            set formatoptions-=c " suppress potential comment line wrapping
             execute 'normal! a '
             execute 'normal! ' . l:col . 'a' . a:delimiter
             set formatoptions+=c

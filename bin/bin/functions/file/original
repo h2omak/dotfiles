@@ -14,8 +14,8 @@ usage() {
 V=-v
 while : ;do
   case "$1" in
-  -f) eval sudo rm -rf "\$$#.original" ; shift ; continue ;;
-  -q) unset V ;                        shift ; continue ;;
+  -f) eval sudo rm -rf "\$$#.original"; shift; continue ;;
+  -q) unset V;                          shift; continue ;;
   '') usage ;;
   * ) break ;;
   esac

@@ -105,6 +105,19 @@ set -x STOW $HOME/stow
 # ...................................................................... Session
 
 set -x SESSION $HOME/.session
+# proxy override
+test -e $session/http_proxy ;and set -x HTTP_PROXY (cat $SESSION/http_proxy)
+
+set -x XDG_DOWNLOAD_DIR /net/downloads/http
+set -x NNTPSERVER news.sunnyusenet.com
+
+# tt-rss
+set -x SELF_URL_PATH 'http://luna:8000/tt-rss/'
+
+# ..................................................................... Defaults
+
+set -x http_proxy $HTTP_PROXY
+
 console_login
 user_login
 # clear 'fish' tmux window name

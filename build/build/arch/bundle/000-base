@@ -7,10 +7,9 @@
 # install aur package managers FIRST !!
 = aur package manager
 = ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-m yay
+# m pakku
+  m yay
   package-query
-# @ yaourt
-# ! yaourt -Sy
   cower
   pacaur
   pkg-config
@@ -41,17 +40,23 @@ m yay
   btrbk
   dosfstools
   exfat-utils
-  fuse-common
+# fuse-common
 # fuse-exfat
   gvfs
 # hfsprogs
-  mbuffer
-# nfs-utils
 # ntfs-3g
-  ntfs-3g-fuse
+# ntfs-3g-fuse
+  mbuffer
 # zfs-linux              [server]
 # zfs-linux-headers      [server]
 # d znapzend             [server]
+
+
+= file transfer
+= ▔▔▔▔▔▔▔▔▔▔▔▔▔
+  curl
+  git
+  wget
 
 
 = linux-ck kernel

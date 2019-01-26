@@ -7,9 +7,9 @@
 
     " .................................................................... Setup
 
-      let s:wikiinfo     = 1                " statusline (0) off (1) on
-      let s:initial_view = 1                " prose (0) dfm (1) proof
-      let s:info         = 0                " statusline (0) dfm (1) expanded
+      let s:wikiinfo     = 1 " statusline (0) off (1) on
+      let s:initial_view = 1 " prose (0) dfm (1) proof
+      let s:info         = 0 " statusline (0) dfm (1) expanded
 
   "  Distraction free modes ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 
@@ -129,7 +129,7 @@
       " (path) .. filename | pos .. (details)
       function! ui#WikiInfo(proof)
         " Trace ui#WikiInfo()
-        try                                 " trap snippet insertion interruption
+        try " trap snippet insertion interruption
           let g:prose = 1
           if core#Prose() && a:proof == 0
             return info#Escape(info#Leader('') . '  %{info#UnModified(0)}%*')
@@ -143,7 +143,7 @@
               let l:leader = '%{info#Leader(info#Path() . g:pad_outer . info#Name())}'
             endif
             let l:name     = '%1*' . l:name
-            let l:info     = '%{info#UnModified(1)}' . g:pad_inner . '%{info#PosWordsCol()}'
+            let l:info     = '%{info#UnModified(1)}' . g:pad_inner . ' ' . '%{info#PosWordsCol()}' " adjust for double byte modifier symbol overlap (with extra space)
             if s:info == 1
               let l:name   = '%2*' . l:path . '%1*' . g:pad_outer . l:name
               let l:info  .= g:pad_outer . '%2*%{ui#detail()}'
@@ -175,14 +175,14 @@
 
       function! ui#ToggleInfo(...)
         Trace ui#ToggleInfo()
-        if a:0                              " exiting insert mode? see plugin/ui.vim autocmd
-          if b:proof == s:initial_view      " already default view?
+        if a:0                         " exiting insert mode? see plugin/ui.vim autocmd
+          if b:proof == s:initial_view " already default view?
             return
           endif
         endif
         let l:col = col('.')
         let s:info = (s:info == 0 ? 1 : 0)
-        if core#Prose()                     " toggle between writing and proofing modes
+        if core#Prose()                " toggle between writing and proofing modes
           call ui#ToggleProof()
         else
           call ui#ShowInfo(b:proof)

@@ -19,7 +19,7 @@ server || exit 1
 [ "$1" ] && gallery="$FOLIO/$1" || usage
 
 GALLERY="$ROOT/$gallery"
-[ -d "$GALLERY" ] || { ditto ${__RED} "$gallery" ; mkdir -p "$GALLERY" ;}
+[ -d "$GALLERY" ] || { ditto ${__RED} "$gallery"; mkdir -p "$GALLERY"; }
 shift
 [ $1 ] && files="$@" || files=$(ls *.jpg)
 

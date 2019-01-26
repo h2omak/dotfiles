@@ -14,6 +14,7 @@ heading 'connect interface'
 # ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
 if ! ping -c1 www.google.com >/dev/null 2>&1 ;then
   connect
+  ping -c1 www.google.ca
   checkpoint
 fi
 
@@ -87,8 +88,8 @@ root=$(partition 'Linux( filesystem)*$')
 
 if [ "$format" = y ] ;then
   heading 'format btrfs disk partition'
-  [ $efi ] && { mkfs.fat -n EFI -F32 $efi ; echo ;}
-  [ $boot ] && { mkfs.ext2 -L Boot $boot ; echo ;}
+  [ $efi ] && { mkfs.fat -n EFI -F32 $efi; echo; }
+  [ $boot ] && { mkfs.ext2 -L Boot $boot; echo; }
 
   if [ $swap ] ;then
     mkswap -L Swap $swap

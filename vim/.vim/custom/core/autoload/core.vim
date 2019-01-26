@@ -14,7 +14,7 @@
         source $MYVIMRC
         call theme#LiteSwitch()
         call theme#LiteSwitch()
-        RedrawGui                           " see gui.vim
+        RedrawGui " see gui.vim
       endfunction
 
     " ....................................................... Error message trap
@@ -125,8 +125,8 @@
           " let l:l  = line(".")
           " let l:c  = col(".")
           let s:view = winsaveview()
-          %s/\s\+$//e                       " EOL
-          %s/\(\n\r\?\)\+\%$//e             " EOF
+          %s/\s\+$//e           " EOL
+          %s/\(\n\r\?\)\+\%$//e " EOF
           call winrestview(s:view)
           " let @/ = l:_s
           " call cursor(l:l, l:c)
@@ -234,7 +234,7 @@
             break
           endif
         endfor
-        if &filetype == ''                  " by file content if not autodetected
+        if &filetype == '' " by file content if not autodetected
           for [content, filetype, modifiable, readonly] in s:contenttypes
             if system('file -i ' . expand('%') . '|cut -d: -f2') =~ content
               let &filetype   = filetype

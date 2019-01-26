@@ -18,8 +18,8 @@ d pandoc
 
 = java
 = ▔▔▔▔
-  icedtea-web
-  jre7-openjdk
+# icedtea-web
+# jre7-openjdk
 
 
 = perl tool
@@ -47,6 +47,7 @@ d pandoc
 # arduino         [! cpu atom]
   avr-gcc
   avr-libc
+  avrdude
   dfu-programmer
   cmake
   gdb

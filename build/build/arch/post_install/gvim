@@ -7,4 +7,7 @@
 
 ifnsed $HOME/.bashrc 'EDITOR=vim'
 
+# fix "if" word highlight boundary for ft=sh
+ifnsed /usr/share/vim/*/syntax/sh.vim 'syn region shIf.*"\\<if\\>"' '/syn region shIf.*"\\<if\\_s"/s/\\<if\\_s/\\<if\\>/'
+
 # vim: set ft=sh: #

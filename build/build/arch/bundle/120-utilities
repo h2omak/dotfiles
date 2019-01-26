@@ -33,17 +33,17 @@ d etcher
   syncthing
 # syncthing-git
 # syncthing-inotify-git
-  vsftpd
+# vsftpd
 # watchman
 
 
 = system monitor
 = ▔▔▔▔▔▔▔▔▔▔▔▔▔▔
   glances
-  gsmartcontrol
+  gsmartcontrol    [server]
   htop
   iotop
-  smartmontools
+  smartmontools    [server]
 # sysstat
   xrestop
 

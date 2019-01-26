@@ -31,6 +31,7 @@ alias svm 'systemd mask'
 alias svq 'systemd status'
 alias svr 'systemd restart'
 alias svs 'systemd start'
+alias svt 'systemd stop'
 alias svu 'systemd unmask'
 
 # ....................................................................... Device

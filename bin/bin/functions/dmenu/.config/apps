@@ -2,8 +2,8 @@ amphetype
 digikam
 hardcopy eject
 term 'Trace' tail -f /tmp/herbstluftwm.log # herbstluftwm :: log
-term 'IM' centerim5 # im
 tmux_session irc weechat # irc
+tmux_session jabber mcabber # jabber
 tmux_session mail alot # mail
 rawtherapee
 vimb http://luna:8213/ # repo

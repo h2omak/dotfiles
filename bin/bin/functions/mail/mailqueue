@@ -8,6 +8,8 @@
 
 # Usage: mailqueue [purge]
 
+[ $STOW ] && STOW=$USER/stow
+
 # send mail poller with error notifier
 queue=$HOME/.msmtpqueue
 if [ "$1" = purge ] ;then

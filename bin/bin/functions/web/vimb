@@ -8,11 +8,12 @@
 
 # Usage: vimb [<url>] | config [<zoom>]
 
-[ $1 ] && startpage="$@" || startpage='http://luna:8000/tt-rss/#f=39&c=1'
-
 CONFIG=$HOME/.config/vimb
-common='bookmark cookies history style.css'
+STARTPAGE=$SESSION/startpage
 
+[ $1 ] && startpage="$@" || { [ -e $STARTPAGE ] && startpage=$(cat $STARTPAGE) || startpage='http://luna:8000/tt-rss/#f=39&c=1'; }
+
+common='bookmark cookies history style.css'
 font=Iosevka
 size=$(fontsize)pt
 host=$(hostname)
@@ -26,8 +27,8 @@ config() {
 }
 
 [ "$1" = config    ] && config
-[ -e $CONFIG/$host ] && { (/usr/bin/vimb -p $host "$startpage" 2>>/tmp/vimb.log &) ; exit ;}
-[ $size = 10pt     ] && { (/usr/bin/vimb "$startpage" 2>>/tmp/vimb.log &) ; exit ;}
+[ -e $CONFIG/$host ] && { (/usr/bin/vimb -p $host "$startpage" 2>>/tmp/vimb.log &); exit; }
+[ $size = 10pt     ] && { (/usr/bin/vimb "$startpage" 2>>/tmp/vimb.log &); exit; }
 
 config
 exec vimb "$startpage"
