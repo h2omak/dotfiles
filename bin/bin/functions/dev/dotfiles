@@ -9,7 +9,7 @@
 # .......................................................................... Git
 
 usage() {
-  echo "usage: $(basename $0) [<stowdir>..]  add <path/filespec>.. | comment [<comment>] | edit | ignore | init | list | log | undo | rm <dir>"
+  echo "usage: $(basename $0) [<stowdir>..] add <package>[/<filespec>]* | comment [<comment>] | edit | ignore | init | list | log | undo | rm <dir>"
   exit 1
 }
 
@@ -20,8 +20,9 @@ usage() {
 
 # list of folders under stow root
 dotfiles=$(cat ${0%/*}/.dotfiles:folders)
-
-[ -d "$1" ] && { cd "$1"; shift; } || cd $STOW
+stow node
+[ -d "$1" ] && { STOW="$1"; shift; }
+cd $STOW
 # syncthing housekeeping
 find -name '*.sync-conflict-*' -exec rm {} \;
 find -name '*.syncthing.hsts.tmp' -exec rm {} \;
@@ -96,7 +97,7 @@ help   ) usage ;;
 ''     ) for i in $dotfiles ;do git add -v $i ;done
          pending ;;
 
-add    ) shift; add $@ ;;
+add    ) shift; add $STOW/$@ ;;
 
 amend  |\
 comment) shift; DESC=$@
