@@ -20,7 +20,6 @@ usage() {
 
 # list of folders under stow root
 dotfiles=$(cat ${0%/*}/.dotfiles:folders)
-stow node
 [ -d "$1" ] && { STOW="$1"; shift; }
 cd $STOW
 # syncthing housekeeping
