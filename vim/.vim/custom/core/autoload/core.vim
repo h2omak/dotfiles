@@ -255,7 +255,7 @@
         " email has blank lines inserted externally (via sed) for replys to
         " avoid the previously messy and unpredictable editing mode vim commands
         " see dmenu compose
-        call theme#FontSize(1)
+        " call theme#FontSize(1) " if core#CheckFiletype() disabled
         " gg/.. cannot be combined into single expression (produces unpredictable results)
         execute 'normal! gg'
         " execute 'normal! ' . search('\n\n\n', 'e') . 'G'

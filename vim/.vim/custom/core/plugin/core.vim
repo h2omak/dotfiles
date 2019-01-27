@@ -96,7 +96,7 @@
     " ............................................................... Modifiable
 
       " check filetype on open
-      " autocmd core BufNewFile,BufRead * call core#CheckFiletype()
+      autocmd core BufNewFile,BufRead * call core#CheckFiletype()
 
     " ................................................................... E-mail
 

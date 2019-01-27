@@ -13,7 +13,12 @@ systemd enable sshd
 
 annotate "Generate public/private rsa key pair:\n
 ssh-keygen -t rsa -b 2048\n
-sshid <host> to enable passwordless login"
-# ssh-copy-id $USER@destination (?) doesn't work
+--\n
+remote login:\n
+cat ~/.ssh/id_rsa.pub | ssh \$USER@destination 'cat >> .ssh/authorized_keys'\n
+--\n
+github:\n
+xclip -sel clip < ~/.ssh/id_rsa.pub\n
+login github > settings > SSH and GPG keys > new SSH key > ... > add SSH key"
 
 # vim: set ft=sh: #

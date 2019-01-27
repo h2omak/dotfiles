@@ -15,6 +15,7 @@ configure authentication else some channels will force #<channel>-unregistered\n
 /msg nickserv identify <username> <password>\n
 /msg *sasl RequireAuth yes\n
 /msg *sasl Set <username> <password>"
+
   cat <<EOF
 
 # server
