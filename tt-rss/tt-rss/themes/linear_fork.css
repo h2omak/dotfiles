@@ -289,13 +289,14 @@ table#dijit_form_Select_1_menu .dijitMenuItemLabel:after { content: "Newest firs
   -webkit-transition: all 0s;
   border-top: 1px solid #b12525;
   /* margin-top: -1px;  */
-  padding-bottom: 1px; 
+  padding-bottom: 0; 
   transition: all 0s;
 }
 
 .collapseBtn:hover {
   /* background: #ffe3d5 url('linear_images/noise.png') 0 repeat; */
-  background: #fdf6e3 url('linear_images/noise.png') 0 repeat;
+  background: #fbeecb url('linear_images/noise.png') 0 repeat;
+  /* background: #fdf6e3 url('linear_images/noise.png') 0 repeat; */
   border-top: none;
   /* font: 10px/10px Roboto,'Noto Sans',Helvetica,Arial sans-serif !important; */
 }

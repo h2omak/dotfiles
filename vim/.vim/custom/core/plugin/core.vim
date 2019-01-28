@@ -93,10 +93,10 @@
 
   " Filetype ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 
-    " ............................................................... Modifiable
+    " ................................................................. Settings
 
-      " check filetype on open
-      autocmd core BufNewFile,BufRead * call core#CheckFiletype()
+      " check on open
+      autocmd core BufNewFile,BufRead * call core#BufferSettings()
 
     " ................................................................... E-mail
 

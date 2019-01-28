@@ -226,7 +226,7 @@
           \]
 
       " set buffer attributes by known filetypes
-      function! core#CheckFiletype()
+      function! core#BufferSettings()
         for [name, filetype, modifiable, wordcount] in s:nametypes
           if expand('%') =~ name
             let &filetype   = (&filetype == '' ? filetype : &filetype)
@@ -252,14 +252,12 @@
     " ................................................................... E-mail
 
       function! core#ComposeMail()
-        " email has blank lines inserted externally (via sed) for replys to
-        " avoid the previously messy and unpredictable editing mode vim commands
-        " see dmenu compose
-        " call theme#FontSize(1) " if core#CheckFiletype() disabled
+        " email has blank lines inserted externally (via sed) for replys to avoid
+        " the previously messy and unpredictable insertion via vim commands, see dmenu compose
         " gg/.. cannot be combined into single expression (produces unpredictable results)
         execute 'normal! gg'
-        " execute 'normal! ' . search('\n\n\n', 'e') . 'G'
-        execute 'normal! ' . (search('^Subject: ') + 3) . 'G'
+        " no guaranteed order to message headings
+        execute 'normal! ' . (search('^\(\(Subject\|From\|To\):.*\n\(Subject\|From\|To\):.*\n\(Subject\|From\|To\):.*\n\)') + 4) . 'G'
         execute 'startinsert'
       endfunction
 
