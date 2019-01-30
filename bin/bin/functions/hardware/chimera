@@ -53,7 +53,10 @@ cd $QMK
 sudo make ${KEYBOARD##*/}:$keymap:clean
 [ "$1" = dfu ] && sudo CPATH=$CPATH make ${KEYBOARD##*/}:$keymap:dfu || make ${KEYBOARD##*/}:$keymap
 sudo chown -R $USER:users $QMK
-ditto "$(ls -l ${KEYBOARD##*/}_$keymap.hex)"
-[ "$1" = dfu ] && [ -e /dev/ttyACM0 ] && avrdude -p atmega32u4 -P /dev/ttyACM0 -c avr109 -U flash:w:${KEYBOARD##*/}_$keymap.hex
+# if dfu cannot detect keyboard receiver, verify hex size to not brick bootloader..
+# ifno 'is hex size ok to proceed' || {
+#   ditto "$(ls -l ${KEYBOARD##*/}_$keymap.hex)"
+#   [ "$1" = dfu ] && [ -e /dev/ttyACM0 ] && avrdude -p atmega32u4 -P /dev/ttyACM0 -c avr109 -U flash:w:${KEYBOARD##*/}_$keymap.hex
+# }
 
 # vim: set ft=sh: #

@@ -14,6 +14,7 @@ usage() {
 [ $2 ] || usage
 
 # flatten content into single line
+connected || { echo 'ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff'; exit; } 
 colors=$(pcurl https://www.colorhexa.com/$1)
 echo $colors |
     sed -re "s/.*Color Schemes with [#]$1 //" \

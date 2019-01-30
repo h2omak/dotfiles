@@ -18,7 +18,7 @@ PROOF=${PROOF:-$SESSION/proof}
 TMP=/tmp
 
 # text defaults
-font=Iosevka
+font=Iosevka-single
 fontsize=9
 linenumbers='\linenumbers'
 spacing='\singlespacing'

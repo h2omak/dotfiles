@@ -113,17 +113,22 @@ alias dp 'dmenu - projects'
 alias dr 'dmenu - run'
 alias ds 'dmenu - scripts'
 alias nv 'nvpy'
-alias sd 'sdiff -b -E -W -w(tput cols)'
 alias vd 'rm -f $HOME/.session/follow_the_sun ; gvimdiff --role=gvimdiff'
+alias sd 'sdiff -b -E -W -w(tput cols)'
 alias vdarchive 'dirdiff ./ /net/archive(pp)'
 alias vdbackup 'dirdiff ./ /net/backup(pp)'
+
+# .................................................................. Development
+ 
+alias ghc 'ghc -dynamic'
+alias git1 'git clone --depth 1'
+alias mysql 'mysql -h localhost -u root -p'
 
 # .................................................................. Application
 
 alias calc 'speedcrunch'
 alias handbrake 'ghb'
 alias music '!p ncmpcpp ;and ncmpcpp'
-alias mysql 'mysql -h localhost -u root -p'
 alias scrot 'scrot -e "mv \$f /net/photos/batchqueue/"'
 alias ss 'sc-im'
 alias todo 'rlwrap todo-screen'

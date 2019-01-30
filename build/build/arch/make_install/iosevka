@@ -22,11 +22,11 @@ while [ $1 ] ;do
   case $1 in
     amphetype) storey=double; family=-amphetype; leading=1875 ;; # 1.5 spacing
     code     ) storey=double; design="'ligset-haskell'" ;;       # default family
-    double   ) storey=double ;;                                  # "a"
+    double   ) storey=double ;;                                  # default "a"
     leading  ) leading=$2; shift ;;                              # line spacing
     patch    ) patch=true ;;                                     # nerdfonts
     proof    ) storey=double; family=-proof; leading=2250 ;;     # 1.8 spacing
-    single   ) storey=single ;;                                  # "a"
+    single   ) storey=single; family=-single ;;                  # "a"
     *        ) usage ;;
   esac
   shift
@@ -53,10 +53,10 @@ if [ -d Iosevka ] ;then
   cd Iosevka
   rm -rf build dist
   cp parameters.toml.original parameters.toml
-  ifno 'sync iosevka repo' || git pull origin master
+  ifno 'sync iosevka repo' || { git pull origin master; cd ../nerd-fonts; git pull origin master; cd -; }
 else
-  git clone https://github.com/be5invis/Iosevka.git
-  git clone https://github.com/ryanoasis/nerd-fonts.git
+  git clone --depth 1 https://github.com/be5invis/Iosevka.git
+  git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
   cd Iosevka
   original parameters.toml
 fi

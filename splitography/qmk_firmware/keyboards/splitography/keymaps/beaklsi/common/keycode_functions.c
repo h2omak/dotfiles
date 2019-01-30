@@ -173,8 +173,8 @@ bool leader_cap(keyrecord_t *record, uint8_t layer, uint8_t autocap, uint16_t ke
 {
   if (autocap) {
     if (!record->event.pressed) { 
-      tap_key                  (keycode);
-      if (layer) { layer_off   (layer); }
+      tap_key(keycode);
+      if (layer) { layer_off(layer); }
       layer_on                 (_SHIFT); // sentence/paragraph capitalization
       set_oneshot_layer        (_SHIFT, ONESHOT_START);
       clear_oneshot_layer_state(ONESHOT_PRESSED);

@@ -222,7 +222,7 @@
           \[
           \  ['binary',             'binary', 0, 1]
           \, ['no read permission', 'binary', 0, 1]
-          \, ['text',               'text',   1, 0]
+          \, ['text',               'conf',   1, 0]
           \]
 
       " set buffer attributes by known filetypes

@@ -19,7 +19,7 @@ pstat "^lemonbar -d -n lemonbar:$fifo " && exit
 [ $PANEL_BOTTOM ] && PANEL_BOTTOM=-b
 
 # panel font
-PANEL_FONT='Iosevka'
+PANEL_FONT='Iosevka\-single' # lemonbar requires the dash be escaped
 PANEL_UNDERLINE=2
 
 # tic indicator: none (unset), dot, circle, square, bar, tape, seconds

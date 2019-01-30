@@ -5,7 +5,7 @@
 # herbstluftwm
 # ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
 
-HLWMTRACE=$SESSION/hlwmtrace
+HLWMTRACE=$SESSION/trace
 
 # chain herbstclient commands (note: keybind chains use ".")
 hc() {

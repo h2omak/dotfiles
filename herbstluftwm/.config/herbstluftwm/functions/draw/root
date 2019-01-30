@@ -68,7 +68,6 @@ setblur() {
 
 # create pulsar border color gradient
 set_border() {
-  # echo $1 >$BORDER
   conky palette $1 'Monochromatic' >$PULSAR
   # set border to midtone
   cut -d' ' -f1 $PULSAR >$BORDER

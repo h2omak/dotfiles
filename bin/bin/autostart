@@ -80,23 +80,23 @@ pstat gpaste-client || gpaste-client start &
 # ................................................................ Terminal apps
 
 if [ -e $JABBER ] ;then
-  server && herbstclient focus_monitor 1 || switch tag $CHAT
+  # server && herbstclient focus_monitor 1 || switch tag $CHAT, see rules
   # wait for window visibility before switching monitors, for urxvt font handling
-  tmux_session jabber mcabber
+  tmux_session jabber mcabber &
 fi
 if [ -e $IRC ] ;then
-  server && herbstclient focus_monitor 1 || switch tag $CHAT
+  # server && herbstclient focus_monitor 1 || switch tag $CHAT, see rules
   # wait for window visibility before switching monitors, for urxvt font handling
-  tmux_session irc weechat
+  tmux_session irc weechat &
 fi
 server && herbstclient focus_monitor 0
-[ -e $CALENDAR ] && term 'Calendar' wyrd
-[ -e $MAIL     ] && tmux_session mail alot
-[ -e $PING     ] && term 'Ping' pingchk
+[ -e $CALENDAR ] && term 'Calendar' wyrd &
+[ -e $MAIL     ] && tmux_session mail alot &
+[ -e $PING     ] && term 'Ping' pingchk &
 
 # .................................................................. Window apps
 
-[ -e $THEDARNEDESTTHING ] && thedarnedestthing
+[ -e $THEDARNEDESTTHING ] && thedarnedestthing &
 switch tag $WEB
 [ -e $WWW      ] && $BROWSER &
 [ -e $TERM     ] && toggle scratchpad
