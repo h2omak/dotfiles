@@ -160,7 +160,7 @@ bool map_shift(keyrecord_t *record, uint16_t shift_key, uint8_t shift, uint16_t 
       unregister_code(keycode);
       if (!shift) { register_code(shift_key); reshifted = 1; } // set SFT_T timing trap, process_record_user()
     }
-    key_timer = 0;                                             // clear home row shift, see process_record_user() and mod_t()
+    key_timer = 0; // clear home row shift, see process_record_user() and mod_t()
     return true;
   }
   return false;
@@ -276,7 +276,8 @@ void tilde(qk_tap_dance_state_t *state, void *user_data)
     }
     else { state->pressed ? register_shift(KC_GRV) : tap_shift(KC_GRV); }
   }
-  else { state->pressed ? register_code(KC_DOT) : tap_key(KC_DOT); }
+  else if (state->pressed)                { register_code(KC_DOT); }
+  else for (i = 0; i < state->count; i++) { tap_key(KC_DOT); }
   reset_tap_dance(state);
 }
 
