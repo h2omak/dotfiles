@@ -15,8 +15,8 @@
       " foreground
       let s:dfm_fg_light         = g:light_fg  " light foreground (high contrast)
       let s:dfm_fg_dark          = g:dark_fg   " dark foreground (high contrast)
-      let s:dfm_fg_text_light    = g:mono_2    " light normal text
-      let s:dfm_fg_text_dark     = g:gray5     " dark normal text
+      let s:dfm_fg_spell_light   = g:mono_2    " light spelling
+      let s:dfm_fg_spell_dark    = g:base6     " dark spelling
       let s:dfm_proof_light      = g:light     " light hypertext
       let s:dfm_proof_dark       = g:dark      " dark hypertext
       let s:dfm_bg_spell_light   = g:spell     " light spelling
@@ -95,7 +95,8 @@
         endif
         let l:background = &background == 'light' ? 'dark' : 'light'
         let l:cursor     = theme#Value('s:dfm_cursor_'  . l:background)
-        let l:text       = theme#Value('s:dfm_fg_text_' . &background)
+        let l:spell      = theme#Value('s:dfm_bg_spell_' . &background)
+        let l:ale        = theme#Value('s:dfm_ale_'      . &background)
         execute 'highlight ErrorMsg        guibg=' . s:dfm_bg         . ' guifg=red'
         execute 'highlight ExtraWhitespace guibg=' . l:cursor         . ' guifg=' . theme#Value('s:dfm_bg_' . l:background)
         execute 'highlight VisualCursor    guibg=' . l:cursor         . ' guifg=' . s:dfm_bg
@@ -110,11 +111,11 @@
         execute 'highlight InsertCursor    guibg=' . s:dfm_cursor     . ' guifg=' . s:dfm_bg
         execute 'highlight CursorLine      guibg=' . s:dfm_cursor_bg  . ' guifg=' . s:dfm_cursorline
         execute 'highlight Cursor          guibg=' . s:dfm_cursor     . ' guifg=' . g:black
-        execute 'highlight MatchParen      guibg=' . s:dfm_match      . ' guifg=' . s:dfm_bg     . ' gui=bold'
-        execute 'highlight ALEWarningSign  guifg=' . theme#Value('s:dfm_ale_'     . &background) . ' gui=bold'
+        execute 'highlight MatchParen      guibg=' . s:dfm_match      . ' guifg=' . s:dfm_bg . ' gui=bold'
+        execute 'highlight ALEWarningSign  guifg=' . l:ale                                   . ' gui=bold'
         execute 'highlight ALEErrorSign    guifg=red gui=bold'
         " toggling colorcolunm toggles spell colors (not a prose workflow issue)
-        execute 'highlight SpellBad        guibg=' . theme#Value('s:dfm_bg_spell_' . &background) . ' guifg=' . l:text
+        execute 'highlight SpellBad        guibg=' . l:spell          . ' guifg=' . theme#Value('s:dfm_fg_spell_' . &background)
         highlight! link SpellCap           SpellBad
         highlight! link SpellRare          SpellBad
         highlight! link SpellLocal         SpellBad
