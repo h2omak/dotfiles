@@ -124,7 +124,7 @@ gui && [ $(query displaywidth 0) -lt $MIN_DISPLAY ] && PANEL_MARGIN=true
 export CONKY_Q2=$STOW/conky/1680x1050/.conkyrc.qclocktwo
 
 # terminal font
-export MONOFONT=Iosevka-single
+export MONOFONT=Iosevka
 
 # dmenu line column delimeter (must not match dmenu content), see restore hidden, focus hlwm
 export DLM='$'

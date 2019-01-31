@@ -6,11 +6,13 @@
 # ...................................................................... iosevka
 
 usage() {
-  echo "usage: $(basename $0) iosevka [amphetype | code | proof] [double | single | patch | leading <height>]*"
+  echo "usage: $(basename $0) iosevka [amphetype | code | proof] [double | single | patch | leading <height> | family <name>]*"
   exit 1
 }
 
 nerdfonts='--fontawesome --fontawesomeextension --octicons --powersymbols'
+REPO=/net/depot/Iosevka
+FONT=$HOME/.fonts/iosevka
 
 shift # basename is make_install, $1 == iosevka
 
@@ -21,16 +23,30 @@ descender=0
 while [ $1 ] ;do
   case $1 in
     amphetype) storey=double; family=-amphetype; leading=1875 ;; # 1.5 spacing
-    code     ) storey=double; design="'ligset-haskell'" ;;       # default family
-    double   ) storey=double ;;                                  # default "a"
+    code     ) storey=single; design="'ligset-haskell'" ;;       # default family
+    double   ) storey=double; family=-double ;;                  # "a"
+    family   ) family=$2;  shift ;;                              # font family
     leading  ) leading=$2; shift ;;                              # line spacing
     patch    ) patch=true ;;                                     # nerdfonts
-    proof    ) storey=double; family=-proof; leading=2250 ;;     # 1.8 spacing
-    single   ) storey=single; family=-single ;;                  # "a"
+    proof    ) storey=single; family=-proof; leading=1875 ;;     # 1.5 spacing
+    single   ) storey=single; family=-single ;;                  # default "a"
     *        ) usage ;;
   esac
   shift
 done
+
+ifyes "build Iosevka$family" || usage
+FONT=$FONT$family
+REGULAR=$FONT/ttf/iosevka$family-regular.ttf
+
+pkgcheck() { pm_query $1 >/dev/null || missing="$missing$1 "; }
+
+pkgcheck fontforge
+pkgcheck nodejs
+pkgcheck npm
+pkgcheck otfcc
+pkgcheck ttfautohint
+[ "$missing" ] && { ditto "install $missing"; exit 1; }
 
 # balance leading/descender spacing
 if [ $leading -gt 1250 ] ;then
@@ -79,28 +95,26 @@ css   = 700
 [buildPlans.iosevka$family.slants]
 upright = 'normal'
 italic = 'italic'
-oblique = 'oblique'" >/net/depot/Iosevka/private-build-plans.toml
+oblique = 'oblique'" >$REPO/private-build-plans.toml
 
 # ensure node.js is uptodate
 npm install
 
-sed -i -re "/^leading =/s/= ([0-9]*)/= $leading/" \
-    -e "/^descenderPad =/s/= ([0-9]*)/= $descender/" \
-    /net/depot/Iosevka/parameters.toml
+sed -i -r "/^leading =/s/= ([0-9]*)/= $leading/; /^descenderPad =/s/= ([0-9]*)/= $descender/" $REPO/parameters.toml
 
 # npm run build -- ttf:Iosevka$family upright:"$upright" italic:"$italic" oblique:"$oblique" design:"$design"
 npm run build -- ttf:iosevka$family
 
-rm -rf $HOME/.fonts/iosevka$family
-cp -rv dist/iosevka$family $HOME/.fonts/iosevka$family
+rm -rf $FONT
+cp -rv dist/iosevka$family $FONT
 
 # patch font
-if [ -e /net/depot/nerd-fonts/font-patcher ] ;then
+if [ $patch ] && [ -e /net/depot/nerd-fonts/font-patcher ] ;then
   rm -f /tmp/Iosevka*ttf
-  /net/depot/nerd-fonts/font-patcher --adjust-line-height --mono --powerlineextra -out /tmp $HOME/.fonts/iosevka$family/ttf/iosevka$family-regular.ttf
-  mv -v /tmp/Iosevka*ttf $HOME/.fonts/iosevka$family/ttf/iosevka$family-regular.ttf
-  /net/depot/nerd-fonts/font-patcher $nerdfonts -out /tmp $HOME/.fonts/iosevka$family/ttf/iosevka$family-regular.ttf
-  mv -v /tmp/Iosevka*ttf $HOME/.fonts/iosevka$family/ttf/iosevka$family-regular.ttf
+  /net/depot/nerd-fonts/font-patcher --adjust-line-height --mono --powerlineextra -out /tmp $REGULAR
+  mv -v /tmp/Iosevka*ttf $REGULAR
+  /net/depot/nerd-fonts/font-patcher $nerdfonts -out /tmp $REGULAR
+  mv -v /tmp/Iosevka*ttf $REGULAR
 fi
 
 fc-cache -fv

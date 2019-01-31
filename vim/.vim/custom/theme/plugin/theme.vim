@@ -18,7 +18,7 @@
       let g:lightscheme     = &diff ? 'one' : 'flatwhite'
 
       " Iosevka custom compiled, with nerd-fonts awesome patches, see make_install/iosevka
-      let g:source_font     = 'Iosevka-single\'
+      let g:source_font     = 'Iosevka\'
       let g:prose_font      = 'Iosevka-proof\'
       let g:font_type       = -1 " current font setting (0) source (1) prose
       let g:font_step       = 1  " font size increase (point size) for prose
@@ -84,7 +84,8 @@
 
       " cursor, highlight
       let g:cursor          = '#20fccf' " analogous iA Writer '#20bbfc' cursor color
-      let g:black           = '#0000e6' " cursor foreground
+      let g:black           = '#000000' " cursor foreground
+      let g:blue            = '#0000e6' " cursor foreground
       let g:white           = g:base7   " cursor foreground
       let g:spell           = '#ffd1dc' " light spelling/grammar error
       let g:column          = '#ffe3d5' " light column
@@ -123,8 +124,8 @@
       imap <silent><S-F8> <C-o>:call theme#LiteSwitch()<CR>
       vmap <silent><S-F8> :<C-u>call theme#LiteSwitch()<CR>
 
-      autocmd theme InsertEnter * call theme#LineNr('i')
-      autocmd theme InsertLeave * call theme#LineNr('n')
+      autocmd theme InsertEnter * call theme#LineNr()
+      autocmd theme InsertLeave * call theme#LineNr()
       autocmd theme FocusGained * silent! call theme#Margin()
 
     " ......................................................... Switch font size

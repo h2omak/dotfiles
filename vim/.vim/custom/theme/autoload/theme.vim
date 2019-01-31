@@ -37,7 +37,7 @@
       " cursor line
       let s:dfm_cursor_light     = g:cursor    " iA Writer
       let s:dfm_cursor_dark      = g:cursor    " iA Writer
-      let s:dfm_cursorline_light = g:black     " light cursorline
+      let s:dfm_cursorline_light = g:blue      " light cursorline
       let s:dfm_cursorline_dark  = g:white     " dark cursorline
       let s:dfm_bg_line_light    = g:light_bg  " light cursorline
       let s:dfm_bg_line_dark     = g:gray2     " dark cursorline
@@ -152,17 +152,31 @@
       endfunction
 
       " line numbers
-      function! theme#LineNr(mode)
+      function! theme#LineNr()
         Trace theme#LineNr()
         execute 'highlight CursorLineNr '   . (g:view == 0 ? 'gui=bold guifg=' . theme#Value('s:dfm_bg_' . &background)
                 \                                          : 'gui=none guifg=' . (b:proof == 0 ? s:dfm_bg : s:dfm_fg_line))
         let s:dfm_linenr_cmd = g:view == 0  ? s:dfm_fg_line  : s:dfm_bg
-        if a:mode == 'n'
+        if mode() == 'n'
           execute 'highlight LineNr guifg=' . s:dfm_linenr_cmd
         else
           execute 'highlight LineNr guifg=' . s:dfm_linenr_ins
         endif
         execute 'highlight NonText guifg=red'
+      endfunction
+
+      " enhanced limelight contrast, see ui#ToggleProof()
+      function! theme#Contrast(level)
+        Trace theme#Contrast()
+        if core#Prose() && &background == 'light'
+          if a:level
+            execute 'highlight! Normal guifg='     . g:mono_3
+            execute 'highlight! CursorLine guifg=' . g:black
+          else
+            execute 'highlight! Normal guifg='     . g:mono_2
+            execute 'highlight! CursorLine guifg=' . g:mono_2
+          endif
+        endif
       endfunction
 
       " g:fzf_colors initializes fzf only once, so override cursorline color
@@ -230,7 +244,7 @@
         " account for linenr <space> text
         let g:lite_dfm_left_offset = max([1, min([22, (&columns - &textwidth - 4) / 2])])
         Quietly LiteDFM
-        call theme#LineNr(mode())
+        call theme#LineNr()
         call ui#RefreshInfo()
       endfunction
 

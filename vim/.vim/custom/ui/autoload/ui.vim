@@ -70,9 +70,11 @@
         if b:proof == 1
           call ui#ShowInfo(1)
           Limelight!
+          call theme#Contrast(0)
         else
           call ui#ShowInfo(0)
           Limelight
+          call theme#Contrast(1)
         endif
         execute 'normal! ' . l:col . '|'
       endfunction

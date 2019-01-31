@@ -14,7 +14,7 @@ STARTPAGE=$SESSION/startpage
 [ $1 ] && startpage="$@" || { [ -e $STARTPAGE ] && startpage=$(cat $STARTPAGE) || startpage='http://luna:8000/tt-rss/#f=39&c=1'; }
 
 common='bookmark cookies history style.css'
-font=Iosevka-single
+font=Iosevka
 size=$(fontsize)pt
 host=$(hostname)
 zoom=$2

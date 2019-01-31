@@ -42,13 +42,12 @@ d m dict-moby-thesaurus
   qt5-webkit    [server]
 
 
-= font editor
-= ▔▔▔▔▔▔▔▔▔▔▔
+= font-patcher
+= ▔▔▔▔▔▔▔▔▔▔▔▔
   fontforge     [server]
   nodejs        [server]
   npm           [server]
   otfcc         [server]
-# ttf-wps-fonts [server]
   ttfautohint   [server]
 
 
