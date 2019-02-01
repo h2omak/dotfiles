@@ -7,9 +7,7 @@
 
     " .................................................................... Setup
 
-      if exists("g:loaded_ui")
-        finish
-      endif
+      if exists("g:loaded_ui") | finish | endif
       let g:loaded_ui = 1
       let s:save_cpo  = &cpo
       set cpo&vim
@@ -19,9 +17,7 @@
       let g:pad_inner = '    ' " statusline padding
       let g:pad_outer = '   '  " expanded statusline padding
 
-      augroup ui
-        autocmd!
-      augroup END
+      augroup ui | autocmd! | augroup END
 
   " Display ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 

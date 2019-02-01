@@ -7,9 +7,7 @@
 
     " .................................................................... Setup
 
-      augroup gui
-        autocmd!
-      augroup END
+      augroup gui | autocmd! | augroup END
 
       let g:ruler     = 0      " colorcolumn mode, see theme.vim
       let s:wraplight = 0      " highlight linewrap (0) off (1) on
@@ -20,13 +18,8 @@
 
       " toggle gui menu
       function! s:toggleGui()
-        if &guioptions =~# 'T'
-          set guioptions-=T
-          set guioptions-=m
-        else
-          set guioptions+=T
-          set guioptions+=m
-        endif
+        if &guioptions =~# 'T' | set guioptions-=T | set guioptions-=m
+        else                   | set guioptions+=T | set guioptions+=m | endif
       endfunction
 
       nnoremap <silent><S-F12> :call <SID>toggleGui()<CR>
@@ -83,11 +76,8 @@
     " ................................................................ Scrolling
 
       " set scrolljump=8 " lines to scroll when cursor leaves screen
-      if $HOST == 'monad'
-        set scrolloff=3
-      else
-        set scrolloff=5
-      endif
+      if $HOST == 'monad' | set scrolloff=3
+      else                | set scrolloff=5 | endif
       let g:scrolloff = &scrolloff
       set sidescroll=1   " smooth scrolling by 1 column
       set sidescrolloff=1
@@ -132,9 +122,7 @@
 
     " ........................................................... Column margins
 
-      augroup column
-        autocmd!
-      augroup END
+      augroup column | autocmd! | augroup END
 
       set colorcolumn=0 " highlight column
 
@@ -195,14 +183,9 @@
 
       " toggle relative number, line number and no numbering
       function! s:toggleNumber()
-        if (&relativenumber == 1 && &number == 1)
-          set norelativenumber
-        elseif (&relativenumber == 0 && &number == 1)
-          set nonumber
-        else
-          set relativenumber
-          set number
-        endif
+        if (&relativenumber == 1 && &number == 1)     | set norelativenumber
+        elseif (&relativenumber == 0 && &number == 1) | set nonumber
+        else                                          | set relativenumber | set number | endif
       endfunction
 
       nmap <silent># :call <SID>toggleNumber()<CR>
@@ -237,16 +220,12 @@
 
     " .......................................... White space / soft wrap markers
 
-      augroup soft
-        autocmd!
-      augroup END
+      augroup soft | autocmd! | augroup END
 
       " soft wrap marker
       function! s:softMark()
         " filetype dependent textwidth
-        if exists('s:soft')
-          call matchdelete(s:soft)
-        endif
+        if exists('s:soft') | call matchdelete(s:soft) | endif
         highlight SoftWrap cterm=underline gui=underline
         let s:soft = '\%' . (&textwidth + 1) . 'v'
         let s:soft = matchadd('SoftWrap', s:soft)

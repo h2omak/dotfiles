@@ -7,9 +7,7 @@
 
     " .................................................................... Setup
 
-      augroup plugin
-        autocmd!
-      augroup END
+      augroup plugin | autocmd! | augroup END
 
     " ...................................................................... Ale
 
@@ -147,9 +145,7 @@
 
       function! s:toggleSpell()
         let &spell = &spell == 0 ? 1 : 0
-        if PencilMode() != ''
-          execute &spell == 0 ? 'NoPencil' : 'Pencil'
-        endif
+        if PencilMode() != '' | execute &spell == 0 ? 'NoPencil' : 'Pencil' | endif
       endfunction
 
       " correction related, but really bound to Pencil
@@ -176,9 +172,7 @@
       let g:nrrw_rgn_rel_min       = 50 " relative window size
 
       function! s:closeNR()
-        if expand('%t') =~ 'NrrwRgn'
-          execute ':wq'
-        endif
+        if expand('%t') =~ 'NrrwRgn' | execute ':wq' | endif
       endfunction
 
       " apply refresh to narrow region buffer to apply layout defaults!
@@ -237,9 +231,7 @@
 
       " buffers load after plugins so parse command line for filename
       function! s:argFile()
-        if argc() > 0
-          return argv(0)
-        endif
+        if argc() > 0 | return argv(0) | endif
         return ''
       endfunction
 

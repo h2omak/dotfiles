@@ -54,9 +54,7 @@
       function! s:paragraphAbove()
         if matchstr(getline(line('.')), '\S') == ''
           normal! {
-          if matchstr(getline(line('.')), '\S') == ''
-            normal! j
-          endif
+          if matchstr(getline(line('.')), '\S') == '' | normal! j | endif
         endif
         normal! }lV{
       endfunction
@@ -64,9 +62,7 @@
       function! s:paragraphBelow()
         if matchstr(getline(line('.')), '\S') == ''
           normal! }
-          if matchstr(getline(line('.')), '\S') == ''
-            normal! k
-          endif
+          if matchstr(getline(line('.')), '\S') == '' | normal! k | endif
         endif
         normal! {nV}
       endfunction
@@ -111,21 +107,15 @@
 
       function! s:moveLineOrVisualUp(line_getter, range)
         let l:line = line(a:line_getter)
-        if l:line - v:count1 - 1 < 0
-          let l:move = '0'
-        else
-          let l:move = a:line_getter . ' -' . (v:count1 + 1)
-        endif
+        if l:line - v:count1 - 1 < 0 | let l:move = '0'
+        else                         | let l:move = a:line_getter . ' -' . (v:count1 + 1) | endif
         call <SID>moveLineOrVisualUpOrDown(a:range . 'move ' . l:move)
       endfunction
 
       function! s:moveLineOrVisualDown(line_getter, range)
         let l:line = line(a:line_getter)
-        if l:line + v:count1 > line('$')
-          let l:move = '$'
-        else
-          let l:move = a:line_getter . ' +' . v:count1
-        endif
+        if l:line + v:count1 > line('$') | let l:move = '$'
+        else                             | let l:move = a:line_getter . ' +' . v:count1 | endif
         call <SID>moveLineOrVisualUpOrDown(a:range . 'move ' . l:move)
       endfunction
 

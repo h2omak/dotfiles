@@ -11,9 +11,7 @@
       " set autowrite " automatically write a modified buffer on leaving
       set hidden      " allow hidden background buffers
 
-      augroup buffer
-        autocmd!
-      augroup END
+      augroup buffer | autocmd! | augroup END
 
       let s:repo = $HOME . '/stow/' " directory to auto backup
 

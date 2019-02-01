@@ -10,9 +10,7 @@
       " example: draw underline
       " ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
       function! heading#Underline(delimiter)
-        if matchstr(getline(line('.')), '\S') > ''
-          execute 'normal! yypwv$r' . a:delimiter
-        endif
+        if matchstr(getline(line('.')), '\S') > '' | execute 'normal! yypwv$r' . a:delimiter | endif
         normal! $
       endfunction
 
@@ -37,9 +35,7 @@
       function! heading#AppendTrailer(delimiter)
         if matchstr(getline(line('.')), '\S') > ''
           " remove existing trailer
-          if matchstr(getline(line('.')), '\s[' . a:delimiter . ']\+$') > ''
-            normal! $bhD
-          endif
+          if matchstr(getline(line('.')), '\s[' . a:delimiter . ']\+$') > '' | normal! $bhD | endif
           normal! $
           let l:col = g:linewidth - virtcol('.') - 1
           if l:col > 0
@@ -55,9 +51,7 @@
       " prompted trailer
       function! heading#InputTrailer()
         let l:delimiter = input('Line character: ')
-        if l:delimiter > ''
-          call heading#AppendTrailer(l:delimiter[0])
-        endif
+        if l:delimiter > '' | call heading#AppendTrailer(l:delimiter[0]) | endif
       endfunction
 
     " ................................................................... Leader
@@ -67,9 +61,7 @@
       function! heading#InsertLeader(delimiter)
         if matchstr(getline(line('.')), '\S') > ''
           " remove existing leader
-          if matchstr(getline(line('.')), '\S\s\+[' . a:delimiter . ']\+\s') > ''
-            execute 'normal! ^wdf '
-          endif
+          if matchstr(getline(line('.')), '\S\s\+[' . a:delimiter . ']\+\s') > '' | execute 'normal! ^wdf ' | endif
           call heading#AppendTrailer(a:delimiter)
           " cut trailer and insert as leader!
           normal! $bhD^whP
@@ -81,11 +73,8 @@
       function! heading#InputLeader()
         let l:delimiter = input('Line character: ')
         if l:delimiter > ''
-          if l:delimiter == ' '
-            call heading#Justify()
-          else
-            call heading#InsertLeader(l:delimiter[0])
-          endif
+          if l:delimiter == ' ' | call heading#Justify()
+          else                  | call heading#InsertLeader(l:delimiter[0]) | endif
         endif
       endfunction
 

@@ -7,16 +7,12 @@
 
     " .................................................................... Setup
 
-      if exists("g:loaded_heading")
-        finish
-      endif
+      if exists("g:loaded_heading") | finish | endif
       let g:loaded_heading = 1
       let s:save_cpo       = &cpo
       set cpo&vim
 
-      if !exists('g:heading_leader')
-        let g:heading_leader = ','
-      endif
+      if !exists('g:heading_leader') | let g:heading_leader = ',' | endif
 
     " ................................................................ Underline
 

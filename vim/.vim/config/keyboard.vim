@@ -10,9 +10,7 @@
       let mapleader   = "\<Space>" " remap <leader> a la spacemacs
       let g:mapleader = "\<Space>"
 
-      augroup kbd
-        autocmd!
-      augroup END
+      augroup kbd | autocmd! | augroup END
 
   " Cursor ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 

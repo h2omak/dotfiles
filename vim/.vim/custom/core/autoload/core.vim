@@ -44,13 +44,9 @@
       " latex printing
       function! core#Hardcopy()
         echo 'Printing..'
-        if core#Markdown()
-          execute '!hardcopy wiki \"' . expand('%:t') . '\"'
-        elseif expand('%:p') =~ 'Patricia'
-          execute '!hardcopy wps' expand('%:t')
-        else
-          execute '!hardcopy code' expand('%:t')
-        endif
+        if core#Markdown()                 | execute '!hardcopy wiki \"' . expand('%:t') . '\"'
+        elseif expand('%:p') =~ 'Patricia' | execute '!hardcopy wps' expand('%:t')
+        else                               | execute '!hardcopy code' expand('%:t') | endif
       endfunction
 
     " .............................................................. Debug trace
@@ -58,11 +54,8 @@
       let g:trace = $VIMTRACE > '' ? 1 : 0
 
       function! core#Trace(msg)
-        if g:trace == 1
-          " escape problematic shell commandline characters
-          silent execute '!echo "' . substitute(a:msg, '[-<>#$]', '\\&', 'g') . '" >>/tmp/vim.log'
-          " sleep 1000m
-        endif
+        " escape problematic shell commandline characters
+        if g:trace == 1 | silent execute '!echo "' . substitute(a:msg, '[-<>#$]', '\\&', 'g') . '" >>/tmp/vim.log' | endif
       endfunction
 
   " Keyboard layout ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
@@ -244,9 +237,7 @@
           endfor
         endif
         " see Snipmate plugins.vim
-        if &filetype == ''
-          let &filetype = 'new'
-        endif
+        if &filetype == '' | let &filetype = 'new' | endif
       endfunction
 
     " ................................................................... E-mail

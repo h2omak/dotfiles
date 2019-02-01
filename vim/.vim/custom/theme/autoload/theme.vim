@@ -90,9 +90,7 @@
       " margins, selection and cursor
       function! theme#Theme()
         Trace theme#Theme()
-        if !has("gui_running")
-          return " theme is only gui compliant
-        endif
+        if !has("gui_running") | return | endif
         let l:background = &background == 'light' ? 'dark' : 'light'
         let l:cursor     = theme#Value('s:dfm_cursor_'  . l:background)
         let l:spell      = theme#Value('s:dfm_bg_spell_' . &background)
@@ -138,13 +136,10 @@
       " ruler, indents
       function! theme#IndentTheme()
         Trace theme#IndentTheme()
-        execute 'highlight IndentGuidesOdd  guibg=' . theme#Value('s:dfm_bg_'        . &background)
-        execute 'highlight IndentGuidesEven guibg=' . theme#Value('s:dfm_bg_line_'   . &background)
-        if g:ruler == 2
-          execute 'highlight ColorColumn    guibg=' . theme#Value('s:dfm_bg_column_' . &background)
-        else
-          execute 'highlight ColorColumn    guibg=' . theme#Value('s:dfm_bg_line_'   . &background)
-        endif
+        execute 'highlight IndentGuidesOdd  guibg=' . theme#Value('s:dfm_bg_'      . &background)
+        execute 'highlight IndentGuidesEven guibg=' . theme#Value('s:dfm_bg_line_' . &background)
+        if g:ruler == 2 | execute 'highlight ColorColumn guibg=' . theme#Value('s:dfm_bg_column_' . &background)
+        else            | execute 'highlight ColorColumn guibg=' . theme#Value('s:dfm_bg_line_'   . &background) | endif
         if s:sync == 1 " refresh any indent guides, see theme#LiteSwitch()
           IndentGuidesToggle
           IndentGuidesToggle
@@ -158,11 +153,8 @@
         execute 'highlight CursorLineNr '   . (g:view == 0 ? 'gui=bold guifg=' . theme#Value('s:dfm_bg_' . &background)
                 \                                          : 'gui=none guifg=' . (b:proof == 0 ? s:dfm_bg : s:dfm_fg_line))
         let s:dfm_linenr_cmd = g:view == 0  ? s:dfm_fg_line  : s:dfm_bg
-        if mode() == 'n'
-          execute 'highlight LineNr guifg=' . s:dfm_linenr_cmd
-        else
-          execute 'highlight LineNr guifg=' . s:dfm_linenr_ins
-        endif
+        if mode() == 'n' | execute 'highlight LineNr guifg=' . s:dfm_linenr_cmd
+        else             | execute 'highlight LineNr guifg=' . s:dfm_linenr_ins | endif
         execute 'highlight NonText guifg=red'
       endfunction
 
@@ -226,11 +218,8 @@
         Trace theme#LiteSwitch()
         " trap and ignore initialization error
         Quietly LiteDFMClose
-        if &background == 'light'
-          call theme#ColorScheme(1)
-        else
-          call theme#ColorScheme(0)
-        endif
+        if &background == 'light' | call theme#ColorScheme(1)
+        else                      | call theme#ColorScheme(0) | endif
         let s:sync = 1 " see theme#IndentTheme()
         call ui#LiteType()
       endfunction
@@ -252,8 +241,7 @@
       function! theme#Font(size)
         Trace theme#Font()
         execute 'set guifont=' . (core#Prose() ? g:prose_font : g:source_font) . ' ' . a:size
-        if exists('s:size')
-          " gui redrawi for font size change
+        if exists('s:size') " gui redrawi for font size change
           RedrawGui
         endif
         let s:size = a:size
@@ -293,9 +281,7 @@
 
       " prose style
       function! theme#DfmView()
-        if core#Prose()
-          execute 'highlight CursorLine gui=none guibg=' . s:dfm_bg . ' guifg=' . s:dfm_fg
-        endif
+        if core#Prose() | execute 'highlight CursorLine gui=none guibg=' . s:dfm_bg . ' guifg=' . s:dfm_fg | endif
       endfunction
 
     " .............................................................. Switch View

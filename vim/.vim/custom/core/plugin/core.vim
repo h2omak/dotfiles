@@ -7,16 +7,12 @@
 
     " .................................................................... Setup
 
-      if exists("g:loaded_core")
-        finish
-      endif
+      if exists("g:loaded_core") | finish | endif
       let g:loaded_core = 1
       let s:save_cpo    = &cpo
       set cpo&vim
 
-      augroup core
-        autocmd!
-      augroup END
+      augroup core | autocmd! | augroup END
 
   " System ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 
@@ -64,9 +60,7 @@
     " ......................................................... Colemak-shift-dh
 
       " environment variable
-      if $COLEMAK > ''
-        call core#Colemak()
-      endif
+      if $COLEMAK > '' | call core#Colemak() | endif
 
   " Text ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 
@@ -105,8 +99,8 @@
 
     " ..................................................................... Wiki
   
-     " set touch date
-     command! -nargs=1 Wiki execute ':silent !wikitouch "' . expand('%:p') . '" ' . <f-args>
+      " set touch date
+      command! -nargs=1 Wiki execute ':silent !wikitouch "' . expand('%:p') . '" ' . <f-args>
 
       let &cpo = s:save_cpo
       unlet s:save_cpo

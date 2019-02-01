@@ -7,9 +7,7 @@
 
     " .................................................................... Setup
 
-      if exists("g:loaded_theme")
-        finish
-      endif
+      if exists("g:loaded_theme") | finish | endif
       let g:loaded_theme = 1
       let s:save_cpo     = &cpo
       set cpo&vim
@@ -96,9 +94,7 @@
       let g:light           = '#dddddd' " light hyperfocus fade
       let g:dark            = '#444444' " dark hyperfocus fade
 
-      augroup theme
-        autocmd!
-      augroup END
+      augroup theme | autocmd! | augroup END
 
   " Theme ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 
@@ -106,11 +102,8 @@
 
       if has("gui_running")
         " follow_the_sun on sunrise/sunset, see crontab
-        if !empty(glob('~/.session/nighttime'))
-          call theme#ColorScheme(1)
-        else
-          call theme#ColorScheme(0)
-        endif
+        if !empty(glob('~/.session/nighttime')) | call theme#ColorScheme(1)
+        else                                    | call theme#ColorScheme(0) | endif
 
         " don't know where but diff highlights the SignColumn which can only be cleared afterwards(?)
         if &diff

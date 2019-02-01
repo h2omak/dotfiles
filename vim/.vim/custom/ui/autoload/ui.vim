@@ -21,9 +21,7 @@
         let g:view = 0
         " restore CursorLine syntax highlighting before applying themes
         " syntax enable
-        if exists('g:loaded_limelight')
-          Limelight!
-        endif
+        if exists('g:loaded_limelight') | Limelight! | endif
         call theme#Theme()
         call theme#ShowStatusline()
         call theme#CodeView()
@@ -39,18 +37,13 @@
         " silent !tmux set status off
         " un/comment to have monochromatic cursor line (looses vimdiff highlighting)
         call theme#DfmView()
-        if core#Prose() || g:ruler == 0
-          set colorcolumn=0
-        endif
+        if core#Prose() || g:ruler == 0 | set colorcolumn=0 | endif
         set foldcolumn=0
         set laststatus=0
         set noshowmode
         set scrolloff=8
-        if core#Prose()
-          set spell
-        else
-          set nospell
-        endif
+        if core#Prose() | set spell
+        else            | set nospell | endif
         call ui#Proof()
       endfunction
 
@@ -61,9 +54,7 @@
         Trace ui#Proof()
         let l:col = virtcol('.')
         call theme#Theme()
-        if core#Prose()
-          call theme#ToggleProof()
-        endif
+        if core#Prose() | call theme#ToggleProof() | endif
         if b:proof == 1
           call ui#ShowInfo(1)
           Limelight!
@@ -84,11 +75,8 @@
 
       function! ui#SetView()
         Trace ui#SetView()
-        if g:view == 0
-          call ui#CodeView()
-        else
-          call ui#DfmView()
-        endif
+        if g:view == 0 | call ui#CodeView()
+        else           | call ui#DfmView() | endif
       endfunction
 
       " toggle dfm view
@@ -109,9 +97,7 @@
         Trace ui#LiteType()
         call theme#FontSize(core#Prose() ? 1 : 0)
         call theme#Palette()
-        if !exists('b:proof')
-          let b:proof = s:initial_view
-        endif
+        if !exists('b:proof') | let b:proof = s:initial_view | endif
         call ui#SetView()
       endfunction
 
@@ -180,18 +166,13 @@
 
       function! ui#ToggleInfo(...)
         Trace ui#ToggleInfo()
-        if a:0                         " exiting insert mode? see plugin/ui.vim autocmd
-          if b:proof == s:initial_view " already default view?
-            return
-          endif
-        endif
+        " exiting insert mode? see plugin/ui.vim autocmd
+        if a:0 && b:proof == s:initial_view | return | endif
         let l:col = col('.')
         let s:info = (s:info == 0 ? 1 : 0)
-        if core#Prose()                " toggle between writing and proofing modes
-          call ui#ToggleProof()
-        else
-          call ui#ShowInfo(b:proof)
-        endif
+        " toggle between writing and proofing modes
+        if core#Prose() | call ui#ToggleProof()
+        else            | call ui#ShowInfo(b:proof) | endif
         execute 'normal! ' . l:col . '|'
       endfunction
 

@@ -7,9 +7,7 @@
 
     " .................................................................... Setup
 
-      augroup default
-        autocmd!
-      augroup END
+      augroup default | autocmd! | augroup END
 
     " ................................................................... Insert
 
