@@ -5,7 +5,7 @@
 
 
 = database management
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═══════════════════
 # adminer
   pgadmin3
   postgresql
@@ -15,7 +15,7 @@
 
 
 = sinatra web framework
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═════════════════════
 # g exifr
 g kramdown
 g mail
@@ -33,7 +33,7 @@ d g xapian-ruby
 
 
 = web server
-= ▔▔▔▔▔▔▔▔▔▔
+= ══════════
 # nginx
 # nginx-passenger
 d g passenger

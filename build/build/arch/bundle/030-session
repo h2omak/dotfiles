@@ -5,19 +5,19 @@
 
 
 = ncurses editor
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ══════════════
   gvim
 
 
 = terminal
-= ▔▔▔▔▔▔▔▔
+= ════════
   alacritty     [! cpu atom]
 # alacritty-git [! cpu atom]
   xterm
 
 
 = window manager
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ══════════════
   herbstluftwm
 # herbstluftwm-git
 

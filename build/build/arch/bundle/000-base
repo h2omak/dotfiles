@@ -6,7 +6,7 @@
 
 # install aur package managers FIRST !!
 = aur package manager
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═══════════════════
 # m pakku
   m yay
   package-query
@@ -16,23 +16,23 @@
 
 
 = console font
-= ▔▔▔▔▔▔▔▔▔▔▔▔
+= ════════════
   dos2unix
 # terminus-font-ll2-td1
 
 
 = cpu power management
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ════════════════════
 # cpupower               [laptop]
 
 
 = entropy
-= ▔▔▔▔▔▔▔
+= ═══════
   haveged
 
 
 = file system
-= ▔▔▔▔▔▔▔▔▔▔▔
+= ═══════════
 # bcachefs-tools         [server]
 # linux-bcachefs         [server]
 # linux-bcachefs-docs    [server]
@@ -53,14 +53,14 @@
 
 
 = file transfer
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═════════════
   curl
   git
   wget
 
 
 = linux-ck kernel
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═══════════════
 # linux-ck-atom          [cpu atom]
 # linux-ck-headers       [cpu atom]
 # linux-ck-haswell       [cpu i7]
@@ -69,12 +69,12 @@
 
 
 = sound
-= ▔▔▔▔▔
+= ═════
   alsa-utils
 
 
 = virtualbox guest mode
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═════════════════════
 # virtualbox-guest-utils [ -n $(dmidecode --type 1 | grep VirtualBox) ]
 
 

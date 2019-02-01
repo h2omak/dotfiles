@@ -4,7 +4,7 @@ export PARENT=$(which parent)
 [ $TRACE ] && CHILD="config/ENV $@" . $PARENT
 
 # herbstluftwm
-# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+# ══════════════════════════════════════════════════════════════════════════════
 
 # export Mod=Mod4 # Use super key as the main modifier
 export Mod=Mod1 # Use alt as the main modifier

@@ -5,7 +5,7 @@
 
 
 = media server
-= ▔▔▔▔▔▔▔▔▔▔▔▔
+= ════════════
 # gcstar                     [server]
   kodi                       [server]
 # minidlna                   [server]
@@ -15,7 +15,7 @@
 
 
 = music
-= ▔▔▔▔▔
+= ═════
   beets                      [server]
 # cli-visualizer
   deadbeef                   [server]
@@ -25,7 +25,7 @@
 
 
 = photography
-= ▔▔▔▔▔▔▔▔▔▔▔
+= ═══════════
 # darktable
 # dcraw                      [server]
 d digikam
@@ -43,14 +43,14 @@ d digikam
 
 
 = radio
-= ▔▔▔▔▔
+= ═════
 # "pyradio requires module pkg_resources"
 # pyradio-git
 # radiotray
 
 
 = ripping
-= ▔▔▔▔▔▔▔
+= ═══════
 # abcde                      [server]
   asunder                    [server]
   audacity                   [server]
@@ -78,7 +78,7 @@ d digikam
 
 
 = video
-= ▔▔▔▔▔
+= ═════
 # coriander                  [server]
 # gnome-mpv
 # livestreamer-curses

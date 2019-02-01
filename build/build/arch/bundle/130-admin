@@ -5,7 +5,7 @@
 
 
 = cups printing
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═════════════
   cups
 # cups-filters
   cups-pdf
@@ -23,7 +23,7 @@
 
 
 = package management
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ══════════════════
   aurvote
 # cower
 # cower-git
@@ -46,7 +46,7 @@
 
 
 = package rollback (btrfs)
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ════════════════════════
   grub-btrfs
 # grub-btrfs-git
   pacupg

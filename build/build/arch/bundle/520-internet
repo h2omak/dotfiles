@@ -5,7 +5,7 @@
 
 
 = chat/twitter
-= ▔▔▔▔▔▔▔▔▔▔▔▔
+= ════════════
   bitlbee         [server]
 # d * centerim5-git
 # finch
@@ -22,7 +22,7 @@ d * znc           [server]
 
 
 = file transfer
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═════════════
 # couchpotato-git [server]
 # flexget
 # gftp
@@ -41,12 +41,12 @@ d * znc           [server]
 
 
 = usenet mail
-= ▔▔▔▔▔▔▔▔▔▔▔
+= ═══════════
 # slrn
 
 
 = web aggregator
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ══════════════
 # newsbeuter
   php-gd
 # php-mcrypt
@@ -57,7 +57,7 @@ d tt-rss
 
 
 = web server
-= ▔▔▔▔▔▔▔▔▔▔
+= ══════════
   pixelserv       [! server]
 
 

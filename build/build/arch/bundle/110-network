@@ -5,7 +5,7 @@
 
 
 = connectivity
-= ▔▔▔▔▔▔▔▔▔▔▔▔
+= ════════════
 # bluez
 # bluez-utils
 # d " connman post install disrupts internet connection, install last
@@ -20,14 +20,14 @@ d * cmst
 
 
 = network
-= ▔▔▔▔▔▔▔
+= ═══════
   bind-tools
   dnsmasq       [server]
   dnsutils
 
 
 = network monitor
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═══════════════
 # tcptrack
 # dstat
   iftop
@@ -40,13 +40,13 @@ d * cmst
 
 
 = network security
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ════════════════
   openssh
 # rssh
 
 
 = network share
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═════════════
 # avahi
 # dropbox-experimental
   nfs-utils
@@ -59,14 +59,14 @@ d * cmst
 
 
 = penetration testing
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═══════════════════
 # metasploit    [server]
   nmap          [server]
 # wireshark-gtk [server]
 
 
 = proxy
-= ▔▔▔▔▔
+= ═════
 # adsuck
 # polipo        [server]
 # privoxy       [server]
@@ -74,7 +74,7 @@ d * cmst
 
 
 = socket
-= ▔▔▔▔▔▔
+= ══════
 # socat
 
 

@@ -5,7 +5,7 @@
 
 
 = browser
-= ▔▔▔▔▔▔▔
+= ═══════
   chromium
 # dwb-git
 # dwb-gtk3
@@ -28,7 +28,7 @@
 
 
 = browser addon
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═════════════
 # chromium-pepper-flash
   chromium-widevine
   flashplugin
@@ -38,7 +38,7 @@
   
 
 = browser library/utility
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═══════════════════════
 # libunique
 # lua51-filesystem
 # luajit

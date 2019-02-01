@@ -5,7 +5,7 @@
 
 
 = file compression
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ════════════════
 # par2unrar
   file-roller
   p7zip
@@ -15,7 +15,7 @@
 
 
 = disk utility
-= ▔▔▔▔▔▔▔▔▔▔▔▔
+= ════════════
   convmv
 d etcher
 # gnome-disk-utility
@@ -26,7 +26,7 @@ d etcher
 
 
 = sync
-= ▔▔▔▔
+= ════
 # btsyncindicator
 # btsync
   rsync
@@ -38,7 +38,7 @@ d etcher
 
 
 = system monitor
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ══════════════
   glances
   gsmartcontrol    [server]
   htop
@@ -49,7 +49,7 @@ d etcher
 
 
 = test
-= ▔▔▔▔
+= ════
 # bonnie++
 # memtester
 # mprime-bin       [server]

@@ -5,13 +5,13 @@
 
 
 = document formatting
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═══════════════════
   csslint
   csstidy
 
 
 = editor
-= ▔▔▔▔▔▔
+= ══════
 # atom-editor-bin [server]
 # atom-editor     [server]
 # ctags
@@ -33,7 +33,7 @@ d universal-ctags-git
 
 
 = version control
-= ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+= ═══════════════
 # vcsh-git
 # hgview
   git
