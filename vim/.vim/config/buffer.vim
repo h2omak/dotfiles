@@ -1,9 +1,9 @@
 " sdothum - 2016 (c) wtfpl
 
 " Buffers
-" ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+" ══════════════════════════════════════════════════════════════════════════════
 
-  " File buffers ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " File buffers _______________________________________________________________
 
     " .................................................................... Setup
 
@@ -15,12 +15,12 @@
 
       let s:repo = $HOME . '/stow/' " directory to auto backup
 
-  " Diff buffer ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Diff buffer ________________________________________________________________
 
     " ................................................................ Open diff
 
       " toggle diff of current file
-      command! OpenDiff if !<SID>closeDiff()
+      command! OpenDiff if ! <SID>closeDiff()
                           \| vert new | set bt=nofile | r ++edit # | 0d_
                           \| diffthis | wincmd p | diffthis | endif
 
@@ -45,18 +45,18 @@
       
       command! CloseDiff silent! call <SID>closeDiff()
 
-  " File actions ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " File actions _______________________________________________________________
 
     " ...................................................... Buffer close / save
 
       " close all other buffers (and newly created no name buffer)
       command! Singleton   CloseDiff | %bdelete | edit # | bdelete #
       " close OpenDiff or current buffer
-      command! CloseUnique if !<SID>closeDiff() | silent bdelete! | endif
+      command! CloseUnique if ! <SID>closeDiff() | silent bdelete! | endif
 
       " save buffers
       nmap <silent><leader>w  :silent write!<CR>
-      nmap <leader>W          :silent write !sudo tee % >/dev/null<CR>
+      nmap <leader>W          :silent write core#Prose()!sudo tee % >/dev/null<CR>
       nmap <silent><leader>ww :silent wqall!<CR>
 
       " close buffers
@@ -99,7 +99,7 @@
       " save on losing focus, :wall on FocusLost does not trigger <SID>queueFile() (?)
       autocmd buffer FocusLost * silent call <SID>queueBuffers()
 
-  " Buffer handling ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Buffer handling ____________________________________________________________
 
     " ........................................................... Initialization
 
@@ -119,7 +119,7 @@
       " autocmd buffer BufRead   * if expand('%:p') !~ $HOME | set nomodifiable | endif
       " vim8 bug doesn't allow toggling &modifiable so set modifiable on globally
       " mode check for fzf terminal window
-      autocmd buffer BufWinEnter * if !core#Protected() | set modifiable | endif
+      autocmd buffer BufWinEnter * if ! core#Protected() | set modifiable | endif
 
     " ............................................................ Switch buffer
 
@@ -147,7 +147,7 @@
       " switch to previously edited/viewed buffer
       nmap <silent><BS>       :CloseDiff<CR>:silent edit #<CR>
 
-  " Window actions ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Window actions _____________________________________________________________
 
     " .......................................................... Window handling
 
@@ -188,7 +188,7 @@
       " switch windows
       " noremap <C-w>    <C-w><C-w>
 
-  " Folding ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Folding ____________________________________________________________________
 
     " ............................................................. Fold methods
 

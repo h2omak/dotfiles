@@ -1,9 +1,9 @@
 " sdothum - 2016 (c) wtfpppl
 
 " GUI
-" ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+" ══════════════════════════════════════════════════════════════════════════════
 
-  " Behaviour ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Behaviour __________________________________________________________________
 
     " .................................................................... Setup
 
@@ -48,7 +48,7 @@
       inoremap <silent><F12> <C-o>:call <SID>redrawGui()<CR>
       vnoremap <silent><F12> :<C-u>call <SID>redrawGui()<CR>
 
-  " Display ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Display ____________________________________________________________________
 
     " ................................................................... Screen
 
@@ -91,7 +91,7 @@
       autocmd gui BufWinLeave * let b:winview = winsaveview()
       autocmd gui BufWinEnter * if exists('b:winview') | call winrestview(b:winview) | endif
 
-  " Terminal ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Terminal ___________________________________________________________________
 
     " ..................................................................... Font
 
@@ -118,7 +118,7 @@
       set guioptions-=m     " no menubar
       set guioptions-=T     " no toolbar
 
-  " Look ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Look _______________________________________________________________________
 
     " ........................................................... Column margins
 
@@ -197,14 +197,14 @@
       set noshowcmd    " show incomplete cmds in command line
       set noshowmode   " show current mode in command line
 
-  " Highlighting ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Highlighting _______________________________________________________________
 
     " ...................................................... Syntax highlighting
 
       set omnifunc=syntaxcomplete#Complete
       syntax on " turn on syntax highlighting
       " refresh highlighting on arm
-      autocmd gui CursorHold * if !core#Prose() && &filetype != '' | execute 'set filetype=' . &filetype | endif
+      autocmd gui CursorHold * if ! core#Prose() && &filetype != '' | execute 'set filetype=' . &filetype | endif
 
     " ...................................................... White space markers
 

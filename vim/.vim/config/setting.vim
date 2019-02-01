@@ -1,9 +1,9 @@
 " sdothum - 2016 (c) wtfpl
 
 " Plugins
-" ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+" ══════════════════════════════════════════════════════════════════════════════
 
-  " Plugin settings ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Plugin settings ____________________________________________________________
 
     " .................................................................... Setup
 
@@ -191,7 +191,7 @@
 
       function! s:check_back_space() abort
         let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
+        return ! col || getline('.')[col - 1]  =~ '\s'
       endfunction
 
       inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" :
@@ -333,7 +333,7 @@
 
       " " remap sneak_s to preserve s
       " function! s:sneak_f()
-      "   if !exists("g:sneak_f")
+      "   if ! exists("g:sneak_f")
       "     let g:sneak_f = 1
       "     unmap s
       "     unmap S

@@ -1,9 +1,9 @@
 " sdothum - 2016 (c) wtfpl
 
 " Themes
-" ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+" ══════════════════════════════════════════════════════════════════════════════
 
-  " The look ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " The look ___________________________________________________________________
 
     " .................................................................... Setup
 
@@ -96,13 +96,13 @@
 
       augroup theme | autocmd! | augroup END
 
-  " Theme ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Theme _________________________________________________________________________
 
     " ...................................................... Default colorscheme
 
       if has("gui_running")
         " follow_the_sun on sunrise/sunset, see crontab
-        if !empty(glob('~/.session/nighttime')) | call theme#ColorScheme(1)
+        if ! empty(glob('~/.session/nighttime')) | call theme#ColorScheme(1)
         else                                    | call theme#ColorScheme(0) | endif
 
         " don't know where but diff highlights the SignColumn which can only be cleared afterwards(?)

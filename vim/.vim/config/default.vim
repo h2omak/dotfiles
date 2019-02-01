@@ -1,9 +1,9 @@
 " sdothum - 2016 (c) wtfpl
 
 " Defaults
-" ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+" ══════════════════════════════════════════════════════════════════════════════
 
-  " Mode ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Mode _______________________________________________________________________
 
     " .................................................................... Setup
 
@@ -16,7 +16,7 @@
       autocmd InsertLeave * let &updatetime  = s:updatetime
       autocmd CursorHoldI * stopinsert
 
-  " Databases ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Databases __________________________________________________________________
 
     " ..................................................................... Help
 
@@ -52,7 +52,7 @@
       " set thesaurus=/usr/share/dict/thesaurus
       " set complete+=s " disabled, selection list too long
 
-  " Registers ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Registers __________________________________________________________________
 
     " .................................................................... Marks
 
@@ -71,7 +71,7 @@
       " nnoremap ..      @@ " just a command reminder, never mapped
 
 
-  " Format ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Format _____________________________________________________________________
 
     " ..................................................................... Line
 
@@ -138,7 +138,7 @@
       autocmd default BufWinEnter *.vim  set filetype=vim
       autocmd default BufWinEnter *.wiki set filetype=markdown
 
-  " Search / completion ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Search / completion ________________________________________________________
 
     " ................................................................... Search
 
@@ -161,7 +161,7 @@
       nmap <silent>\  :noh<CR>
 
       " line wrap enabled incsearch (including irregular spacing)
-      cnoremap <expr><space> '/?' =~ getcmdtype() ? '\_s*' : ' '      
+      " cnoremap <expr><space> '/?' =~ getcmdtype() ? '\_s*' : ' '
 
     " ....................................................... Search and replace
 
@@ -173,7 +173,7 @@
         let @/ = l:search
       endfunction
 
-      " restore current search pattern
+      " restore current search pattern, \m to append magic tokens
       nnoremap ** :call <SID>searchReplace(':%s,\C\<<C-r><C-w>\>,')<CR>
       nnoremap ;s :call <SID>searchReplace(':s,\v')<CR>
       nnoremap %% :call <SID>searchReplace(':%s,\v')<CR>

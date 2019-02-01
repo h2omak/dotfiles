@@ -1,9 +1,9 @@
 " sdothum - 2016 (c) wtfpl
 
 " User Interface
-" ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+" ══════════════════════════════════════════════════════════════════════════════
 
-  " The look ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " The look ___________________________________________________________________
 
     " .................................................................... Setup
 
@@ -56,7 +56,7 @@
       let s:dfm_fg_user2_light   = g:hue_2     " light statusline
       let s:dfm_fg_user2_dark    = g:cyan      " dark statusline
 
-  " Colours ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Colours ____________________________________________________________________
 
     " .................................................................. Palette
 
@@ -90,7 +90,7 @@
       " margins, selection and cursor
       function! theme#Theme()
         Trace theme#Theme()
-        if !has("gui_running") | return | endif
+        if ! has("gui_running") | return | endif
         let l:background = &background == 'light' ? 'dark' : 'light'
         let l:cursor     = theme#Value('s:dfm_cursor_'  . l:background)
         let l:spell      = theme#Value('s:dfm_bg_spell_' . &background)
@@ -198,7 +198,7 @@
         highlight link SignifySignDelete   SignifyLineDelete
       endfunction
 
-  " Theme ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Theme ______________________________________________________________________
 
     " ............................................................ Switch colour
 
@@ -224,7 +224,7 @@
         call ui#LiteType()
       endfunction
 
-  " Font ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Font _______________________________________________________________________
 
     " .............................................................. Switch font
 
@@ -263,13 +263,13 @@
       function! theme#FontSwitch()
         Trace theme#FontSwitch()
         call theme#FontSize(g:font_type == 1 ? 0 : 1)
-        if !core#Prose()
+        if ! core#Prose()
           Quietly LiteDFMClose
           call ui#LiteType()
         endif
       endfunction
 
-  "  Distraction free highlight ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  "  Distraction free highlight ________________________________________________
 
     " ................................................................ Code view
 
@@ -304,7 +304,7 @@
         endif
       endfunction
 
-  " Context statusline highlight ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Context statusline highlight _______________________________________________
 
     " ............................................................... Statusline
 

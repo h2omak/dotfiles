@@ -1,9 +1,9 @@
 " sdothum - 2016 (c) wtfpl
 
 " Edit
-" ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+" ══════════════════════════════════════════════════════════════════════════════
 
-  " Line ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Line _______________________________________________________________________
 
     " .............................................................. Insert line
 
@@ -47,34 +47,38 @@
       nnoremap <silent><C-S-Up>   m`:silent -g/\m^\s*$/d<CR>``:silent nohlsearch<CR>
       nnoremap <silent><C-S-Down> m`:silent +g/\m^\s*$/d<CR>``:silent nohlsearch<CR>
 
-  " Text shift ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Text shift _________________________________________________________________
 
     " .............................................................. Select text
 
       function! s:paragraphAbove()
-        if matchstr(getline(line('.')), '\S') == ''
+        if core#NonblankLine
           normal! {
-          if matchstr(getline(line('.')), '\S') == '' | normal! j | endif
+          if core#BlankLine()
+            normal! j
+          endif
         endif
-        normal! }lV{
+        normal! }kV{
       endfunction
 
       function! s:paragraphBelow()
-        if matchstr(getline(line('.')), '\S') == ''
+        if core#NonblankLine
           normal! }
-          if matchstr(getline(line('.')), '\S') == '' | normal! k | endif
+          if core#BlankLine()
+            normal! k
+          endif
         endif
-        normal! {nV}
+        normal! {jV}
       endfunction
 
       " select all
       nnoremap <C-a>                ggVG
       " extend paragraph selection
-      vmap     <A-PageUp>           {
-      vmap     <A-PageDown>         }
+      vmap     <C-PageUp>           {
+      vmap     <C-PageDown>         }
       " select paragragh
-      nmap     <silent><A-PageUp>   :call <SID>paragraphAbove()<CR>
-      nmap     <silent><A-PageDown> :call <SID>paragraphBelow()<CR>
+      nmap     <silent><C-PageUp>   :call <SID>paragraphAbove()<CR>
+      nmap     <silent><C-PageDown> :call <SID>paragraphBelow()<CR>
 
     " ......................................................... Shift left right
 
@@ -144,7 +148,7 @@
       imap <silent><S-Down> <ESC>:call <SID>moveLineDown()<CR>a
       vmap <silent><S-Down> <ESC>:call <SID>moveVisualDown()<CR>
 
-  " Text manipulation ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Text manipulation __________________________________________________________
 
     " ...................................................... Reformat paragraghs
 

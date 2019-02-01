@@ -1,9 +1,9 @@
 " sdothum - 2016 (c) wtfpl
 
 " Themes
-" ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+" ══════════════════════════════════════════════════════════════════════════════
 
-  " The view ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " The view ___________________________________________________________________
 
     " .................................................................... Setup
 
@@ -19,7 +19,7 @@
 
       augroup ui | autocmd! | augroup END
 
-  " Display ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " Display ____________________________________________________________________
 
     " ................................................................... Redraw
 
@@ -32,11 +32,11 @@
     " ............................................................... Initialize
 
       " intial view mode: source code or prose, plugin windows inherit current theme (avoids thrashing)
-      autocmd ui BufEnter,BufWinEnter * if !core#PluginWindow() | call ui#LiteType() | endif
+      autocmd ui BufEnter,BufWinEnter * if ! core#PluginWindow() | call ui#LiteType() | endif
       " show and fix line wrap highlighting on startup
-      autocmd ui GuiEnter             * if !core#PluginWindow() | call ui#LiteType() | call ui#Retheme() | endif
+      autocmd ui GuiEnter             * if ! core#PluginWindow() | call ui#LiteType() | call ui#Retheme() | endif
 
-  " UI ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+  " UI _________________________________________________________________________
 
     " ........................................................ Toggle statusline
 
