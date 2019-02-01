@@ -51,18 +51,15 @@
         else
           set nospell
         endif
-        " initialize view mode (negate toggle)
-        let b:proof = b:proof == 0 ? 1 : 0
-        call ui#ToggleProof()
+        call ui#Proof()
       endfunction
 
     " .............................................................. Switch View
 
       " toggle full document highlight
-      function! ui#ToggleProof()
-        Trace ui#ToggleProof()
+      function! ui#Proof()
+        Trace ui#Proof()
         let l:col = virtcol('.')
-        let b:proof = b:proof == 0 ? 1 : 0
         call theme#Theme()
         if core#Prose()
           call theme#ToggleProof()
@@ -77,6 +74,12 @@
           call theme#Contrast(1)
         endif
         execute 'normal! ' . l:col . '|'
+      endfunction
+
+      function! ui#ToggleProof()
+        Trace ui#ToggleProof()
+        let b:proof = b:proof == 0 ? 1 : 0
+        call ui#Proof()
       endfunction
 
       function! ui#SetView()
