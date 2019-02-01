@@ -95,25 +95,25 @@
         let l:cursor     = theme#Value('s:dfm_cursor_'  . l:background)
         let l:spell      = theme#Value('s:dfm_bg_spell_' . &background)
         let l:ale        = theme#Value('s:dfm_ale_'      . &background)
-        execute 'highlight ErrorMsg        guibg=' . s:dfm_bg         . ' guifg=red'
-        execute 'highlight ExtraWhitespace guibg=' . l:cursor         . ' guifg=' . theme#Value('s:dfm_bg_' . l:background)
-        execute 'highlight VisualCursor    guibg=' . l:cursor         . ' guifg=' . s:dfm_bg
-        execute 'highlight ReplaceCursor   guibg=' . l:cursor         . ' guifg=' . s:dfm_bg
-        execute 'highlight CommandCursor   guibg=' . l:cursor         . ' guifg=' . s:dfm_bg
-        execute 'highlight Folded          guibg=' . s:dfm_folded     . ' guifg=' . s:dfm_bg
-        execute 'highlight User1           guibg=' . s:dfm_bg         . ' guifg=' . s:dfm_fg_user1
-        execute 'highlight User2           guibg=' . s:dfm_bg         . ' guifg=' . s:dfm_fg_user2
-        execute 'highlight VertSplit       guibg=' . s:dfm_vsplit     . ' guifg=' . s:dfm_vsplit
+        execute 'highlight ErrorMsg        guibg=' . s:dfm_bg        . ' guifg=red'
+        execute 'highlight ExtraWhitespace guibg=' . l:cursor        . ' guifg=' . theme#Value('s:dfm_bg_' . l:background)
+        execute 'highlight VisualCursor    guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
+        execute 'highlight ReplaceCursor   guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
+        execute 'highlight CommandCursor   guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
+        execute 'highlight Folded          guibg=' . s:dfm_folded    . ' guifg=' . s:dfm_bg
+        execute 'highlight User1           guibg=' . s:dfm_bg        . ' guifg=' . s:dfm_fg_user1
+        execute 'highlight User2           guibg=' . s:dfm_bg        . ' guifg=' . s:dfm_fg_user2
+        execute 'highlight VertSplit       guibg=' . s:dfm_vsplit    . ' guifg=' . s:dfm_vsplit
         execute 'highlight ShowMarksHLl    guibg=' . s:dfm_bg
         execute 'highlight SignColumn      guibg=' . s:dfm_bg
-        execute 'highlight InsertCursor    guibg=' . s:dfm_cursor     . ' guifg=' . s:dfm_bg
-        execute 'highlight CursorLine      guibg=' . s:dfm_cursor_bg  . ' guifg=' . s:dfm_cursorline
-        execute 'highlight Cursor          guibg=' . s:dfm_cursor     . ' guifg=' . g:black
-        execute 'highlight MatchParen      guibg=' . s:dfm_match      . ' guifg=' . s:dfm_bg . ' gui=bold'
+        execute 'highlight InsertCursor    guibg=' . s:dfm_cursor    . ' guifg=' . s:dfm_bg
+        execute 'highlight CursorLine      guibg=' . s:dfm_cursor_bg . ' guifg=' . s:dfm_cursorline
+        execute 'highlight Cursor          guibg=' . s:dfm_cursor    . ' guifg=' . g:black
+        execute 'highlight MatchParen      guibg=' . s:dfm_match     . ' guifg=' . s:dfm_bg . ' gui=bold'
         execute 'highlight ALEWarningSign  guifg=' . l:ale                                   . ' gui=bold'
         execute 'highlight ALEErrorSign    guifg=red gui=bold'
         " toggling colorcolunm toggles spell colors (not a prose workflow issue)
-        execute 'highlight SpellBad        guibg=' . l:spell          . ' guifg=' . theme#Value('s:dfm_fg_spell_' . &background)
+        execute 'highlight SpellBad        guibg=' . l:spell         . ' guifg=' . theme#Value('s:dfm_fg_spell_' . &background)
         highlight! link SpellCap           SpellBad
         highlight! link SpellRare          SpellBad
         highlight! link SpellLocal         SpellBad
@@ -150,9 +150,9 @@
       " line numbers
       function! theme#LineNr()
         Trace theme#LineNr()
-        execute 'highlight CursorLineNr '   . (g:view == 0 ? 'gui=bold guifg=' . theme#Value('s:dfm_bg_' . &background)
-                \                                          : 'gui=none guifg=' . (b:proof == 0 ? s:dfm_bg : s:dfm_fg_line))
-        let s:dfm_linenr_cmd = g:view == 0  ? s:dfm_fg_line  : s:dfm_bg
+        execute 'highlight CursorLineNr ' . (g:view == 0 ? 'gui=bold guifg=' . theme#Value('s:dfm_bg_' . &background)
+                \                                        : 'gui=none guifg=' . (b:proof == 0 ? s:dfm_bg : s:dfm_fg_line))
+        let s:dfm_linenr_cmd = g:view == 0 ? s:dfm_fg_line : s:dfm_bg
         if mode() == 'n' | execute 'highlight LineNr guifg=' . s:dfm_linenr_cmd
         else             | execute 'highlight LineNr guifg=' . s:dfm_linenr_ins | endif
         execute 'highlight NonText guifg=red'

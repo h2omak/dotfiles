@@ -103,7 +103,7 @@
       if has("gui_running")
         " follow_the_sun on sunrise/sunset, see crontab
         if ! empty(glob('~/.session/nighttime')) | call theme#ColorScheme(1)
-        else                                    | call theme#ColorScheme(0) | endif
+        else                                     | call theme#ColorScheme(0) | endif
 
         " don't know where but diff highlights the SignColumn which can only be cleared afterwards(?)
         if &diff
