@@ -121,7 +121,7 @@
         try " trap snippet insertion interruption
           let g:prose = 1
           if core#Prose() && a:proof == 0
-            return info#Escape(info#Leader('') . '  %{info#UnModified(0)}%*' . g:pad_inner . ' ' . '%{info#Words()}')
+            return info#Escape(info#Leader('') . '  %{info#UnModified(0)}%*')
           else
             let l:name     = '%{info#Name()}' . g:pad_inner
             if s:info == 0 " center dfm indicator / proofing statusline

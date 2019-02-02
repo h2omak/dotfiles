@@ -239,7 +239,7 @@
     " ................................................................... E-mail
 
       function! core#ComposeMail()
-        " email has blank lines inserted externally (via sed) for replys , see dmenu compose
+        " email has blank lines inserted externally (via sed) for replys, see dmenu compose
         execute 'normal! gg'
         execute 'normal! ' . (search('^\(\(Subject\|From\|To\):.*\n\(Subject\|From\|To\):.*\n\(Subject\|From\|To\):.*\n\)') + 4) . 'G'
         execute 'startinsert'

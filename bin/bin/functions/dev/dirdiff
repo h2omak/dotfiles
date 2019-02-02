@@ -26,12 +26,14 @@ while [ "$1" ] ;do
 done
 
 [ "$target" ] && { [ -d "$target" ] || { [ -d ./$target ] && target=$(pwd)/$target; };} || target=/net/archive$(pwd)
-[ "$source" ] && cd "$source" || source=./
+[ -d "$source" ] && cd "$source" || usage
+[ -d "$target" ] || usage
 [ "$regex"  ] || regex='.*'
+source=$(pwd)
 ditto "diff $regex $source" "$target"
 
 # to handle filenames containing spaces
-find ./ -type f | exclude | egrep -v $ignore | grep "$regex" >/tmp/dirdiff:files
+find -L ./ -type f | exclude | egrep -v $ignore | grep "$regex" >/tmp/dirdiff:files
 
 while read file <&3 ;do
   unset blink

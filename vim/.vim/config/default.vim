@@ -7,18 +7,14 @@
 
     " .................................................................... Setup
 
-      let g:timeout = 1 " insert mode timeout (0) off (1) on
-
       augroup default | autocmd! | augroup END
 
     " ................................................................... Insert
 
-      " insert mode timeout (in ms), see info#Words(), s:wikiInfo()
-      if g:timeout
-        autocmd default InsertEnter * let s:updatetime = &updatetime | set updatetime=30000
-        autocmd default InsertLeave * let &updatetime  = s:updatetime
-        autocmd default CursorHoldI * stopinsert
-      endif
+      " don't linger in insert mode indefinitely (time in ms)
+      autocmd InsertEnter * let s:updatetime = &updatetime | set updatetime=60000
+      autocmd InsertLeave * let &updatetime  = s:updatetime
+      autocmd CursorHoldI * stopinsert
 
   " Databases __________________________________________________________________
 
