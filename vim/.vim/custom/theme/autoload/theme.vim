@@ -15,36 +15,36 @@
       " foreground
       let s:dfm_fg_light         = g:light_fg  " light foreground (high contrast)
       let s:dfm_fg_dark          = g:dark_fg   " dark foreground (high contrast)
-      let s:dfm_fg_spell_light   = g:mono_2    " light spelling
-      let s:dfm_fg_spell_dark    = g:base6     " dark spelling
-      let s:dfm_proof_light      = g:light     " light hypertext
-      let s:dfm_proof_dark       = g:dark      " dark hypertext
-      let s:dfm_bg_spell_light   = g:spell     " light spelling
-      let s:dfm_bg_spell_dark    = g:hue_5     " dark spelling
-      let s:dfm_ale_light        = g:hue_1
       let s:dfm_ale_dark         = g:hue_4
+      let s:dfm_ale_light        = g:hue_1
+      let s:dfm_bg_spell_dark    = g:hue_5     " dark spelling
+      let s:dfm_bg_spell_light   = g:spell     " light spelling
+      let s:dfm_fg_spell_dark    = g:base6     " dark spelling
+      let s:dfm_fg_spell_light   = g:mono_2    " light spelling
+      let s:dfm_proof_dark       = g:dark      " dark hypertext
+      let s:dfm_proof_light      = g:light     " light hypertext
 
       " background
       let s:dfm_bg_light         = g:base7     " flatwhite light background
       let s:dfm_bg_dark          = g:gray1     " quantum dark background
-      let s:dfm_match_light      = g:hue_5     " flatwhite light parens
-      let s:dfm_match_dark       = g:red       " quantum dark parens
-      let s:dfm_vsplit_light     = g:base4     " invisible split
-      let s:dfm_vsplit_dark      = g:gray1     " invisible split
-      let s:dfm_folded_light     = g:gray5     " vimdiff fold
       let s:dfm_folded_dark      = g:gray4     " vimdiff fold
+      let s:dfm_folded_light     = g:gray5     " vimdiff fold
+      let s:dfm_match_dark       = g:red       " quantum dark parens
+      let s:dfm_match_light      = g:hue_5     " flatwhite light parens
+      let s:dfm_vsplit_dark      = g:gray1     " invisible split
+      let s:dfm_vsplit_light     = g:base4     " invisible split
 
       " cursor line
       let s:dfm_cursor_light     = g:cursor    " iA Writer
       let s:dfm_cursor_dark      = g:cursor    " iA Writer
       let s:dfm_cursorline_light = g:blue      " light cursorline
       let s:dfm_cursorline_dark  = g:white     " dark cursorline
-      let s:dfm_bg_line_light    = g:light_bg  " light cursorline
-      let s:dfm_bg_line_dark     = g:gray2     " dark cursorline
-      let s:dfm_bg_column_light  = g:orange_bg " light column
       let s:dfm_bg_column_dark   = g:hue_1     " dark column
-      let s:dfm_fg_line_light    = g:hue_2     " light line numbers
+      let s:dfm_bg_column_light  = g:orange_bg " light column
+      let s:dfm_bg_line_dark     = g:gray2     " dark cursorline
+      let s:dfm_bg_line_light    = g:light_bg  " light cursorline
       let s:dfm_fg_line_dark     = g:gray4     " dark line numbers
+      let s:dfm_fg_line_light    = g:hue_2     " light line numbers
 
       " statusline
       let s:dfm_bg_status_light  = g:base7     " light statusline
@@ -62,22 +62,22 @@
 
       function! theme#Palette()
         Trace theme#Palette()
-        execute 'let s:dfm_fg          = s:dfm_fg_'                     . &background
-        execute 'let s:dfm_proof       = s:dfm_proof_'                  . &background
-        execute 'let s:dfm_bg          = s:dfm_bg_'                     . &background
-        execute 'let s:dfm_match       = s:dfm_match_'                  . &background
-        execute 'let s:dfm_folded      = s:dfm_folded_'                 . &background
-        execute 'let s:dfm_vsplit      = s:dfm_vsplit_'                 . &background
-        execute 'let s:dfm_cursor      = s:dfm_cursor_'                 . &background
-        execute 'let s:dfm_cursorline  = s:dfm_cursorline_'             . &background
-        execute 'let s:dfm_cursor_bg   = s:cursorline == 0 ? s:dfm_bg_' . &background . ' : s:dfm_bg_line_' . &background
         execute 'let s:dfm_bg_line     = s:dfm_bg_line_'                . &background
-        execute 'let s:dfm_fg_line     = s:dfm_fg_line_'                . &background
+        execute 'let s:dfm_bg          = s:dfm_bg_'                     . &background
         execute 'let s:dfm_bg_status   = s:dfm_bg_status_'              . &background
+        execute 'let s:dfm_cursor_bg   = s:cursorline == 0 ? s:dfm_bg_' . &background . ' : s:dfm_bg_line_' . &background
+        execute 'let s:dfm_cursorline  = s:dfm_cursorline_'             . &background
+        execute 'let s:dfm_cursor      = s:dfm_cursor_'                 . &background
+        execute 'let s:dfm_fg_line     = s:dfm_fg_line_'                . &background
+        execute 'let s:dfm_fg          = s:dfm_fg_'                     . &background
         execute 'let s:dfm_fg_status   = s:dfm_fg_status_'              . &background
         execute 'let s:dfm_fg_user1    = s:dfm_fg_user1_'               . &background
         execute 'let s:dfm_fg_user2    = s:dfm_fg_user2_'               . &background
+        execute 'let s:dfm_folded      = s:dfm_folded_'                 . &background
         execute 'let s:dfm_linenr_ins  = s:dfm_bg_'                     . &background
+        execute 'let s:dfm_match       = s:dfm_match_'                  . &background
+        execute 'let s:dfm_proof       = s:dfm_proof_'                  . &background
+        execute 'let s:dfm_vsplit      = s:dfm_vsplit_'                 . &background
       endfunction
 
       " return (calculated) color variable value
@@ -95,35 +95,39 @@
         let l:cursor     = s:hexValue('s:dfm_cursor_'  . l:background)
         let l:spell      = s:hexValue('s:dfm_bg_spell_' . &background)
         let l:ale        = s:hexValue('s:dfm_ale_'      . &background)
+
+        execute 'highlight ALEErrorSign    guifg=red gui=bold'
+        execute 'highlight ALEWarningSign  guifg=' . l:ale                                   . ' gui=bold'
+        execute 'highlight CommandCursor   guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
+        execute 'highlight Cursor          guibg=' . s:dfm_cursor    . ' guifg=' . g:black
+        execute 'highlight CursorLine      guibg=' . s:dfm_cursor_bg . ' guifg=' . s:dfm_cursorline
         execute 'highlight ErrorMsg        guibg=' . s:dfm_bg        . ' guifg=red'
         execute 'highlight ExtraWhitespace guibg=' . l:cursor        . ' guifg=' . s:hexValue('s:dfm_bg_' . l:background)
-        execute 'highlight VisualCursor    guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
-        execute 'highlight ReplaceCursor   guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
-        execute 'highlight CommandCursor   guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
         execute 'highlight Folded          guibg=' . s:dfm_folded    . ' guifg=' . s:dfm_bg
+        execute 'highlight InsertCursor    guibg=' . s:dfm_cursor    . ' guifg=' . s:dfm_bg
+        execute 'highlight MatchParen      guibg=' . s:dfm_match     . ' guifg=' . s:dfm_bg . ' gui=bold'
+        execute 'highlight ReplaceCursor   guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
+        execute 'highlight ShowMarksHLl    guibg=' . s:dfm_bg
+        execute 'highlight SignColumn      guibg=' . s:dfm_bg
+        execute 'highlight SpellBad        guibg=' . l:spell         . ' guifg=' . s:hexValue('s:dfm_fg_spell_' . &background)
         execute 'highlight User1           guibg=' . s:dfm_bg        . ' guifg=' . s:dfm_fg_user1
         execute 'highlight User2           guibg=' . s:dfm_bg        . ' guifg=' . s:dfm_fg_user2
         execute 'highlight VertSplit       guibg=' . s:dfm_vsplit    . ' guifg=' . s:dfm_vsplit
-        execute 'highlight ShowMarksHLl    guibg=' . s:dfm_bg
-        execute 'highlight SignColumn      guibg=' . s:dfm_bg
-        execute 'highlight InsertCursor    guibg=' . s:dfm_cursor    . ' guifg=' . s:dfm_bg
-        execute 'highlight CursorLine      guibg=' . s:dfm_cursor_bg . ' guifg=' . s:dfm_cursorline
-        execute 'highlight Cursor          guibg=' . s:dfm_cursor    . ' guifg=' . g:black
-        execute 'highlight MatchParen      guibg=' . s:dfm_match     . ' guifg=' . s:dfm_bg . ' gui=bold'
-        execute 'highlight ALEWarningSign  guifg=' . l:ale                                   . ' gui=bold'
-        execute 'highlight ALEErrorSign    guifg=red gui=bold'
-        " toggling colorcolunm toggles spell colors (not a prose workflow issue)
-        execute 'highlight SpellBad        guibg=' . l:spell         . ' guifg=' . s:hexValue('s:dfm_fg_spell_' . &background)
+        execute 'highlight VisualCursor    guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
+
         highlight! link SpellCap           SpellBad
-        highlight! link SpellRare          SpellBad
         highlight! link SpellLocal         SpellBad
+        highlight! link SpellRare          SpellBad
+
         if &background == 'light' && g:lightscheme == 'flatwhite' " add flatwhite contrast
-          execute 'highlight Search        guifg=' . g:white    . ' guibg=red guisp=red gui=bold'
           execute 'highlight IncSearch     guifg=' . g:light_fg . ' guibg=' . s:dfm_cursor . ' term=none cterm=none gui=none'
+          execute 'highlight Search        guifg=' . g:white    . ' guibg=red guisp=red gui=bold'
           execute 'highlight StatuslineNC  guifg=' . g:white
-          highlight link SneakScope        Cursor
+
           highlight link mkdLink           htmlString
+          highlight link SneakScope        Cursor
         endif
+
         call s:fzfColors()
         call s:signifyColors()
         call theme#IndentTheme()
@@ -135,10 +139,11 @@
       " ruler, indents
       function! theme#IndentTheme()
         Trace theme#IndentTheme()
-        execute 'highlight IndentGuidesOdd  guibg=' . s:hexValue('s:dfm_bg_'      . &background)
-        execute 'highlight IndentGuidesEven guibg=' . s:hexValue('s:dfm_bg_line_' . &background)
-        if g:ruler == 2 | execute 'highlight ColorColumn guibg=' . s:hexValue('s:dfm_bg_column_' . &background)
-        else            | execute 'highlight ColorColumn guibg=' . s:hexValue('s:dfm_bg_line_'   . &background) | endif
+        execute                   'highlight IndentGuidesOdd  guibg=' . s:hexValue('s:dfm_bg_'        . &background)
+        execute                   'highlight IndentGuidesEven guibg=' . s:hexValue('s:dfm_bg_line_'   . &background)
+        if g:ruler == 2 | execute 'highlight ColorColumn guibg='      . s:hexValue('s:dfm_bg_column_' . &background)
+        else            | execute 'highlight ColorColumn guibg='      . s:hexValue('s:dfm_bg_line_'   . &background) | endif
+
         if s:sync == 1 " refresh any indent guides, see theme#LiteSwitch()
           IndentGuidesToggle
           IndentGuidesToggle
@@ -149,12 +154,12 @@
       " line numbers
       function! theme#LineNr()
         Trace theme#LineNr()
-        execute 'highlight CursorLineNr ' . (g:view == 0 ? 'gui=bold guifg=' . s:hexValue('s:dfm_bg_' . &background)
-                \                                        : 'gui=none guifg=' . (b:proof == 0 ? s:dfm_bg : s:dfm_fg_line))
         let s:dfm_linenr_cmd = g:view == 0 ? s:dfm_fg_line : s:dfm_bg
+        execute                    'highlight CursorLineNr ' . (g:view == 0 ? 'gui=bold guifg=' . s:hexValue('s:dfm_bg_' . &background)
+              \                                                             : 'gui=none guifg=' . (b:proof == 0 ? s:dfm_bg : s:dfm_fg_line))
         if mode() == 'n' | execute 'highlight LineNr guifg=' . s:dfm_linenr_cmd
         else             | execute 'highlight LineNr guifg=' . s:dfm_linenr_ins | endif
-        execute 'highlight NonText guifg=red'
+        execute                    'highlight NonText guifg=red'
       endfunction
 
       " enhanced limelight contrast, see ui#ToggleProof()
@@ -186,13 +191,13 @@
           execute 'highlight SignifyLineChange guibg=' . s:dfm_bg . ' guifg=' . g:hue_2
           execute 'highlight SignifyLineDelete guibg=' . s:dfm_bg . ' guifg=' . g:hue_5_2
         else
-          highlight link SignifyLineAdd    String
-          highlight link SignifyLineChange Type
-          highlight link SignifyLineDelete Identifier
+          highlight link     SignifyLineAdd    String
+          highlight link     SignifyLineChange Type
+          highlight link     SignifyLineDelete Identifier
         endif
-        highlight link SignifySignAdd      SignifyLineAdd
-        highlight link SignifySignChange   SignifyLineChange
-        highlight link SignifySignDelete   SignifyLineDelete
+        highlight   link     SignifySignAdd    SignifyLineAdd
+        highlight   link     SignifySignChange SignifyLineChange
+        highlight   link     SignifySignDelete SignifyLineDelete
       endfunction
 
   " Theme ______________________________________________________________________
@@ -235,7 +240,7 @@
       function! theme#Font(size)
         Trace theme#Font()
         execute 'set guifont=' . (core#Prose() ? g:prose_font : g:source_font) . ' ' . a:size
-        if exists('s:size') " gui redrawi for font size change
+        if exists('s:size') " font size change redraw
           RedrawGui
         endif
         let s:size = a:size

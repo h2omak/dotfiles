@@ -115,7 +115,7 @@
         return (g:detail == 0 ? info#Tag() : info#Atom()) . '  ' . info#SpecialChar()
       endfunction
 
-      " (path) .. filename | pos .. (details)
+      " [path] .. filename | pos .. [details]
       function! s:wikiInfo(proof)
         " Trace ui:wikiInfo() issues a lot of event noise!
         try " trap snippet insertion interruption
@@ -131,7 +131,7 @@
               let l:leader = '%{info#Leader(info#Path() . g:pad_outer . info#Name())}'
             endif
             let l:name     = '%1*' . l:name
-            let l:info     = '%{info#UnModified(1)}' . g:pad_inner . ' ' . '%{info#PosWordsCol()}' " adjust for double byte modifier symbol overlap (with extra space)
+            let l:info     = '%{info#UnModified(1)}' . g:pad_inner . ' ' . '%{info#PosWordsCol()}' " utf-8 symbol occupies 2 chars (pad right 1 space)
             if s:info == 1
               let l:name   = '%2*' . l:path . '%1*' . g:pad_outer . l:name
               let l:info  .= g:pad_outer . '%2*%{ui#Detail()}'

@@ -80,6 +80,7 @@
     " .................................................................. Justify
 
       "                                                         example: justify
+      
       function! heading#Justify()
         execute 's/\v^([ \t]*[^ \t]*)[ \t]*/\1 /'
         call heading#InsertLeader('▔')

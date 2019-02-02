@@ -50,13 +50,8 @@
       imap <silent><C-F7> <C-o>:let g:detail = g:detail == 0 ? 1 : 0<CR>
       vmap <silent><C-F7> :<C-u>let g:detail = g:detail == 0 ? 1 : 0<CR>
 
-      " default dfm writing, InsertChange required for insert mode F7 toggle
-      " autocmd ui InsertEnter  * if core#Prose() | call ui#ToggleInfo() | SignifyDisable | endif
-      " autocmd ui InsertChange * if core#Prose() | call ui#ToggleInfo() | SignifyDisable | endif
-      " autocmd ui InsertLeave  * if core#Prose() | call ui#ToggleInfo(1) | SignifyEnable | endif
-      autocmd ui InsertEnter  * call ui#ToggleProof() | SignifyDisable
-      " autocmd ui InsertChange * call ui#ToggleProof() | SignifyDisable
-      autocmd ui InsertLeave  * call ui#ToggleProof() | SignifyEnable
+      autocmd ui InsertEnter * call ui#ToggleProof() | SignifyDisable
+      autocmd ui InsertLeave * call ui#ToggleProof() | SignifyEnable
 
     " .............................................................. Switch mode
 

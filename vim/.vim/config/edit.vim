@@ -22,24 +22,16 @@
       endfunction
 
       " insert line wrap
-      inoremap <silent><C-Return> <C-o>:call <SID>insertWrap()<CR>
-
-      " continue inserting in new line a la textmate command-enter
-      " ctrl-enter only works with gvim due to terminal limitation :-(
-      " inoremap <C-CR> <C-o>o
-      " similarly, open curly braces and continue inserting in indented body
-      inoremap <S-CR> <CR><C-o>O<Tab>
-
+      inoremap <silent><C-CR> <C-o>:call <SID>insertWrap()<CR>
       " break line (in .wiki)
-      nnoremap <silent><leader><S-CR> :silent set paste<CR>i<CR><ESC>:silent set nopaste<CR>i
-
-      " duplicate line
-      nnoremap <C-CR> :t.<CR>
-      inoremap <C-CR> <C-o>:t.<CR>
-
+      nnoremap <silent><leader><C-CR> :silent set paste<CR>i<CR><ESC>:silent set nopaste<CR>i
       " insert blank line above/below
       nnoremap <silent><leader><Up>   :silent set paste<CR>m`O<Esc>``:silent set nopaste<CR>
       nnoremap <silent><leader><Down> :silent set paste<CR>m`o<Esc>``:silent set nopaste<CR>
+
+      " duplicate line
+      " nnoremap <C-CR> :t.<CR>
+      " inoremap <C-CR> <C-o>:t.<CR>
 
     " .............................................................. Delete line
 

@@ -147,9 +147,9 @@
       endfunction
 
       " correction related, but really bound to Pencil
-      nmap <silent><F6> :silent call <SID>toggleSpell()<CR>
-      imap <silent><F6> <C-o>:silent call <SID>toggleSpell()<CR>
-      vmap <silent><F6> :<C-u>silent call <SID>toggleSpell()<CR>
+      nmap <silent><S-F6> :silent call <SID>toggleSpell()<CR>
+      imap <silent><S-F6> <C-o>:silent call <SID>toggleSpell()<CR>
+      vmap <silent><S-F6> :<C-u>silent call <SID>toggleSpell()<CR>
 
       autocmd plugin Filetype draft        call litecorrect#init()
       autocmd plugin Filetype note         call litecorrect#init()

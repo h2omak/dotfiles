@@ -30,16 +30,16 @@
       let g:base5           = '#e4ddd2'
       let g:base6           = '#f1ece4'
       let g:base7           = '#f7f3ee'
-      let g:orange_text     = '#5b5143'
-      let g:orange_bg       = '#f7e0c3'
-      let g:green_text      = '#525643'
-      let g:green_bg        = '#e2e9c1'
-      let g:teal_text       = '#465953'
-      let g:teal_bg         = '#d2ebe3'
-      let g:blue_text       = '#4c5361'
       let g:blue_bg         = '#dde4f2'
-      let g:purple_text     = '#614c61'
+      let g:blue_text       = '#4c5361'
+      let g:green_bg        = '#e2e9c1'
+      let g:green_text      = '#525643'
+      let g:orange_bg       = '#f7e0c3'
+      let g:orange_text     = '#5b5143'
       let g:purple_bg       = '#f1ddf1'
+      let g:purple_text     = '#614c61'
+      let g:teal_bg         = '#d2ebe3'
+      let g:teal_text       = '#465953'
 
       " one colour palette (light) for diff
       let g:mono_1          = '#494b53'
@@ -54,15 +54,15 @@
       let g:hue_5_2         = '#ca1243' " red 2
       let g:hue_6           = '#986801' " orange 1
       let g:hue_6_2         = '#c18401' " orange 2
-      let g:syntax_bg       = '#fafafa'
-      let g:syntax_gutter   = '#9e9e9e'
-      let g:syntax_cursor   = '#f0f0f0'
-      let g:syntax_accent   = '#526fff'
-      let g:syntax_accent_2 = '#0083be'
-      let g:vertsplit       = '#e7e9e1'
-      let g:special_grey    = '#d3d3d3'
-      let g:visual_grey     = '#d0d0d0'
       let g:pmenu           = '#dfdfdf'
+      let g:special_grey    = '#d3d3d3'
+      let g:syntax_accent_2 = '#0083be'
+      let g:syntax_accent   = '#526fff'
+      let g:syntax_bg       = '#fafafa'
+      let g:syntax_cursor   = '#f0f0f0'
+      let g:syntax_gutter   = '#9e9e9e'
+      let g:vertsplit       = '#e7e9e1'
+      let g:visual_grey     = '#d0d0d0'
 
       " quantum colour palette (dark)
       let g:gray1           = '#263238' " 023 (005f5f)
@@ -83,15 +83,16 @@
       let g:cursor          = '#20fccf' " analogous iA Writer '#20bbfc' cursor color
       let g:black           = '#000000' " cursor foreground
       let g:blue            = '#0000e6' " cursor foreground
-      let g:white           = g:base7   " cursor foreground
-      let g:spell           = '#ffd1dc' " light spelling/grammar error
       let g:column          = '#ffe3d5' " light column
       let g:light_bg        = '#eef2f7' " light cursorline (adjust to preferred highlight)
+      let g:spell           = '#ffd1dc' " light spelling/grammar error
+      let g:white           = g:base7   " cursor foreground
+
       " hyperfocus
-      let g:light_fg        = g:mono_2  " light cursorline (adjust to preferred highlight)
-      let g:dark_fg         = g:gray5   " dark cursorline (adjust to preferred highlight)
       let g:light           = '#dddddd' " light hyperfocus fade
       let g:dark            = '#444444' " dark hyperfocus fade
+      let g:light_fg        = g:mono_2  " light cursorline (adjust to preferred highlight)
+      let g:dark_fg         = g:gray5   " dark cursorline (adjust to preferred highlight)
 
       augroup theme | autocmd! | augroup END
 

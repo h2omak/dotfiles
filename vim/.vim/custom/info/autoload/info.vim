@@ -97,7 +97,6 @@
           let b:wordcount = ''
           let l:statusmsg = v:statusmsg
           let l:position  = getpos('.')
-          " g<C-g> prevents (cursor from) appending to EOL in vim 7.4
           execute "silent normal! g\<C-g>"
           if v:statusmsg != '--No lines in buffer--' | let b:wordcount = str2nr(split(v:statusmsg)[11]) | endif
           let v:statusmsg   = l:statusmsg
@@ -131,9 +130,9 @@
 
     " ............................................................... Right edit
 
+      " normal mode code: col -> file%, prose: col -> wordcount
+      " insert mode code: col 
       function! info#PosWordsCol()
-        " normal mode code: col -> file%, prose: col -> wordcount
-        " insert mode code: col 
         return mode() == 'n' ? (g:column == 0 ? (core#Prose() ? s:wordCount() : (line('.') * 100 / line('$')) . '%') : col('.')) : col('.')
       endfunction
 

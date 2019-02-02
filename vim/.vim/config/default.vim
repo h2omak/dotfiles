@@ -5,16 +5,14 @@
 
   " Mode _______________________________________________________________________
 
-    " .................................................................... Setup
+    " ................................................................... Insert
 
       augroup default | autocmd! | augroup END
 
-    " ................................................................... Insert
-
-      " don't linger in insert mode indefinitely (time in ms)
-      autocmd InsertEnter * let s:updatetime = &updatetime | set updatetime=60000
-      autocmd InsertLeave * let &updatetime  = s:updatetime
-      autocmd CursorHoldI * stopinsert
+      " don't linger in insert mode indefinitely (updatetime=ms)
+      autocmd default InsertEnter * let s:updatetime = &updatetime | set updatetime=60000
+      autocmd default InsertLeave * let &updatetime  = s:updatetime
+      autocmd default CursorHoldI * stopinsert
 
   " Databases __________________________________________________________________
 
@@ -58,6 +56,7 @@
 
       set viminfo='100,f1 " save up to 100 marks, enable capital marks
       set viminfo^=%      " remember info about open buffers on close
+
       " delete all marks in current buffer, see signature plugin
       " nmap <silent><leader>'' :delmarks!<CR>
 
@@ -69,7 +68,6 @@
       nnoremap <leader>Q :<C-u><C-r><C-r>='let @q = '. string(getreg('q'))<CR><C-f><Left>
       " repeat last macro played @{0-9a-z":*}
       " nnoremap ..      @@ " just a command reminder, never mapped
-
 
   " Format _____________________________________________________________________
 
@@ -160,8 +158,17 @@
       " clear search highlight
       nmap <silent>\  :noh<CR>
 
-      " line wrap enabled incsearch (including irregular spacing)
-      " cnoremap <expr><space> '/?' =~ getcmdtype() ? '\_s*' : ' '
+    " ....................................................... Incremental search
+
+      let g:separator = ' ' " line wrap enabled incsearch (including irregular spacing)
+
+      function! s:toggleWrapSearch()
+        let g:separator = g:separator == ' ' ? '\_s*' : ' '
+        cnoremap <expr><space>  '/?' =~ getcmdtype() ? g:separator : ' '
+        echo g:separator == ' ' ? 'Wrap search OFF' : 'Wrap search ON'
+      endfunction
+
+      nmap <silent><F6> :call <SID>toggleWrapSearch()<CR>
 
     " ....................................................... Search and replace
 

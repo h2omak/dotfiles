@@ -78,6 +78,7 @@
       let g:scrolloff = &scrolloff
       set sidescroll=1   " smooth scrolling by 1 column
       set sidescrolloff=1
+
       " horizontal scrolling
       noremap <C-S-Left>  zL
       noremap <C-S-Right> zH
@@ -174,10 +175,6 @@
       set numberwidth=10
       set relativenumber
 
-      " toggle relative line numbers
-      " autocmd gui InsertEnter * set norelativenumber
-      " autocmd gui InsertLeave * set relativenumber
-
       " toggle relative number, line number and no numbering
       function! s:toggleNumber()
         if (&relativenumber == 1 && &number == 1)     | set norelativenumber
@@ -186,6 +183,10 @@
       endfunction
 
       nmap <silent># :call <SID>toggleNumber()<CR>
+
+      " toggle relative line numbers
+      " autocmd gui InsertEnter * set norelativenumber
+      " autocmd gui InsertLeave * set relativenumber
 
     " ................................................... Status / command lines
 
@@ -200,6 +201,7 @@
 
       set omnifunc=syntaxcomplete#Complete
       syntax on " turn on syntax highlighting
+
       " refresh highlighting on arm
       autocmd gui CursorHold * if ! core#Prose() && &filetype != '' | execute 'set filetype=' . &filetype | endif
 

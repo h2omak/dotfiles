@@ -58,50 +58,6 @@
         if g:trace == 1 | silent execute '!echo "' . substitute(a:msg, '[-<>#$]', '\\&', 'g') . '" >>/tmp/vim.log' | endif
       endfunction
 
-  " Keyboard layout ____________________________________________________________
-
-    " ......................................................... Colemak-shift-dh
-
-      ".com Note: scripts are affected by mappings e.g. "h" -> "m", "f" -> "t" etc., see thedarnedestthing.com
-
-      let s:mnle = "$MNLE" > '' ? $MNLE : 0 " hjkl mapping (0) hjkl (1) mnle
-
-      function! core#Colemak()
-        if s:mnle != 0
-          " map home row (cluster) cursor movement
-          nnoremap u     gk
-          vnoremap u     gk
-          nnoremap n     h
-          vnoremap n     h
-          nnoremap e     gj
-          vnoremap e     gj
-          nnoremap i     l
-          vnoremap i     l
-
-          " recover vi keys (including caps for consistency)
-          nnoremap f     e
-          vnoremap f     e
-          nnoremap F     E
-          vnoremap F     E
-          nnoremap h     m
-          vnoremap h     m
-          nnoremap k     n
-          vnoremap k     n
-          nnoremap K     N
-          vnoremap K     N
-
-          " combine find and till commands
-          nnoremap t     f
-          vnoremap t     f
-          nnoremap T     F
-          vnoremap T     F
-          nnoremap <A-t> t
-          vnoremap <A-t> t
-          nnoremap <C-t> T
-          vnoremap <C-t> T
-        endif
-      endfunction
-
   " Text _______________________________________________________________________
 
     " ........................................................... Non-blank line
@@ -186,10 +142,9 @@
 
     " ............................................................... Modifiable
 
-      " [regex name, filetype, modifiable, wordcount] rule tuple
+      " [regex name, filetype, modifiable, wordcount], "/name" to represent "^name"
       " modifiable (0) nomodifiable (1) modifiable
       " wordcount (0) no word count (1) statusline with wordcount
-      " note "/name" to represent "^name"
       let s:nametypes =
           \[
           \  ['conf$',          'conf',     1, 0]
@@ -205,7 +160,7 @@
           \, ['\(^\|/\)readme', 'text',     0, 1]
           \]
 
-      " [regex fileinfo, filetype, modifiable, readonly] rule tuple
+      " [regex fileinfo, filetype, modifiable, readonly]
       " modifiable (0) nomodifiable (1) modifiable
       " readonly (0) not set (1) set
       let s:contenttypes =
@@ -238,8 +193,8 @@
 
     " ................................................................... E-mail
 
+      " email has blank lines inserted externally (via sed) for replys, see dmenu compose
       function! core#ComposeMail()
-        " email has blank lines inserted externally (via sed) for replys, see dmenu compose
         execute 'normal! gg'
         execute 'normal! ' . (search('^\(\(Subject\|From\|To\):.*\n\(Subject\|From\|To\):.*\n\(Subject\|From\|To\):.*\n\)') + 4) . 'G'
         execute 'startinsert'

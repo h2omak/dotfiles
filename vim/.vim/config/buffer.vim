@@ -11,9 +11,9 @@
       " set autowrite " automatically write a modified buffer on leaving
       set hidden      " allow hidden background buffers
 
-      augroup buffer | autocmd! | augroup END
-
       let s:repo = $HOME . '/stow/' " directory to auto backup
+
+      augroup buffer | autocmd! | augroup END
 
   " Diff buffer ________________________________________________________________
 
@@ -121,20 +121,12 @@
 
     " ............................................................ Switch buffer
 
-      " " goto buffer (just fingering convenience)
-      " nmap <leader>b            :buffer<Space>
-      " " query current buffer
-      " nmap <leader>B            :echo expand('%:p')<CR>
+      " " goto buffer (just fingering convenience), see fzf settings.vim
+      " nmap <leader>b          :buffer<Space>
+      " query current buffer
+      nmap <leader>B            :echo expand('%:p')<CR>
 
-      " " silence vim's default (command line) file info message, note silent..silent
-      " vmap <silent><S-PageUp>   <ESC>:silent bprevious<CR>
-      " imap <silent><S-PageUp>   <ESC>:silent bprevious<CR>
-      " nmap <silent><S-PageUp>   :silent bprevious<CR>
-      " vmap <silent><S-PageDown> <ESC>:silent bnext<CR>
-      " imap <silent><S-PageDown> <ESC>:silent bnext<CR>
-      " nmap <silent><S-PageDown> :silent bnext<CR>
-
-      " splitography/planck thumb H keyboard specific buffer navigation key assignments
+      " beakl si layout specific buffer navigation key assignments, note silent -> silent
       if $BEAKL > ''
         nmap <silent><Delete> :CloseDiff<CR>:silent bprevious<CR>
         nmap <silent><Enter>  :CloseDiff<CR>:silent bnext<CR>
@@ -172,15 +164,10 @@
 
     " ........................................................... Switch windows
 
-      " colemak shift-dh lmne cluster
       " switch to left / right split
-      " noremap <C-m>    <C-w>h
-      " noremap <C-e>    <C-w>l
       noremap <Left>     <C-w>h
       noremap <Right>    <C-w>l
       " switch to top / bottom split
-      " noremap <C-l>    <C-w>k
-      " noremap <C-n>    <C-w>j
       noremap <Up>       <C-w>k
       noremap <Down>     <C-w>j
       " switch windows
@@ -207,8 +194,8 @@
       let xml_syntax_folding=1 " XML
 
       " toggle fold tag / open all
-      " noremap         <leader>z za
-      " noremap         <leader>Z zA
+      " noremap <leader>z         za
+      " noremap <leader>Z         zA
       " noremap <leader><leader>z zR
 
     " ........................................................... Folding levels
