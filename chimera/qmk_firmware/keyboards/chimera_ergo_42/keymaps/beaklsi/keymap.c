@@ -2,7 +2,7 @@
 // this is the style you want to emulate.
 //
 // To flash chimera firmware
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+// ═════════════════════════
 //   Reset keyboard or press hw reset button on base
 //
 //   cd qmk_firmware/keyboards/<keyboard>
@@ -12,13 +12,13 @@
 //   sudo make KEYMAP=<keymap> (to compile check)
 //
 // Package requirements (for arch linux)
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+// ═════════════════════════════════════
 //   avr-gcc-atmel
 //   avr-libc-atmel
 //   dfu-programmer
 //
 // Notes
-// ▔▔▔▔▔
+// ═════
 //   ** E R G O   W I D E   S P L I T ** Layout
 //
 //   Autocompletion tap dance key pairs (),[],{} are available from the
@@ -29,7 +29,7 @@
 //   see function private()
 //
 // Code
-// ▔▔▔▔
+// ════
 //   This source is shamelessly based on the "default" planck layout
 //
 //   #ifdef/#endif block structures are not indented, as syntax highlighting
@@ -38,7 +38,7 @@
 //   c++ commenting style is used throughout
 //
 // Change history
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+// ══════════════
 //   See http://thedarnedestthing.com/colophon
 
 
@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 // User Keycode Trap
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+// ═════════════════════════════════════════════════════════════════════════════
 
 #include "keycode_functions.c"
 
@@ -356,7 +356,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
 
 // Layer States
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+// ═════════════════════════════════════════════════════════════════════════════
 
 void matrix_scan_user(void) {
   uint8_t layer = biton32(layer_state);

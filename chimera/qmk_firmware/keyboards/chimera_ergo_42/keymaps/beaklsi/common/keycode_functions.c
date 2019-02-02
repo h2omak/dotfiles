@@ -6,7 +6,7 @@ static uint16_t key_timer = 0; // global event timer
 static uint16_t reshifted = 0; // SFT_T timing trap, see map_shift(), process_record_user()
 
 // Keycodes
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+// ═════════════════════════════════════════════════════════════════════════════
 
 // ................................................................... Mod Masks
 
@@ -173,8 +173,8 @@ bool leader_cap(keyrecord_t *record, uint8_t layer, uint8_t autocap, uint16_t ke
 {
   if (autocap) {
     if (!record->event.pressed) { 
-      tap_key                  (keycode);
-      if (layer) { layer_off   (layer); }
+      tap_key(keycode);
+      if (layer) { layer_off(layer); }
       layer_on                 (_SHIFT); // sentence/paragraph capitalization
       set_oneshot_layer        (_SHIFT, ONESHOT_START);
       clear_oneshot_layer_state(ONESHOT_PRESSED);
@@ -185,7 +185,7 @@ bool leader_cap(keyrecord_t *record, uint8_t layer, uint8_t autocap, uint16_t ke
 }
 
 // Tap Dance
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+// ═════════════════════════════════════════════════════════════════════════════
 
 // .......................................................... Tap Dance Keycodes
 
@@ -276,7 +276,8 @@ void tilde(qk_tap_dance_state_t *state, void *user_data)
     }
     else { state->pressed ? register_shift(KC_GRV) : tap_shift(KC_GRV); }
   }
-  else { state->pressed ? register_code(KC_DOT) : tap_key(KC_DOT); }
+  else if (state->pressed)                { register_code(KC_DOT); }
+  else for (i = 0; i < state->count; i++) { tap_key(KC_DOT); }
   reset_tap_dance(state);
 }
 
@@ -369,7 +370,7 @@ void send(qk_tap_dance_state_t *state, void *user_data)
 }
 
 // Layers
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+// ═════════════════════════════════════════════════════════════════════════════
 
 // ............................................................ Layer Primitives
 
