@@ -17,7 +17,7 @@
 
       " source code style
       function! s:codeView()
-        Trace s:codeView()
+        Trace ui:codeView()
         let g:view = 0
         " restore CursorLine syntax highlighting before applying themes
         " syntax enable
@@ -32,7 +32,7 @@
 
       " prose style
       function! s:dfmView()
-        Trace s:dfmView()
+        Trace ui:dfmView()
         let g:view = 1
         " silent !tmux set status off
         " un/comment to have monochromatic cursor line (looses vimdiff highlighting)
@@ -44,23 +44,23 @@
         set scrolloff=8
         if core#Prose() | set spell
         else            | set nospell | endif
-        call <SID>proof()
+        call s:proof()
       endfunction
 
     " .............................................................. Switch View
 
       " toggle full document highlight
       function! s:proof()
-        Trace s:proof()
+        Trace ui:proof()
         let l:col = virtcol('.')
         call theme#Theme()
         if core#Prose() | call theme#ToggleProof() | endif
         if b:proof == 1
-          call <SID>showInfo(1)
+          call s:showInfo(1)
           Limelight!
           call theme#Contrast(0)
         else
-          call <SID>showInfo(0)
+          call s:showInfo(0)
           Limelight
           call theme#Contrast(1)
         endif
@@ -70,13 +70,13 @@
       function! ui#ToggleProof()
         Trace ui#ToggleProof()
         let b:proof = b:proof == 0 ? 1 : 0
-        call <SID>proof()
+        call s:proof()
       endfunction
 
       function! s:setView()
-        Trace s:setView()
-        if g:view == 0 | call <SID>codeView()
-        else           | call <SID>dfmView() | endif
+        Trace ui:setView()
+        if g:view == 0 | call s:codeView()
+        else           | call s:dfmView() | endif
       endfunction
 
       " toggle dfm view
@@ -84,7 +84,7 @@
         Trace ui#SwitchView()
         let l:col = col('.')
         let g:view = g:view == 0 ? 1 : 0
-        call <SID>setView()
+        call s:setView()
         execute 'normal! ' . l:col . '|'
       endfunction
 
@@ -98,14 +98,14 @@
         call theme#FontSize(core#Prose() ? 1 : 0)
         call theme#Palette()
         if ! exists('b:proof') | let b:proof = s:initial_view | endif
-        call <SID>setView()
+        call s:setView()
       endfunction
 
       " redraw
       function! ui#Retheme()
         Trace ui#Refresh()
         let lstatus     = &laststatus
-        call <SID>setView()
+        call s:setView()
         let &laststatus = lstatus
       endfunction
 
@@ -113,13 +113,13 @@
 
     " ........................................................ Statusline format
 
-      function! s:detail()
+      function! ui#Detail()
         return (g:detail == 0 ? info#Tag() : info#Atom()) . '  ' . info#SpecialChar()
       endfunction
 
       " (path) .. filename | pos .. (details)
       function! s:wikiInfo(proof)
-        " Trace s:wikiInfo()
+        " Trace ui:wikiInfo() issues a lot of event noise!
         try " trap snippet insertion interruption
           let g:prose = 1
           if core#Prose() && a:proof == 0
@@ -137,7 +137,7 @@
             let l:info     = '%{info#UnModified(1)}' . g:pad_inner . ' ' . '%{info#PosWordsCol()}' " adjust for double byte modifier symbol overlap (with extra space)
             if s:info == 1
               let l:name   = '%2*' . l:path . '%1*' . g:pad_outer . l:name
-              let l:info  .= g:pad_outer . '%2*%{<SID>detail()}'
+              let l:info  .= g:pad_outer . '%2*%{ui#Detail()}'
             endif
             return info#Escape('%1*' . l:leader . l:name . l:info . '%1*')
           endif
@@ -146,10 +146,10 @@
       endfunction
 
       function! s:showInfo(proof)
-        Trace s:showInfo()
+        Trace ui:showInfo()
         if s:wikiinfo == 1
-          " execute 'set statusline=%{<SID>wikiInfo(' . a:proof . ')}'
-          execute 'set statusline=' . <SID>wikiInfo(a:proof)
+          " execute 'set statusline=%{s:wikiInfo(' . a:proof . ')}'
+          execute 'set statusline=' . s:wikiInfo(a:proof)
           call theme#ShowStatusline()
         else
           " simply hide statusline content
@@ -159,7 +159,7 @@
 
       function! ui#RefreshInfo()
         Trace ui#RefreshInfo()
-        call <SID>showInfo(b:proof)
+        call s:showInfo(b:proof)
       endfunction
 
     " ........................................................ Toggle statusline
@@ -172,7 +172,7 @@
         let s:info = (s:info == 0 ? 1 : 0)
         " toggle between writing and proofing modes
         if core#Prose() | call ui#ToggleProof()
-        else            | call <SID>showInfo(b:proof) | endif
+        else            | call s:showInfo(b:proof) | endif
         execute 'normal! ' . l:col . '|'
       endfunction
 

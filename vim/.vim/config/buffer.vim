@@ -87,7 +87,7 @@
           if l:buf.changed
             execute 'buffer' . l:buf.bufnr
             update
-            call <SID>queueFile()
+            call s:queueFile()
           endif
         endfor
         execute 'buffer' . l:cur_buffer
@@ -96,7 +96,7 @@
 
       " auto backup
       autocmd buffer BufWrite  * call <SID>queueFile()
-      " save on losing focus, :wall on FocusLost does not trigger <SID>queueFile() (?)
+      " save on losing focus, :wall on FocusLost does not trigger s:queueFile() (?)
       autocmd buffer FocusLost * silent call <SID>queueBuffers()
 
   " Buffer handling ____________________________________________________________

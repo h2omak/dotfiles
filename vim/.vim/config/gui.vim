@@ -30,9 +30,9 @@
 
       " toggle in/out to fill window
       function! s:redrawGui()
-        call <SID>toggleGui()
+        call s:toggleGui()
         execute 'sleep ' . s:delay
-        call <SID>toggleGui()
+        call s:toggleGui()
         " fix line wrap highlighting
         Quietly Retheme
       endfunction
@@ -144,7 +144,7 @@
         let g:column = 1 " flash column position, see autocmd info.vim
       endfunction
 
-      nmap <silent><Bar>  :call <SID>toggleColumn()<CR>
+      nmap <silent><Bar>  :call s:toggleColumn()<CR>
 
     " ...................................................... Line wrap highlight
 
@@ -162,7 +162,7 @@
       function! s:toggleColumnWrap(...)
         let s:wraplight = a:0 ? a:1 : (s:wraplight ? 0 : 1)
         let g:ruler     = -1
-        call <SID>toggleColumn()
+        call s:toggleColumn()
       endfunction
 
       command!          ColumnWrap       call <SID>columnWrap()
@@ -242,7 +242,7 @@
           " echo ''
         else
           match ExtraWhitespace /\s\+$/
-          call <SID>softMark()
+          call s:softMark()
           autocmd soft BufEnter * call <SID>softMark()
           " echo 'List invisibles ON'
         endif

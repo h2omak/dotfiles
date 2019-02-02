@@ -254,7 +254,7 @@
 
       " dynamically setup notational-fzf :)
       for i in s:set_notational
-        if <SID>argFile() =~ i[0]
+        if s:argFile() =~ i[0]
           let g:nv_search_paths      = i[1]
           let g:nv_default_extension = i[2]
           break

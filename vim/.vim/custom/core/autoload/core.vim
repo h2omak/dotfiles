@@ -44,7 +44,7 @@
       " latex printing
       function! core#Hardcopy()
         echo 'Printing..'
-        if <SID>markdown()                 | execute '!hardcopy wiki \"' . expand('%:t') . '\"'
+        if s:markdown()                    | execute '!hardcopy wiki \"' . expand('%:t') . '\"'
         elseif expand('%:p') =~ 'Patricia' | execute '!hardcopy wps' expand('%:t')
         else                               | execute '!hardcopy code' expand('%:t') | endif
       endfunction
@@ -122,7 +122,7 @@
       " see https://dougblack.io/words/a-good-vimrc.html
       " strips trailing whitespace from all lines
       function! core#StripTrailingWhitespaces()
-        if &modifiable == 1 && ! <SID>markdown()
+        if &modifiable == 1 && ! s:markdown()
           " save last search & cursor position
           " let l:_s = @/
           " let l:l  = line(".")

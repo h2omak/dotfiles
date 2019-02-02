@@ -113,31 +113,31 @@
         let l:line = line(a:line_getter)
         if l:line - v:count1 - 1 < 0 | let l:move = '0'
         else                         | let l:move = a:line_getter . ' -' . (v:count1 + 1) | endif
-        call <SID>moveLineOrVisualUpOrDown(a:range . 'move ' . l:move)
+        call s:moveLineOrVisualUpOrDown(a:range . 'move ' . l:move)
       endfunction
 
       function! s:moveLineOrVisualDown(line_getter, range)
         let l:line = line(a:line_getter)
         if l:line + v:count1 > line('$') | let l:move = '$'
         else                             | let l:move = a:line_getter . ' +' . v:count1 | endif
-        call <SID>moveLineOrVisualUpOrDown(a:range . 'move ' . l:move)
+        call s:moveLineOrVisualUpOrDown(a:range . 'move ' . l:move)
       endfunction
 
       function! s:moveLineUp()
-        call <SID>moveLineOrVisualUp('.', '')
+        call s:moveLineOrVisualUp('.', '')
       endfunction
 
       function! s:moveLineDown()
-        call <SID>moveLineOrVisualDown('.', '')
+        call s:moveLineOrVisualDown('.', '')
       endfunction
 
       function! s:moveVisualUp()
-        call <SID>moveLineOrVisualUp("'<", "'<,'>")
+        call s:moveLineOrVisualUp("'<", "'<,'>")
         normal! gv
       endfunction
 
       function! s:moveVisualDown()
-        call <SID>moveLineOrVisualDown("'>", "'<,'>")
+        call s:moveLineOrVisualDown("'>", "'<,'>")
         normal! gv
       endfunction
 
