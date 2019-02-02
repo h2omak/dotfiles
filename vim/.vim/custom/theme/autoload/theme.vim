@@ -81,7 +81,7 @@
       endfunction
 
       " return (calculated) color variable value
-      function! theme#Value(varname)
+      function! s:hexValue(varname)
         execute 'return ' . a:varname
       endfunction
 
@@ -92,11 +92,11 @@
         Trace theme#Theme()
         if ! has("gui_running") | return | endif
         let l:background = &background == 'light' ? 'dark' : 'light'
-        let l:cursor     = theme#Value('s:dfm_cursor_'  . l:background)
-        let l:spell      = theme#Value('s:dfm_bg_spell_' . &background)
-        let l:ale        = theme#Value('s:dfm_ale_'      . &background)
+        let l:cursor     = <SID>hexValue('s:dfm_cursor_'  . l:background)
+        let l:spell      = <SID>hexValue('s:dfm_bg_spell_' . &background)
+        let l:ale        = <SID>hexValue('s:dfm_ale_'      . &background)
         execute 'highlight ErrorMsg        guibg=' . s:dfm_bg        . ' guifg=red'
-        execute 'highlight ExtraWhitespace guibg=' . l:cursor        . ' guifg=' . theme#Value('s:dfm_bg_' . l:background)
+        execute 'highlight ExtraWhitespace guibg=' . l:cursor        . ' guifg=' . <SID>hexValue('s:dfm_bg_' . l:background)
         execute 'highlight VisualCursor    guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
         execute 'highlight ReplaceCursor   guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
         execute 'highlight CommandCursor   guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
@@ -113,7 +113,7 @@
         execute 'highlight ALEWarningSign  guifg=' . l:ale                                   . ' gui=bold'
         execute 'highlight ALEErrorSign    guifg=red gui=bold'
         " toggling colorcolunm toggles spell colors (not a prose workflow issue)
-        execute 'highlight SpellBad        guibg=' . l:spell         . ' guifg=' . theme#Value('s:dfm_fg_spell_' . &background)
+        execute 'highlight SpellBad        guibg=' . l:spell         . ' guifg=' . <SID>hexValue('s:dfm_fg_spell_' . &background)
         highlight! link SpellCap           SpellBad
         highlight! link SpellRare          SpellBad
         highlight! link SpellLocal         SpellBad
@@ -125,21 +125,21 @@
           highlight link SneakScope        Cursor
           highlight link mkdLink           htmlString
         endif
-        call theme#FzfColors()
-        call theme#SignifyColors()
+        call <SID>fzfColors()
+        call <SID>signifyColors()
         call theme#IndentTheme()
         call theme#Margin()
-        call theme#NoTilde()
+        call <SID>noTilde()
         ColumnWrap
       endfunction
 
       " ruler, indents
       function! theme#IndentTheme()
         Trace theme#IndentTheme()
-        execute 'highlight IndentGuidesOdd  guibg=' . theme#Value('s:dfm_bg_'      . &background)
-        execute 'highlight IndentGuidesEven guibg=' . theme#Value('s:dfm_bg_line_' . &background)
-        if g:ruler == 2 | execute 'highlight ColorColumn guibg=' . theme#Value('s:dfm_bg_column_' . &background)
-        else            | execute 'highlight ColorColumn guibg=' . theme#Value('s:dfm_bg_line_'   . &background) | endif
+        execute 'highlight IndentGuidesOdd  guibg=' . <SID>hexValue('s:dfm_bg_'      . &background)
+        execute 'highlight IndentGuidesEven guibg=' . <SID>hexValue('s:dfm_bg_line_' . &background)
+        if g:ruler == 2 | execute 'highlight ColorColumn guibg=' . <SID>hexValue('s:dfm_bg_column_' . &background)
+        else            | execute 'highlight ColorColumn guibg=' . <SID>hexValue('s:dfm_bg_line_'   . &background) | endif
         if s:sync == 1 " refresh any indent guides, see theme#LiteSwitch()
           IndentGuidesToggle
           IndentGuidesToggle
@@ -150,7 +150,7 @@
       " line numbers
       function! theme#LineNr()
         Trace theme#LineNr()
-        execute 'highlight CursorLineNr ' . (g:view == 0 ? 'gui=bold guifg=' . theme#Value('s:dfm_bg_' . &background)
+        execute 'highlight CursorLineNr ' . (g:view == 0 ? 'gui=bold guifg=' . <SID>hexValue('s:dfm_bg_' . &background)
                 \                                        : 'gui=none guifg=' . (b:proof == 0 ? s:dfm_bg : s:dfm_fg_line))
         let s:dfm_linenr_cmd = g:view == 0 ? s:dfm_fg_line : s:dfm_bg
         if mode() == 'n' | execute 'highlight LineNr guifg=' . s:dfm_linenr_cmd
@@ -173,9 +173,9 @@
       endfunction
 
       " g:fzf_colors initializes fzf only once, so override cursorline color
-      function! theme#FzfColors()
+      function! s:fzfColors()
         " cannot appear to set other colors, such as hl+ (?)
-        let $FZF_DEFAULT_OPTS = '--reverse --color=fg+:' . theme#Value('s:dfm_fg_' . &background)
+        let $FZF_DEFAULT_OPTS = '--reverse --color=fg+:' . <SID>hexValue('s:dfm_fg_' . &background)
 
         " hide bottom fzf window identifier
         execute 'highlight fzf1 guibg=' . s:dfm_bg . ' guifg=' . s:dfm_bg
@@ -183,7 +183,7 @@
         execute 'highlight fzf3 guibg=' . s:dfm_bg . ' guifg=' . s:dfm_bg
       endfunction
 
-      function! theme#SignifyColors()
+      function! s:signifyColors()
         if &background == 'light'
           execute 'highlight SignifyLineAdd    guibg=' . s:dfm_bg . ' guifg=' . g:hue_3
           execute 'highlight SignifyLineChange guibg=' . s:dfm_bg . ' guifg=' . g:hue_2
@@ -260,8 +260,8 @@
         endif
       endfunction
 
-      function! theme#FontSwitch()
-        Trace theme#FontSwitch()
+      function! s:fontSwitch()
+        Trace s:fontSwitch()
         call theme#FontSize(g:font_type == 1 ? 0 : 1)
         if ! core#Prose()
           Quietly LiteDFMClose
@@ -293,7 +293,7 @@
 
     " .............................................................. EOF markers
 
-      function! theme#NoTilde()
+      function! s:noTilde()
         " hide tilde marker (not applicable to console)
         if $DISPLAY > ''
           execute 'highlight EndOfBuffer ctermfg=black guifg=' . s:dfm_bg

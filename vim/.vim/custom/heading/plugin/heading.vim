@@ -44,8 +44,8 @@
 
       execute 'imap <silent>' . g:leader . '..' "<C-o>:silent call heading#AppendTrailer(g:dot)<CR>"
       execute 'nmap <silent>' . g:leader . '..' ":silent call heading#AppendTrailer(g:dot)<CR>"
-      execute 'imap <silent>' . g:leader . '--' "<C-o>:silent call heading#AppendTrailer(g:underscore)<CR>"
-      execute 'nmap <silent>' . g:leader . '--' ":silent call heading#AppendTrailer(g:underscore)<CR>"
+      execute 'imap <silent>' . g:leader . '__' "<C-o>:silent call heading#AppendTrailer(g:underscore)<CR>"
+      execute 'nmap <silent>' . g:leader . '__' ":silent call heading#AppendTrailer(g:underscore)<CR>"
 
       execute 'imap <silent>' . g:leader . '??' "<C-o>:call heading#InputTrailer()<CR>"
       execute 'nmap <silent>' . g:leader . '??' ":call heading#InputTrailer()<CR>"
@@ -53,11 +53,11 @@
     " ................................................................... Leader
 
       " ................................................. example: insert leader
-
+ 
       execute 'imap <silent>' . g:leader . '.' "<C-o>:silent call heading#InsertLeader(g:dot)<CR>"
       execute 'nmap <silent>' . g:leader . '.' ":silent call heading#InsertLeader(g:dot)<CR>"
-      execute 'imap <silent>' . g:leader . '-' "<C-o>:silent call heading#InsertLeader(g:underscore)<CR>"
-      execute 'nmap <silent>' . g:leader . '-' ":silent call heading#InsertLeader(g:underscore)<CR>"
+      execute 'imap <silent>' . g:leader . '_' "<C-o>:silent call heading#InsertLeader(g:underscore)<CR>"
+      execute 'nmap <silent>' . g:leader . '_' ":silent call heading#InsertLeader(g:underscore)<CR>"
 
       execute 'imap <silent>' . g:leader . '?' "<C-o>:call heading#InputLeader()<CR>"
       execute 'nmap <silent>' . g:leader . '?' ":call heading#InputLeader()<CR>"
