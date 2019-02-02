@@ -33,14 +33,12 @@
         call s:toggleGui()
         execute 'sleep ' . s:delay
         call s:toggleGui()
-        " fix line wrap highlighting
-        Quietly Retheme
+        Quietly Retheme " fix line wrap highlighting
       endfunction
       
       command! RedrawGui call <SID>redrawGui()
 
-      " initial refresh to fill window (correct status line position)
-      if $DISPLAY > ''
+      if $DISPLAY > '' " initial refresh to fill window (correct status line position)
         autocmd gui VimEnter * RedrawGui
       endif
 
@@ -75,7 +73,6 @@
 
     " ................................................................ Scrolling
 
-      " set scrolljump=8 " lines to scroll when cursor leaves screen
       if $HOST == 'monad' | set scrolloff=3
       else                | set scrolloff=5 | endif
       let g:scrolloff = &scrolloff
@@ -224,8 +221,7 @@
 
       " soft wrap marker
       function! s:softMark()
-        " filetype dependent textwidth
-        if exists('s:soft') | call matchdelete(s:soft) | endif
+        if exists('s:soft') | call matchdelete(s:soft) | endif " filetype dependent textwidth
         highlight SoftWrap cterm=underline gui=underline
         let s:soft = '\%' . (&textwidth + 1) . 'v'
         let s:soft = matchadd('SoftWrap', s:soft)

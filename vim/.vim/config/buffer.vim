@@ -31,12 +31,11 @@
 
       " delete any new diff buffer
       function! s:closeDiff()
-        if &diff " caution: wincmd resets active window (affects :Buffer)
+        if &diff    " caution: wincmd resets active window (affects :Buffer)
           wincmd h
           if expand('%') == ''
             bdelete!
-            " restore pre-diff settings or subsequent OpenDiff will be *off*
-            diffoff
+            diffoff " restore pre-diff settings or subsequent OpenDiff will be *off*
             return 1
           endif
         endif
@@ -70,8 +69,7 @@
 
       " queue files written for vhg (may contain repeated update entries)
       function! s:queueFile()
-        " see v script (sets QUEUE and invokes vhg)
-        let l:path = resolve(expand('%:p'))
+        let l:path = resolve(expand('%:p')) " see v script (sets QUEUE and invokes vhg)
         if l:path =~ s:repo && $QUEUE > ''
           let l:file = substitute(l:path, s:repo, '', '')
           let l:cmd  = 'echo ' . l:file . ' >>' . $HOME . '/.vim/job/' . $QUEUE

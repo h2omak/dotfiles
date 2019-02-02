@@ -33,8 +33,7 @@
 
       function! heading#AppendTrailer(delimiter)
         if core#NonblankLine()
-          " remove existing trailer
-          if matchstr(getline(line('.')), '\s[' . a:delimiter . ']\+$') > ''
+          if matchstr(getline(line('.')), '\s[' . a:delimiter . ']\+$') > '' " remove existing trailer
             normal! $bhD
           endif
           normal! $
@@ -61,8 +60,7 @@
 
       function! heading#InsertLeader(delimiter)
         if core#NonblankLine()
-          " remove existing leader
-          if matchstr(getline(line('.')), '\S\s\+[' . a:delimiter . ']\+\s') > '' | execute 'normal! ^wdf ' | endif
+          if matchstr(getline(line('.')), '\S\s\+[' . a:delimiter . ']\+\s') > '' | execute 'normal! ^wdf ' | endif " remove existing leader
           call heading#AppendTrailer(a:delimiter)
           " cut trailer and insert as leader!
           normal! $bhD^whP

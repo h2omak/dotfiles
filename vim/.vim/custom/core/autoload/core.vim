@@ -23,8 +23,8 @@
       function! core#Quietly(command)
         try
           execute a:command
-        catch /.*/
-          " discard messages, do nothing
+        catch /.*/ " discard messages, do nothing
+          echo ''
         endtry
       endfunction
 
@@ -53,8 +53,8 @@
 
       let g:trace = $VIMTRACE > '' ? 1 : 0
 
+      " escape problematic shell commandline characters
       function! core#Trace(msg)
-        " escape problematic shell commandline characters
         if g:trace == 1 | silent execute '!echo "' . substitute(a:msg, '[-<>#$]', '\\&', 'g') . '" >>/tmp/vim.log' | endif
       endfunction
 
@@ -62,12 +62,9 @@
 
     " ......................................................... Colemak-shift-dh
 
-      " Note: scripts are affected by the mappings below!
-      "       e.g. "h" becomes "m", "f" becomes "t" etc.
-      "       see thedarnedestthing.com
+      ".com Note: scripts are affected by mappings e.g. "h" -> "m", "f" -> "t" etc., see thedarnedestthing.com
 
-      " hjkl mapping (0) hjkl (1) mnle
-      let s:mnle = "$MNLE" > '' ? $MNLE : 0
+      let s:mnle = "$MNLE" > '' ? $MNLE : 0 " hjkl mapping (0) hjkl (1) mnle
 
       function! core#Colemak()
         if s:mnle != 0
@@ -119,12 +116,10 @@
 
     " ......................................................... Strip whitespace
 
-      " see https://dougblack.io/words/a-good-vimrc.html
-      " strips trailing whitespace from all lines
+      " strips trailing whitespace from all lines, see https://dougblack.io/words/a-good-vimrc.html
       function! core#StripTrailingWhitespaces()
         if &modifiable == 1 && ! s:markdown()
-          " save last search & cursor position
-          " let l:_s = @/
+          " let l:_s = @/ " save last search & cursor position
           " let l:l  = line(".")
           " let l:c  = col(".")
           let s:view = winsaveview()
@@ -153,15 +148,13 @@
 
       " just position cursor on a line with an opening '{'
       function! core#CssBlockAlign()
-        " calculate indent width to '.* { '
-        let l:indent = repeat(' ', len(substitute(getline(line('.')), '[{].*', '  ', '')))
+        let l:indent = repeat(' ', len(substitute(getline(line('.')), '[{].*', '  ', ''))) " calculate indent width to '.* { '
         let l:start = line('.') + 1
         " end of block
         normal! }
         let l:end   = line('.') - 1
         execute ':' . l:start . ',' . l:end . 's/^ */' . l:indent . '/'
-        " next block candidate
-        let @/='{.*[^}] *$'
+        let @/ = '{.*[^}] *$' " next block candidate
         normal! n
       endfunction
 
@@ -240,18 +233,14 @@
             endif
           endfor
         endif
-        " see Snipmate plugins.vim
-        if &filetype == '' | let &filetype = 'new' | endif
+        if &filetype == '' | let &filetype = 'new' | endif " see Snipmate plugins.vim
       endfunction
 
     " ................................................................... E-mail
 
       function! core#ComposeMail()
-        " email has blank lines inserted externally (via sed) for replys to avoid
-        " the previously messy and unpredictable insertion via vim commands, see dmenu compose
-        " gg/.. cannot be combined into single expression (produces unpredictable results)
+        " email has blank lines inserted externally (via sed) for replys , see dmenu compose
         execute 'normal! gg'
-        " no guaranteed order to message headings
         execute 'normal! ' . (search('^\(\(Subject\|From\|To\):.*\n\(Subject\|From\|To\):.*\n\(Subject\|From\|To\):.*\n\)') + 4) . 'G'
         execute 'startinsert'
       endfunction

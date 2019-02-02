@@ -19,8 +19,7 @@
       function! s:codeView()
         Trace ui:codeView()
         let g:view = 0
-        " restore CursorLine syntax highlighting before applying themes
-        " syntax enable
+        " syntax enable " restore CursorLine syntax highlighting before applying themes
         if exists('g:loaded_limelight') | Limelight! | endif
         call theme#Theme()
         call theme#ShowStatusline()
@@ -35,8 +34,7 @@
         Trace ui:dfmView()
         let g:view = 1
         " silent !tmux set status off
-        " un/comment to have monochromatic cursor line (looses vimdiff highlighting)
-        call theme#DfmView()
+        call theme#DfmView() " un/comment to have monochromatic cursor line (looses vimdiff highlighting)
         if core#Prose() || g:ruler == 0 | set colorcolumn=0 | endif
         set foldcolumn=0
         set laststatus=0
@@ -126,8 +124,7 @@
             return info#Escape(info#Leader('') . '  %{info#UnModified(0)}%*')
           else
             let l:name     = '%{info#Name()}' . g:pad_inner
-            " center dfm indicator / proofing statusline
-            if s:info == 0
+            if s:info == 0 " center dfm indicator / proofing statusline
               let l:leader = '%{info#Leader(info#Name())}'
             else
               let l:path   = '%{info#Path()}'
@@ -152,8 +149,7 @@
           execute 'set statusline=' . s:wikiInfo(a:proof)
           call theme#ShowStatusline()
         else
-          " simply hide statusline content
-          call theme#ShowInfo()
+          call theme#ShowInfo() " simply hide statusline content
         endif
       endfunction
 
@@ -166,12 +162,10 @@
 
       function! ui#ToggleInfo(...)
         Trace ui#ToggleInfo()
-        " exiting insert mode? see plugin/ui.vim autocmd
-        if a:0 && b:proof == s:initial_view | return | endif
+        if a:0 && b:proof == s:initial_view | return | endif " exiting insert mode? see plugin/ui.vim autocmd
         let l:col = col('.')
         let s:info = (s:info == 0 ? 1 : 0)
-        " toggle between writing and proofing modes
-        if core#Prose() | call ui#ToggleProof()
+        if core#Prose() | call ui#ToggleProof() " toggle between writing and proofing modes
         else            | call s:showInfo(b:proof) | endif
         execute 'normal! ' . l:col . '|'
       endfunction

@@ -66,8 +66,7 @@
 
     " .................................................................. Endwise
 
-      " add fish shell syntax rule
-      " see ~/.vim/plugged/vim-fish/syntax/fish.vim
+      " add fish shell syntax rule, see ~/.vim/plugged/vim-fish/syntax/fish.vim
       autocmd plugin FileType fish
            \  let b:endwise_addition  = 'end'
            \| let b:endwise_words     = 'function,begin,if,while,for,switch'
@@ -127,8 +126,7 @@
 
     " ............................................................ Indent guides
 
-      " subtle highlighting of even indents only, see core#ToggleColumn(), theme#IndentTheme()
-      let g:indent_guides_auto_colors = 0
+      let g:indent_guides_auto_colors = 0 " highlight even indents, see core#ToggleColumn(), theme#IndentTheme()
 
       nmap <silent><leader><Bar> :IndentGuidesToggle<CR>
 
@@ -202,8 +200,7 @@
 
       let g:neosnippet#snippets_directory            = '~/.vim/snippets'
       let g:neosnippet#enable_snipmate_compatibility = 1
-      " disable all runtime snippets
-      let g:neosnippet#disable_runtime_snippets      = { '_' : 1 }
+      let g:neosnippet#disable_runtime_snippets      = { '_' : 1 } " disable all runtime snippets
       " see core#CheckFiletype()
       let g:neosnippet#scope_aliases =
           \{
@@ -290,7 +287,6 @@
     " ................................................................ Signature
 
       " vim convention m'ark key conflicts with my colemak-shift-dh layout
-      " using apostrophe instead, preferable imo :)
       let g:SignatureMap =
           \{
           \  'Leader'            : "'"
@@ -385,8 +381,7 @@
       " typographical mode for prose (and html content editing)
       function! s:toggleEducate()
         let s:educate = s:educate ? 0 : 1
-        " html <p> content shortcuts
-        if s:educate
+        if s:educate " html <p> content shortcuts
           Educate
           " ToggleColumnWrap 0 " disable line wrap column highlight to show spelling errors
           imap ...      …<Space>

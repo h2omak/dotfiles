@@ -117,8 +117,7 @@
         highlight! link SpellCap           SpellBad
         highlight! link SpellRare          SpellBad
         highlight! link SpellLocal         SpellBad
-        " add flatwhite contrast
-        if &background == 'light' && g:lightscheme == 'flatwhite'
+        if &background == 'light' && g:lightscheme == 'flatwhite' " add flatwhite contrast
           execute 'highlight Search        guifg=' . g:white    . ' guibg=red guisp=red gui=bold'
           execute 'highlight IncSearch     guifg=' . g:light_fg . ' guibg=' . s:dfm_cursor . ' term=none cterm=none gui=none'
           execute 'highlight StatuslineNC  guifg=' . g:white
@@ -174,9 +173,7 @@
 
       " g:fzf_colors initializes fzf only once, so override cursorline color
       function! s:fzfColors()
-        " cannot appear to set other colors, such as hl+ (?)
-        let $FZF_DEFAULT_OPTS = '--reverse --color=fg+:' . s:hexValue('s:dfm_fg_' . &background)
-
+        let $FZF_DEFAULT_OPTS = '--reverse --color=fg+:' . s:hexValue('s:dfm_fg_' . &background) " cannot appear to set other colors, such as hl+ (?)
         " hide bottom fzf window identifier
         execute 'highlight fzf1 guibg=' . s:dfm_bg . ' guifg=' . s:dfm_bg
         execute 'highlight fzf2 guibg=' . s:dfm_bg . ' guifg=' . s:dfm_bg
@@ -204,8 +201,7 @@
 
       function! theme#ColorScheme(contrast)
         if a:contrast == 0
-          " must set background before colorscheme for flatwhite colors
-          let &background = 'light'
+          let &background = 'light' " must set background before colorscheme for flatwhite colors
           execute 'colorscheme ' . g:lightscheme
         else
           let &background = 'dark'
@@ -216,8 +212,7 @@
       " toggle colour scheme
       function! theme#LiteSwitch()
         Trace theme#LiteSwitch()
-        " trap and ignore initialization error
-        Quietly LiteDFMClose
+        Quietly LiteDFMClose " trap and ignore initialization error
         if &background == 'light' | call theme#ColorScheme(1)
         else                      | call theme#ColorScheme(0) | endif
         let s:sync = 1 " see theme#IndentTheme()
@@ -231,8 +226,7 @@
       " balance left right margins with font size changes (and window resizing)
       function! theme#Margin()
         Trace theme#Margin()
-        " account for linenr <space> text
-        let g:lite_dfm_left_offset = max([1, min([22, (&columns - &textwidth - 4) / 2])])
+        let g:lite_dfm_left_offset = max([1, min([22, (&columns - &textwidth - 4) / 2])]) " account for linenr <space> text
         Quietly LiteDFM
         call theme#LineNr()
         call ui#RefreshInfo()
@@ -294,8 +288,7 @@
     " .............................................................. EOF markers
 
       function! s:noTilde()
-        " hide tilde marker (not applicable to console)
-        if $DISPLAY > ''
+        if $DISPLAY > '' " hide tilde marker (not applicable to console)
           execute 'highlight EndOfBuffer ctermfg=black guifg=' . s:dfm_bg
           " reset menu highlight after loading autocompletion plugin
           execute 'highlight PmenuSel term=reverse ctermfg=0 ctermbg=7 gui=reverse guifg=' . s:dfm_bg_line . ' guibg=' . s:dfm_bg

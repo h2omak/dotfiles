@@ -59,7 +59,6 @@
 
     " ......................................................... Colemak-shift-dh
 
-      " environment variable
       if $COLEMAK > '' | call core#Colemak() | endif
 
   " Text _______________________________________________________________________
@@ -69,7 +68,7 @@
       nmap <silent><F4>   :call core#StripTrailingWhitespaces()<CR>
       vmap <silent><F4>   :<C-u>call core#StripTrailingWhitespaces()<CR>
 
-      " pre-write formatting
+      " " pre-write formatting
       " autocmd buffer BufWritePre * call core#StripTrailingWhitespaces()
       " " focus oriented formatting
       " autocmd buffer BufLeave    * call core#StripTrailingWhitespaces()
