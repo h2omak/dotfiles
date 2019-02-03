@@ -166,6 +166,29 @@ bool map_shift(keyrecord_t *record, uint16_t shift_key, uint8_t shift, uint16_t 
   return false;
 }
 
+// keycode down layer, else remap keycode via shift for base and caps layers
+bool mapl_shift(keyrecord_t *record, uint16_t shift_key, uint8_t shift, uint16_t keycode, uint8_t layer)
+{
+  if (record->event.pressed) {
+    key_timer = timer_read();
+    layer_on(layer);
+  }
+  else {
+    layer_off(layer);
+    if (timer_elapsed(key_timer) < TAPPING_TERM) {
+      if (mod_down(shift_key)) {
+        if (!shift) { unregister_code(shift_key); }              // in event of unshifted keycode
+        tap_key(keycode);
+        if (!shift) { register_code(shift_key); reshifted = 1; } // set SFT_T timing trap, process_record_user()
+        key_timer = 0; // clear home row shift, see process_record_user() and mod_t()
+        return true;
+      }
+    }
+    key_timer = 0;
+  }
+  return false;
+}
+
 // ....................................................... Leader Capitalization
 
 // LT (LAYER, KEY) -> <leader><SHIFT>, see process_record_user() and TD_TILD, KC_EXLM, KC_QUES
