@@ -124,7 +124,7 @@
 
       set colorcolumn=0 " highlight column
 
-      " toggle colorcolumn modes, see theme#IndentTheme()
+      " toggle colorcolumn modes, see theme#Indent()
       function! s:toggleColumn()
         if g:ruler == 0
           let g:ruler      = 1
@@ -138,7 +138,7 @@
           let &colorcolumn = 0
           ColumnWrap
         endif
-        call theme#IndentTheme()
+        call theme#Indent()
         let g:column = 1 " flash column position, see autocmd info.vim
       endfunction
 

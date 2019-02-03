@@ -126,7 +126,7 @@
 
     " ............................................................ Indent guides
 
-      let g:indent_guides_auto_colors = 0 " highlight even indents, see core#ToggleColumn(), theme#IndentTheme()
+      let g:indent_guides_auto_colors = 0 " highlight even indents, see core#ToggleColumn(), theme#Indent()
 
       nmap <silent><leader><Bar> :IndentGuidesToggle<CR>
 

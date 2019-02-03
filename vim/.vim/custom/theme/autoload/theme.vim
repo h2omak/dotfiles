@@ -85,29 +85,13 @@
         execute 'return ' . a:varname
       endfunction
 
-    " ............................................................. Colour theme
+    " ............................................................... Highlights
 
-      function! theme#Theme()
-        Trace theme#Theme()
-        if ! has("gui_running") | return | endif
-        call s:colors()
-        call s:fzfColors()
-        call s:signifyColors()
-        call theme#IndentTheme()
-        call theme#Margin()
-        call s:noTilde()
-        ColumnWrap
-      endfunction
-
-      function! s:colors()
-        Trace theme:colours()
+      function! s:highlights()
+        Trace theme:highlights()
         let l:background = &background == 'light' ? 'dark' : 'light'
-        let l:cursor     = s:hexValue('s:dfm_cursor_'  . l:background)
+        let l:cursor     = s:hexValue('s:dfm_cursor_'   . l:background)
         let l:spell      = s:hexValue('s:dfm_bg_spell_' . &background)
-        let l:ale        = s:hexValue('s:dfm_ale_'      . &background)
-
-        execute 'highlight ALEErrorSign    guifg=red gui=bold'
-        execute 'highlight ALEWarningSign  guifg=' . l:ale                                   . ' gui=bold'
         execute 'highlight CommandCursor   guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
         execute 'highlight Cursor          guibg=' . s:dfm_cursor    . ' guifg=' . g:black
         execute 'highlight CursorLine      guibg=' . s:dfm_cursor_bg . ' guifg=' . s:dfm_cursorline
@@ -139,13 +123,24 @@
         endif
       endfunction
 
+      " line numbers
+      function! theme#LineNr()
+        Trace theme#LineNr()
+        let s:dfm_linenr_cmd = g:view == 0 ? s:dfm_fg_line : s:dfm_bg
+        execute                    'highlight CursorLineNr '  . (g:view == 0 ? 'gui=bold guifg=' . s:hexValue('s:dfm_bg_' . &background)
+              \                                                              : 'gui=none guifg=' . (b:proof == 0 ? s:dfm_bg : s:dfm_fg_line))
+        if mode() == 'n' | execute 'highlight LineNr  guifg=' . s:dfm_linenr_cmd
+        else             | execute 'highlight LineNr  guifg=' . s:dfm_linenr_ins | endif
+        execute                    'highlight NonText guifg=red'
+      endfunction
+
       " ruler, indents
-      function! theme#IndentTheme()
-        Trace theme#IndentTheme()
+      function! theme#Indent()
+        Trace theme#Indent()
         execute                   'highlight IndentGuidesOdd  guibg=' . s:hexValue('s:dfm_bg_'        . &background)
         execute                   'highlight IndentGuidesEven guibg=' . s:hexValue('s:dfm_bg_line_'   . &background)
-        if g:ruler == 2 | execute 'highlight ColorColumn guibg='      . s:hexValue('s:dfm_bg_column_' . &background)
-        else            | execute 'highlight ColorColumn guibg='      . s:hexValue('s:dfm_bg_line_'   . &background) | endif
+        if g:ruler == 2 | execute 'highlight ColorColumn      guibg=' . s:hexValue('s:dfm_bg_column_' . &background)
+        else            | execute 'highlight ColorColumn      guibg=' . s:hexValue('s:dfm_bg_line_'   . &background) | endif
 
         if s:sync == 1 " refresh any indent guides, see theme#LiteSwitch()
           IndentGuidesToggle
@@ -154,41 +149,18 @@
         endif
       endfunction
 
-      " line numbers
-      function! theme#LineNr()
-        Trace theme#LineNr()
-        let s:dfm_linenr_cmd = g:view == 0 ? s:dfm_fg_line : s:dfm_bg
-        execute                    'highlight CursorLineNr ' . (g:view == 0 ? 'gui=bold guifg=' . s:hexValue('s:dfm_bg_' . &background)
-              \                                                             : 'gui=none guifg=' . (b:proof == 0 ? s:dfm_bg : s:dfm_fg_line))
-        if mode() == 'n' | execute 'highlight LineNr guifg=' . s:dfm_linenr_cmd
-        else             | execute 'highlight LineNr guifg=' . s:dfm_linenr_ins | endif
-        execute                    'highlight NonText guifg=red'
-      endfunction
+      function! s:plugins()
+        Trace theme:plugins()
+        execute 'highlight ALEErrorSign   guifg=red gui=bold'
+        execute 'highlight ALEWarningSign guifg=' . s:hexValue('s:dfm_ale_' . &background) . ' gui=bold'
 
-      " enhanced limelight contrast, see ui#ToggleProof()
-      function! theme#Contrast(level)
-        Trace theme#Contrast()
-        if core#Prose() && &background == 'light'
-          if a:level
-            execute 'highlight! Normal guifg='     . g:mono_3
-            execute 'highlight! CursorLine guifg=' . g:black
-          else
-            execute 'highlight! Normal guifg='     . g:mono_2
-            execute 'highlight! CursorLine guifg=' . g:mono_2
-          endif
-        endif
-      endfunction
-
-      " g:fzf_colors initializes fzf only once, so override cursorline color
-      function! s:fzfColors()
+        " g:fzf_colors initializes fzf only once, so override cursorline color
         let $FZF_DEFAULT_OPTS = '--reverse --color=fg+:' . s:hexValue('s:dfm_fg_' . &background) " cannot appear to set other colors, such as hl+ (?)
         " hide bottom fzf window identifier
         execute 'highlight fzf1 guibg=' . s:dfm_bg . ' guifg=' . s:dfm_bg
         execute 'highlight fzf2 guibg=' . s:dfm_bg . ' guifg=' . s:dfm_bg
         execute 'highlight fzf3 guibg=' . s:dfm_bg . ' guifg=' . s:dfm_bg
-      endfunction
 
-      function! s:signifyColors()
         if &background == 'light'
           execute 'highlight SignifyLineAdd    guibg=' . s:dfm_bg . ' guifg=' . g:hue_3
           execute 'highlight SignifyLineChange guibg=' . s:dfm_bg . ' guifg=' . g:hue_2
@@ -204,6 +176,19 @@
       endfunction
 
   " Theme ______________________________________________________________________
+
+    " ........................................................... Initialization
+     
+      function! theme#Theme()
+        Trace theme#Theme()
+        if ! has("gui_running") | return | endif
+        call s:highlights()
+        call s:plugins()
+        call theme#Indent()
+        call theme#Margin()
+        call s:noTilde()
+        ColumnWrap
+      endfunction
 
     " ............................................................ Switch colour
 
@@ -223,13 +208,13 @@
         Quietly LiteDFMClose " trap and ignore initialization error
         if &background == 'light' | call theme#ColorScheme(1)
         else                      | call theme#ColorScheme(0) | endif
-        let s:sync = 1 " see theme#IndentTheme()
+        let s:sync = 1 " see theme#Indent()
         call ui#LiteType()
       endfunction
 
   " Font _______________________________________________________________________
 
-    " .............................................................. Switch font
+    " .......................................................... Balance margins
 
       " balance left right margins with font size changes (and window resizing)
       function! theme#Margin()
@@ -239,6 +224,8 @@
         call theme#LineNr()
         call ui#RefreshInfo()
       endfunction
+
+    " ................................................................. Set font
 
       function! theme#Font(size)
         Trace theme#Font()
@@ -295,8 +282,9 @@
 
     " .............................................................. EOF markers
 
+      " hide tilde marker (not applicable to console)
       function! s:noTilde()
-        if $DISPLAY > '' " hide tilde marker (not applicable to console)
+        if $DISPLAY > ''
           execute 'highlight EndOfBuffer ctermfg=black guifg=' . s:dfm_bg
           " reset menu highlight after loading autocompletion plugin
           execute 'highlight PmenuSel term=reverse ctermfg=0 ctermbg=7 gui=reverse guifg=' . s:dfm_bg_line . ' guibg=' . s:dfm_bg
@@ -305,12 +293,28 @@
         endif
       endfunction
 
-  " Context statusline highlight _______________________________________________
+  " Context highlight __________________________________________________________
+
+    " ............................................................... Prose mode
+     
+      " enhanced limelight contrast, see ui#ToggleProof()
+      function! theme#Contrast(level)
+        Trace theme#Contrast()
+        if core#Prose() && &background == 'light'
+          if a:level
+            execute 'highlight! Normal     guifg=' . g:mono_3
+            execute 'highlight! CursorLine guifg=' . g:black
+          else
+            execute 'highlight! Normal     guifg=' . g:mono_2
+            execute 'highlight! CursorLine guifg=' . g:mono_2
+          endif
+        endif
+      endfunction
 
     " ............................................................... Statusline
 
+      " undo statusline gui=reverse
       function! theme#ShowStatusline()
-        " undo statusline gui=reverse
         execute 'highlight Statusline gui=none guibg=' . s:dfm_bg_status . ' guifg=' . s:dfm_fg_status
         set laststatus=2
       endfunction
