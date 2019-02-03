@@ -7,24 +7,29 @@
 
     " .............................................................. Insert line
 
-      " insert line while disabling auto-commenting
-      function! s:insertWrap()
-        let l:formatoptions = &formatoptions
-        set formatoptions-=c
-        set formatoptions-=r
-        set formatoptions-=o
-        normal! ^
-        let l:pos = col('.')
-        normal! o
-        " align line indentation
-        execute 'normal! a' . repeat(' ', l:pos)
-        let &formatoptions = l:formatoptions
+      " insert line while disabling auto-commenting OR break (prose) line
+      function! s:smartWrap()
+        if core#Prose() " override Pencil mode (the default state for prose)
+          set paste
+          execute "normal! i\<CR>\<ESC>"
+          set nopaste
+          execute 'startinsert'
+        else " append EOL wrap from any col position 
+          let l:formatoptions = &formatoptions " disable auto commenting
+          set formatoptions-=c
+          set formatoptions-=r
+          set formatoptions-=o
+          normal! ^
+          let l:pos = col('.')
+          normal! o
+          " align line indentation
+          execute 'normal! a' . repeat(' ', l:pos)
+          let &formatoptions = l:formatoptions
+        endif
       endfunction
 
-      " insert line wrap
-      inoremap <silent><C-CR> <C-o>:call <SID>insertWrap()<CR>
-      " break line (in .wiki)
-      nnoremap <silent><leader><C-CR> :silent set paste<CR>i<CR><ESC>:silent set nopaste<CR>i
+      inoremap <silent><C-CR> <C-o>:call <SID>smartWrap()<CR>
+
       " insert blank line above/below
       nnoremap <silent><leader><Up>   :silent set paste<CR>m`O<Esc>``:silent set nopaste<CR>
       nnoremap <silent><leader><Down> :silent set paste<CR>m`o<Esc>``:silent set nopaste<CR>
@@ -64,13 +69,13 @@
       endfunction
 
       " select all
-      nnoremap <C-a>                ggVG
+      nnoremap <C-a>    ggVG
       " extend paragraph selection
-      vmap     <C-PageUp>           {
-      vmap     <C-PageDown>         }
+      vmap <C-PageUp>   {
+      vmap <C-PageDown> }
       " select paragragh
-      nmap     <silent><C-PageUp>   :call <SID>paragraphAbove()<CR>
-      nmap     <silent><C-PageDown> :call <SID>paragraphBelow()<CR>
+      nmap <silent><C-PageUp>   :call <SID>paragraphAbove()<CR>
+      nmap <silent><C-PageDown> :call <SID>paragraphBelow()<CR>
 
     " ......................................................... Shift left right
 

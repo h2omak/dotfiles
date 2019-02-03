@@ -22,34 +22,34 @@
     " ......................................................... Cursor movements
 
       " up/down by screen lines, not file lines
-      nnoremap k         gk
-      vnoremap k         gk
-      nnoremap j         gj
-      vnoremap j         gj
+      nnoremap k     gk
+      vnoremap k     gk
+      nnoremap j     gj
+      vnoremap j     gj
 
-      " up/down by paragraph sentence
-      nmap     <leader>( {{)
-      nmap     <leader>) })
+      " up/down      by paragraph sentence
+      nmap <leader>( {{)
+      nmap <leader>) })
 
       " insert mode local region cursor movements
       " <C-h> is overridden by auto-pairs delete <BS> when enabled
-      " imap   <C-h>     <Left>
-      " imap   <C-j>     <Down>
-      " imap   <C-k>     <Up>
-      " imap   <C-l>     <Right>
+      " imap <C-h>   <Left>
+      " imap <C-j>   <Down>
+      " imap <C-k>   <Up>
+      " imap <C-l>   <Right>
 
     " ............................................................. Disable keys
 
       " affirm vim modal usage but these keys are remapped below anyway :)
       " (re-enabled for colemak keyboard as qwerty key cluster no longer valid)
-      " imap   <down>    <nop>
-      " imap   <left>    <nop>
-      " imap   <right>   <nop>
-      " imap   <up>      <nop>
-      " nmap   <down>    <nop>
-      " nmap   <left>    <nop>
-      " nmap   <right>   <nop>
-      " nmap   <up>      <nop>
+      " imap <down>  <nop>
+      " imap <left>  <nop>
+      " imap <right> <nop>
+      " imap <up>    <nop>
+      " nmap <down>  <nop>
+      " nmap <left>  <nop>
+      " nmap <right> <nop>
+      " nmap <up>    <nop>
 
   " Keyboard shortcuts _________________________________________________________
 
@@ -60,9 +60,10 @@
 
       " yank from the cursor to the end of the line, to be consistent with C and D.
       " see yankring for plugin equivalent
-      nnoremap Y         y$
-      nnoremap vv        V
-      nnoremap V         <C-v>$
+      nnoremap Y  y$
+      nnoremap vv V
+      nnoremap V  <C-v>$
+
       " reselect/reyank text just pasted
       nnoremap <leader>v gv
       nnoremap <leader>V gvy
@@ -97,9 +98,9 @@
       " " normal/insert mode paste actions
       " " "+P pads space after insert
       " " note: to enter visual block mode type v<C-v>
-      imap     <F2>   <ESC>"+pli
-      nmap     <F2>   h"+pl
+      imap <F2> <ESC>"+pli
+      nmap <F2> h"+pl
       " command mode insertion (paste) of current yank buffer
-      cmap     <F2>   <C-r>"
+      cmap <F2> <C-r>"
 
 " keyboard.vim

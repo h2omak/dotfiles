@@ -130,7 +130,7 @@
     " ................................................................ Protected
 
       function! core#Protected()
-        return &filetype == 'help' || mode() == 't'
+        return &filetype == 'help' || mode() == 't' || g:fzf#vim#buffers != {} " fzf trap
       endfunction
 
     " ........................................................... Plugin windows

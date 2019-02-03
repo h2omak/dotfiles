@@ -19,7 +19,7 @@
 
     " ................................................................ Open diff
 
-      " toggle diff of current file
+      " toggle diff of current file   
       command! OpenDiff if ! <SID>closeDiff()
                           \| vert new | set bt=nofile | r ++edit # | 0d_
                           \| diffthis | wincmd p | diffthis | endif
@@ -122,9 +122,9 @@
     " ............................................................ Switch buffer
 
       " " goto buffer (just fingering convenience), see fzf settings.vim
-      " nmap <leader>b          :buffer<Space>
+      " nmap <leader>b        :buffer<Space>
       " query current buffer
-      nmap <leader>B            :echo expand('%:p')<CR>
+      nmap <leader>B          :echo expand('%:p')<CR>
 
       " beakl si layout specific buffer navigation key assignments, note silent -> silent
       if $BEAKL > ''

@@ -142,7 +142,7 @@
         let g:column = 1 " flash column position, see autocmd info.vim
       endfunction
 
-      nmap <silent><Bar>  :call s:toggleColumn()<CR>
+      nmap <silent><Bar>  :call <SID>toggleColumn()<CR>
 
     " ...................................................... Line wrap highlight
 
@@ -163,7 +163,7 @@
         call s:toggleColumn()
       endfunction
 
-      command!          ColumnWrap       call <SID>columnWrap()
+      command! ColumnWrap                call <SID>columnWrap()
       command! -nargs=? ToggleColumnWrap call <SID>toggleColumnWrap(<f-args>)
 
       nmap <silent><F8> :ToggleColumnWrap<CR>
@@ -217,35 +217,25 @@
       set listchars+=precedes:<
       " set listchars+=eol:¬
 
-    " .......................................... White space / soft wrap markers
+    " ..................................................... Trailing white space
 
-      augroup soft | autocmd! | augroup END
+      augroup invisible | autocmd! | augroup END
 
-      " soft wrap marker
-      function! s:softMark()
-        if exists('s:soft') | call matchdelete(s:soft) | endif " filetype dependent textwidth
-        highlight SoftWrap cterm=underline gui=underline
-        let s:soft = '\%' . (&textwidth + 1) . 'v'
-        let s:soft = matchadd('SoftWrap', s:soft)
-      endfunction
-
-      " toggle trailing whitespace highlight and indentation levels
-      function! s:toggleSpaces()
+      " toggle trailing whitespace highlight
+      function! s:toggleWhiteSpace()
         set list!
         if &list == 0
           match ExtraWhitespace /\%x00$/ " nolist by failing match with null character :)
-          call matchdelete(s:soft)
-          unlet s:soft
-          autocmd! soft
-          " echo ''
+          autocmd! invisible
+          echo 'List invisibles OFF'
         else
           match ExtraWhitespace /\s\+$/
-          call s:softMark()
-          autocmd soft BufEnter * call <SID>softMark()
-          " echo 'List invisibles ON'
+          " list state propagates forward (on) but not backwards (off)? so auto reset buffer state!
+          autocmd invisible BufLeave,WinLeave * call <SID>toggleWhiteSpace()
+          echo 'List invisibles ON'
         endif
       endfunction
 
-      nmap <silent><leader><Space> :call <SID>toggleSpaces()<CR>
+      nmap <silent><leader><Space> :call <SID>toggleWhiteSpace()<CR>
 
 " gui.vim

@@ -93,9 +93,9 @@
 
       let g:fzf_colors =
           \{
-          \  'fg+'     : ['fg', 'CursorLine']
-          \, 'bg+'     : ['bg', 'CursorLine']
-          \, 'info'    : ['fg', 'Special']
+          \  'fg+'  : ['fg', 'CursorLine']
+          \, 'bg+'  : ['bg', 'CursorLine']
+          \, 'info' : ['fg', 'Special']
           \}
 
       " close any diff buffer before leaving buffer
@@ -346,19 +346,19 @@
       nmap <leader>s cl
 
       " replace 'f' with 1-char Sneak
-      nmap f         <Plug>Sneak_f
-      nmap F         <Plug>Sneak_F
-      xmap f         <Plug>Sneak_f
-      xmap F         <Plug>Sneak_F
-      omap f         <Plug>Sneak_f
-      omap F         <Plug>Sneak_F
+      nmap f <Plug>Sneak_f
+      nmap F <Plug>Sneak_F
+      xmap f <Plug>Sneak_f
+      xmap F <Plug>Sneak_F
+      omap f <Plug>Sneak_f
+      omap F <Plug>Sneak_F
       " replace 't' with 1-char Sneak
-      nmap t         <Plug>Sneak_t
-      nmap T         <Plug>Sneak_T
-      xmap t         <Plug>Sneak_t
-      xmap T         <Plug>Sneak_T
-      omap t         <Plug>Sneak_t
-      omap T         <Plug>Sneak_T
+      nmap t <Plug>Sneak_t
+      nmap T <Plug>Sneak_T
+      xmap t <Plug>Sneak_t
+      xmap T <Plug>Sneak_T
+      omap t <Plug>Sneak_t
+      omap T <Plug>Sneak_T
 
     " ................................................................ Solarized
 
@@ -401,8 +401,8 @@
         echo 'Typography ' . (s:educate ? 'ON' : 'OFF')
       endfunction
 
-      nmap <silent><F11>      :call <SID>toggleEducate()<CR>
-      imap <silent><F11>      <C-o>:call <SID>toggleEducate()<CR>
+      nmap <silent><F11> :call <SID>toggleEducate()<CR>
+      imap <silent><F11> <C-o>:call <SID>toggleEducate()<CR>
 
       " with vim-surround: cs"q
       map  <silent><leader>qc <Plug>ReplaceWithCurly
