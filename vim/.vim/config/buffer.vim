@@ -20,8 +20,7 @@
     " ................................................................ Open diff
 
       " toggle diff of current file   
-      command! OpenDiff if ! <SID>closeDiff()
-                          \| vert new | set bt=nofile | r ++edit # | 0d_
+      command! OpenDiff if ! <SID>closeDiff() | vert new | set bt=nofile | r ++edit # | 0d_
                           \| diffthis | wincmd p | diffthis | endif
 
       " go to left window in case a diff window is already open and close it
@@ -77,7 +76,7 @@
         endif
       endfunction
 
-      " :wall on FocusLost does not trigger autocmd BufWrite (?), see buffers.vim
+      " :wall on FocusLost does not trigger autocmd BufWrite (?)
       function! s:queueBuffers()
         set lazyredraw
         let l:cur_buffer = bufnr('%')
@@ -122,9 +121,8 @@
     " ............................................................ Switch buffer
 
       " " goto buffer (just fingering convenience), see fzf settings.vim
-      " nmap <leader>b        :buffer<Space>
-      " query current buffer
-      nmap <leader>B          :echo expand('%:p')<CR>
+      " nmap <leader>b :buffer<Space>
+      nmap <leader>B   :echo '[' . bufnr('%') . '] ' . expand('%:p')<CR>
 
       " beakl si layout specific buffer navigation key assignments, note silent -> silent
       if $BEAKL > ''

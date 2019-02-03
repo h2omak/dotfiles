@@ -142,7 +142,7 @@
         let g:column = 1 " flash column position, see autocmd info.vim
       endfunction
 
-      nmap <silent><Bar>  :call <SID>toggleColumn()<CR>
+      nmap <silent><Bar> :call <SID>toggleColumn()<CR>
 
     " ...................................................... Line wrap highlight
 

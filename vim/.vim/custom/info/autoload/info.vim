@@ -23,7 +23,7 @@
       let s:ascii = '\(\d\|\a\|\s\|[`~!@#$%^&*()_\-+={}\[\]\\|;:\",\.<>/?]\)'
 
       function! info#SpecialChar()
-        if mode() == 'n'                " getline() test fails on switch into insert mode
+        if mode() == 'n' " getline() test fails on switch into insert mode
           try
             if getline(line('.')) != '' " ignore newline (is NUL)
               let l:char        = getline('.')[col('.')-1]
@@ -89,8 +89,7 @@
 
     " ............................................................... Word count
 
-      " see http://stackoverflow.com/questions/114431/fast-word-count-function-in-vim
-      " null return suppresses wordcount for non-prose or empty new buffer
+      " null return for non-prose or empty new buffer, see http://stackoverflow.com/questions/114431/fast-word-count-function-in-vim
       function! s:wordCount()
         if expand('%:t') == 'ControlP' || mode() =~ '[vV]' | return '' | endif " trap buffer window, visual mode (gives incorrect word count)
         try " trap error caused by snippet expansion involving substition placeholders

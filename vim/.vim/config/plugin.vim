@@ -116,7 +116,7 @@
       Plug 'reedes/vim-textobj-quote'      " typographic characters
       Plug 'tpope/vim-surround'            " pairwise c'hange, d'elete, y'ank
 
-  " Plugins ____________________________________________________________________
+  " Plugin completion __________________________________________________________
 
     " ................................................................ Configure
 

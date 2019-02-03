@@ -84,7 +84,6 @@
       let g:black           = '#000000' " cursor foreground
       let g:blue            = '#0000e6' " cursor foreground
       let g:column          = '#ffe3d5' " light column
-      let g:light_bg        = '#e1e8f1' " light cursorline (adjust to preferred highlight)
       let g:spell           = '#ffd1dc' " light spelling/grammar error
       let g:white           = g:base7   " cursor foreground
 

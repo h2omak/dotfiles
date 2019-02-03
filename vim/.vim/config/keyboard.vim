@@ -27,7 +27,7 @@
       nnoremap j     gj
       vnoremap j     gj
 
-      " up/down      by paragraph sentence
+      " up/down by paragraph sentence
       nmap <leader>( {{)
       nmap <leader>) })
 

@@ -11,7 +11,7 @@
       function! s:smartWrap()
         if core#Prose() " override Pencil mode (the default state for prose)
           set paste
-          execute "normal! i\<CR>\<ESC>"
+          execute "normal! i\<CR>"
           set nopaste
           execute 'startinsert'
         else " append EOL wrap from any col position 

@@ -59,8 +59,8 @@
 
     " ......................................................... Strip whitespace
     
-      nmap <silent><F4>   :call core#StripTrailingWhitespaces()<CR>
-      vmap <silent><F4>   :<C-u>call core#StripTrailingWhitespaces()<CR>
+      nmap <silent><F4> :call core#StripTrailingWhitespaces()<CR>
+      vmap <silent><F4> :<C-u>call core#StripTrailingWhitespaces()<CR>
 
       " " pre-write formatting
       " autocmd buffer BufWritePre * call core#StripTrailingWhitespaces()
@@ -76,7 +76,7 @@
 
     " .......................................................... CSS block align
 
-      nnoremap <silent><S-F4>    :call core#CssBlockAlign()<CR>
+      nnoremap <silent><S-F4> :call core#CssBlockAlign()<CR>
 
   " Filetype ___________________________________________________________________
 

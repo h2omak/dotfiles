@@ -106,7 +106,6 @@
       function! core#CssBlockAlign()
         let l:indent = repeat(' ', len(substitute(getline(line('.')), '[{].*', '  ', ''))) " calculate indent width to '.* { '
         let l:start = line('.') + 1
-        " end of block
         normal! }
         let l:end   = line('.') - 1
         execute ':' . l:start . ',' . l:end . 's/^ */' . l:indent . '/'

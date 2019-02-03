@@ -42,7 +42,7 @@
       let s:dfm_bg_column_dark   = g:hue_1     " dark column
       let s:dfm_bg_column_light  = g:orange_bg " light column
       let s:dfm_bg_line_dark     = g:gray2     " dark cursorline
-      let s:dfm_bg_line_light    = g:light_bg  " light cursorline
+      let s:dfm_bg_line_light    = g:blue_bg   " light cursorline
       let s:dfm_fg_line_dark     = g:gray4     " dark line numbers
       let s:dfm_fg_line_light    = g:hue_2     " light line numbers
 
@@ -87,10 +87,20 @@
 
     " ............................................................. Colour theme
 
-      " margins, selection and cursor
       function! theme#Theme()
         Trace theme#Theme()
         if ! has("gui_running") | return | endif
+        call s:colors()
+        call s:fzfColors()
+        call s:signifyColors()
+        call theme#IndentTheme()
+        call theme#Margin()
+        call s:noTilde()
+        ColumnWrap
+      endfunction
+
+      function! s:colors()
+        Trace theme:colours()
         let l:background = &background == 'light' ? 'dark' : 'light'
         let l:cursor     = s:hexValue('s:dfm_cursor_'  . l:background)
         let l:spell      = s:hexValue('s:dfm_bg_spell_' . &background)
@@ -115,25 +125,18 @@
         execute 'highlight VertSplit       guibg=' . s:dfm_vsplit    . ' guifg=' . s:dfm_vsplit
         execute 'highlight VisualCursor    guibg=' . l:cursor        . ' guifg=' . s:dfm_bg
 
-        highlight! link SpellCap           SpellBad
-        highlight! link SpellLocal         SpellBad
-        highlight! link SpellRare          SpellBad
+        highlight! link SpellCap   SpellBad
+        highlight! link SpellLocal SpellBad
+        highlight! link SpellRare  SpellBad
 
         if &background == 'light' && g:lightscheme == 'flatwhite' " add flatwhite contrast
           execute 'highlight IncSearch     guifg=' . g:light_fg . ' guibg=' . s:dfm_cursor . ' term=none cterm=none gui=none'
           execute 'highlight Search        guifg=' . g:white    . ' guibg=red guisp=red gui=bold'
           execute 'highlight StatuslineNC  guifg=' . g:white
 
-          highlight link mkdLink           htmlString
-          highlight link SneakScope        Cursor
+          highlight link mkdLink    htmlString
+          highlight link SneakScope Cursor
         endif
-
-        call s:fzfColors()
-        call s:signifyColors()
-        call theme#IndentTheme()
-        call theme#Margin()
-        call s:noTilde()
-        ColumnWrap
       endfunction
 
       " ruler, indents
@@ -191,13 +194,13 @@
           execute 'highlight SignifyLineChange guibg=' . s:dfm_bg . ' guifg=' . g:hue_2
           execute 'highlight SignifyLineDelete guibg=' . s:dfm_bg . ' guifg=' . g:hue_5_2
         else
-          highlight link     SignifyLineAdd    String
-          highlight link     SignifyLineChange Type
-          highlight link     SignifyLineDelete Identifier
+          highlight link SignifyLineAdd    String
+          highlight link SignifyLineChange Type
+          highlight link SignifyLineDelete Identifier
         endif
-        highlight   link     SignifySignAdd    SignifyLineAdd
-        highlight   link     SignifySignChange SignifyLineChange
-        highlight   link     SignifySignDelete SignifyLineDelete
+        highlight   link SignifySignAdd    SignifyLineAdd
+        highlight   link SignifySignChange SignifyLineChange
+        highlight   link SignifySignDelete SignifyLineDelete
       endfunction
 
   " Theme ______________________________________________________________________
