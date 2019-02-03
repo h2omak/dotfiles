@@ -318,22 +318,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     rolling_layer(record, RIGHT, NOSHIFT, KC_BSLS, _MOUSE, _REGEX);
     break;
   case LT_SPC:
-    if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))             { return false; }
-    if (leader_cap (record, _SYMGUI, down_punc, KC_SPC))        { return false; }                     // see KC_SPC for multi-tap
-    if (mapl_shift (record, KC_LSFT, NOSHIFT, KC_ENT, _SYMGUI)) { layer_off(_SYMGUI); return false; } // rolling cursor to enter
-    if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))          { return false; }
+    if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))      { return false; }
+    if (leader_cap (record, _SYMGUI, down_punc, KC_SPC)) { return false; }                     // see KC_SPC for multi-tap
+    if (map_shift  (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_SYMGUI); return false; } // rolling cursor to enter
+    if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
     tap_layer      (record, _SYMGUI);
     rolling_layer  (record, RIGHT, 0, 0, _SYMGUI, _REGEX);
     break;
   case KC_SPC:
-    if (leader_cap(record, 0, down_punc, KC_SPC))               { return false; } // KC_SPC from LT_SPC -> (space)* space shift
+    if (leader_cap(record, 0, down_punc, KC_SPC))        { return false; } // KC_SPC from LT_SPC -> (space)* space shift
     break;
   case TT_SPC:
-#ifdef CAPS_ONOFF
-    if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))             { return false; }
+#ifdef THUMB_CAPS
+    if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))      { return false; }
 #endif
-    if (mapl_shift (record, KC_LSFT, NOSHIFT, KC_ENT, _SYMGUI)) { return false; }
-    if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))          { return false; }
+    if (map_shift  (record, KC_LSFT, NOSHIFT, KC_ENT))   { return false; }
+    if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
     tap_layer      (record, _SYMGUI);
     break;
 
@@ -345,13 +345,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     tap_layer      (record, _EDIT);
     break;
   case KC_BSPC:
-#ifdef CAPS_ONOFF
+#ifdef THUMB_CAPS
     if (raise_layer(record, _TTCAPS, RIGHT, TOGGLE))   { return false; }
 #endif
     if (map_shift  (record, KC_LSFT, NOSHIFT, KC_DEL)) { return false; }
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_DEL)) { return false; }
     if (leader_cap (record, 0, down_punc, KC_ENT))     { return false; } // KC_BSPC from LT_BSPC -> (enter)* enter shift
-#ifdef CAPS_ONOFF
+#ifdef THUMB_CAPS
     if (record->event.pressed)                         { key_timer = timer_read(); }
     else if (timer_elapsed(key_timer) < TAPPING_TERM)  { tap_key(KC_BSPC); }
     return false; // capslock toggling trap, use shift bspc -> del for auto repeat

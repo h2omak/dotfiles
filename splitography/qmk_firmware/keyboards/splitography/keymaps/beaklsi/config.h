@@ -31,7 +31,7 @@
 // Haskell triple tap operator chords
 #define HASKELL
 // thumb capslock toggle on and off (default on only to preseve bspc auto-repeat)
-#define CAPS_ONOFF
+#define THUMB_CAPS
 // left home shift I -> space
 #define LEFT_SPACE
 
