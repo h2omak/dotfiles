@@ -7,9 +7,9 @@
 
     " .................................................................... Setup
 
-      let s:wikiinfo     = 1 " statusline (0) off (1) on
-      let s:initial_view = 1 " prose (0) dfm (1) proof
-      let s:info         = 0 " statusline (0) dfm (1) expanded
+      let s:show         = 1 " statusline (0) off (1) on
+      let s:initial_view = 1 " startup in (0) dfm (1) proof view
+      let s:expanded     = 0 " statusline state (0) dfm (1) expanded
 
   "  Distraction free modes ____________________________________________________
 
@@ -42,18 +42,18 @@
         set scrolloff=8
         if core#Prose() | set spell
         else            | set nospell | endif
-        call s:proof()
+        call s:view()
       endfunction
 
     " .............................................................. Switch View
 
       " toggle full document highlight
-      function! s:proof()
-        Trace ui:proof()
+      function! s:view()
+        Trace ui:view()
         let l:col = virtcol('.')
         call theme#Theme()
         if core#Prose() | call theme#ToggleProof() | endif
-        if b:proof == 1
+        if b:view == 1
           call s:showInfo(1)
           Limelight!
           call theme#Contrast(0)
@@ -67,8 +67,8 @@
 
       function! ui#ToggleProof()
         Trace ui#ToggleProof()
-        let b:proof = b:proof == 0 ? 1 : 0
-        call s:proof()
+        let b:view = b:view == 0 ? 1 : 0
+        call s:view()
       endfunction
 
       function! s:setView()
@@ -95,7 +95,7 @@
         Trace ui#LiteType()
         call theme#FontSize(core#Prose() ? 1 : 0)
         call theme#Palette()
-        if ! exists('b:proof') | let b:proof = s:initial_view | endif
+        if ! exists('b:view') | let b:view = s:initial_view | endif
         call s:setView()
       endfunction
 
@@ -116,15 +116,15 @@
       endfunction
 
       " [path] .. filename | pos .. [details]
-      function! s:wikiInfo(proof)
-        " Trace ui:wikiInfo() issues a lot of event noise!
+      function! s:statusline(proof)
+        " Trace ui:statusline() " tmi :-)
         try " trap snippet insertion interruption
           let g:prose = 1
           if core#Prose() && a:proof == 0
             return info#Escape(info#Leader('') . '  %{info#UnModified(0)}%*')
           else
             let l:name     = '%{info#Name()}' . g:pad_inner
-            if s:info == 0 " center dfm indicator / proofing statusline
+            if s:expanded == 0 " center dfm indicator / proofing statusline
               let l:leader = '%{info#Leader(info#Name())}'
             else
               let l:path   = '%{info#Path()}'
@@ -132,7 +132,7 @@
             endif
             let l:name     = '%1*' . l:name
             let l:info     = '%{info#UnModified(1)}' . g:pad_inner . ' ' . '%{info#PosWordsCol()}' " utf-8 symbol occupies 2 chars (pad right 1 space)
-            if s:info == 1
+            if s:expanded == 1
               let l:name   = '%2*' . l:path . '%1*' . g:pad_outer . l:name
               let l:info  .= g:pad_outer . '%2*%{ui#Detail()}'
             endif
@@ -142,11 +142,13 @@
         endtry
       endfunction
 
+    " .......................................................... Show statusline
+
       function! s:showInfo(proof)
         Trace ui:showInfo()
-        if s:wikiinfo == 1
-          " execute 'set statusline=%{s:wikiInfo(' . a:proof . ')}'
-          execute 'set statusline=' . s:wikiInfo(a:proof)
+        if s:show == 1
+          " execute 'set statusline=%{s:statusline(' . a:proof . ')}'
+          execute 'set statusline=' . s:statusline(a:proof)
           call theme#ShowStatusline()
         else
           call theme#ShowInfo() " simply hide statusline content
@@ -155,18 +157,16 @@
 
       function! ui#RefreshInfo()
         Trace ui#RefreshInfo()
-        call s:showInfo(b:proof)
+        call s:showInfo(b:view)
       endfunction
-
-    " ........................................................ Toggle statusline
 
       function! ui#ToggleInfo(...)
         Trace ui#ToggleInfo()
-        if a:0 && b:proof == s:initial_view | return | endif " exiting insert mode? see plugin/ui.vim autocmd
+        if a:0 && b:view == s:initial_view | return | endif " exiting insert mode? see plugin/ui.vim autocmd
         let l:col = col('.')
-        let s:info = (s:info == 0 ? 1 : 0)
+        let s:expanded = (s:expanded == 0 ? 1 : 0)
         if core#Prose() | call ui#ToggleProof() " toggle between writing and proofing modes
-        else            | call s:showInfo(b:proof) | endif
+        else            | call s:showInfo(b:view) | endif
         execute 'normal! ' . l:col . '|'
       endfunction
 

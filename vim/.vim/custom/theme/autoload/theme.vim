@@ -128,7 +128,7 @@
         Trace theme#LineNr()
         let s:dfm_linenr_cmd = g:view == 0 ? s:dfm_fg_line : s:dfm_bg
         execute                    'highlight CursorLineNr '  . (g:view == 0 ? 'gui=bold guifg=' . s:hexValue('s:dfm_bg_' . &background)
-              \                                                              : 'gui=none guifg=' . (b:proof == 0 ? s:dfm_bg : s:dfm_fg_line))
+              \                                                              : 'gui=none guifg=' . (b:view == 0 ? s:dfm_bg : s:dfm_fg_line))
         if mode() == 'n' | execute 'highlight LineNr  guifg=' . s:dfm_linenr_cmd
         else             | execute 'highlight LineNr  guifg=' . s:dfm_linenr_ins | endif
         execute                    'highlight NonText guifg=red'
