@@ -7,7 +7,7 @@
 
 # ..................................................................... Terminal
 
-# Usage: term [<title>] [ FLOAT | STACK | MAX | VERTICAL | HORIZONTAL | GRID | BLACKBOARD | VISIBLE | WAIT | FORTUNE ] [[SHELL] <command>]
+# Usage: term [<title>] [FLOAT | STACK | MAX | VERTICAL | HORIZONTAL | GRID | BLACKBOARD | VISIBLE | WAIT | FORTUNE] [[SHELL] <command>]
 #        title (and default name string)
 #        FLOAT, STACK, MAX, VERTICAL, HORIZONTAL, GRID herbstluftwm hooks for setting layout and geometry
 #        FORTUNE, login notifier message

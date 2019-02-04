@@ -6,8 +6,8 @@
 
 # .............................................................. Draw background
 
-# Usage: draw root [ blank [<color>] | restore | save ]
-#        draw root [ select | shuffle | blur | wallpaper ]
+# Usage: draw root [blank [<color>] | restore | save]
+#        draw root [select | shuffle | blur | wallpaper]
 #        draw root, refresh background if necessary, shuffling if set
 #        draw root blank, draw random background color
 #        draw root restore, restore background color

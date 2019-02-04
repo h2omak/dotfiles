@@ -23,8 +23,7 @@
       function! core#Quietly(command)
         try
           execute a:command
-        catch /.*/ " discard messages, do nothing
-          echo ''
+        catch /.*/ " discard messages
         endtry
       endfunction
 

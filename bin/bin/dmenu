@@ -35,7 +35,7 @@ apps() {
 
 # ........................................................ Media player playlist
 
-# usage:  playlist library played, see dmenu series/movies
+# usage: playlist library played, see dmenu series/movies
 playlist() {
   cat $2 | while read line ;do
     [ "$line" ] && grep -q "$line" $1 && sed -i "/^$line/s/^$line/$SEP $line/" $1

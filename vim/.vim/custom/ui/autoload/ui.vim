@@ -138,7 +138,7 @@
             endif
             return info#Escape('%1*' . l:leader . l:name . l:info . '%1*')
           endif
-        catch
+        catch /.*/ " discard messages
         endtry
       endfunction
 

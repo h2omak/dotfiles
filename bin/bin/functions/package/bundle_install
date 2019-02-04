@@ -6,7 +6,7 @@
 
 # ......................................................... Distribution install
 
-# Usage: bundle_install [check | init | list ] <bundle>*
+# Usage: bundle_install [check | init | list] <bundle>*
 #
 # format: # inline comment
 #         = title

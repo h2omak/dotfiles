@@ -6,7 +6,7 @@
 
 # ............................................................... Restore layout
 
-# Usage: restore layout [ tags | grid | horizontal | max | vertical | 1:1 | 2:3 | 1:2 | 1:1:1 | default ]
+# Usage: restore layout [tags | grid | horizontal | max | vertical | 1:1 | 2:3 | 1:2 | 1:1:1 | default]
 
 # default master pane left or right
 MASTER=${MASTER:-left}

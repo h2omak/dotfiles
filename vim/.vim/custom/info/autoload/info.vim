@@ -37,8 +37,7 @@
                 return l:hex
               endif
             endif
-          catch /.*/ " discard messages and clear message line
-            echo ''
+          catch /.*/ " discard messages
           endtry
         endif
         return ''
@@ -102,7 +101,6 @@
           call setpos('.', l:position) " go back (to EOL if need be)
           return b:wordcount
         catch /.*/ " discard messages
-          echo ''
         endtry
       endfunction
 

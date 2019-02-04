@@ -7,7 +7,7 @@
 # ....................................................................... Planck
 
 usage() {
-  echo "usage: $(basename $0) <keymap> [adnw* | beakl* | colem* | qwerty | default ]  [steno [nomouse]]  [<string> [<string>]]  [dfu]"
+  echo "usage: $(basename $0) <keymap> [adnw* | beakl* | colem* | qwerty | default] [steno [nomouse]] [<string> [<string>]] [dfu]"
   exit 1
 }
 
