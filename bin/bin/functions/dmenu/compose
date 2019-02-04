@@ -20,18 +20,21 @@ editors="
   wordgrinder
 "
 
+# unordered message headings
+heading='^((Subject|From|To):.*\n(Subject|From|To):.*\n(Subject|From|To):.*\n)\n'
+
 format_message() {
   # insert 2 line feed characters into reply for vim cursor positioning and spacing
-  # note required search order
-  if pcregrep -Mq '^Subject: .*\n\n^Forwarded message from ' $1 ;then
+  # note required search order(?)
+  if pcregrep -Mq "${heading}Forwarded message from " $1 ;then
     sed -i '/^Forwarded message from /i\
 \
 ' $1
-  elif pcregrep -Mq '^Subject: .*\n\n^Excerpts from .* message of ' $1 ;then
+  elif pcregrep -Mq "${heading}Excerpts from .* message of " $1 ;then
     sed -i '/^Excerpts from .* message of /i\
 \
 ' $1
-  elif pcregrep -Mq '^Subject: .*\n\n^Quoting .* (.*)' $1 ;then
+  elif pcregrep -Mq "${heading}Quoting .* (.*)" $1 ;then
     sed -i '/^Quoting .* (.*)/i\
 \
 ' $1

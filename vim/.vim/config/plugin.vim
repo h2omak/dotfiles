@@ -76,7 +76,7 @@
     " ................................................................ Hypertext
 
       " Plug 'lervag/wiki'           " vimwiki clone
-      Plug 'junegunn/fzf.vim'        " fuzzy finder
+      Plug 'junegunn/fzf.vim', { 'dir': '~/.fzf', 'do': './install --all' } " fuzzy finder
       Plug 'Alok/notational-fzf-vim' " fzf note search
 
     " ................................................................... Linter

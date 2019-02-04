@@ -14,7 +14,7 @@
         source $MYVIMRC
         call theme#LiteSwitch()
         call theme#LiteSwitch()
-        RedrawGui " see gui.vim
+        RedrawGui
       endfunction
 
     " ....................................................... Error message trap

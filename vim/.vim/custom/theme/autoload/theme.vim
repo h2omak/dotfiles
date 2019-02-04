@@ -174,14 +174,20 @@
         highlight   link SignifySignDelete SignifyLineDelete
       endfunction
 
-      " function! s:nvim()
+      " simple console theme tweaks to maximize transparency
       function! s:nvim()
         if ! g:nvim | return | endif
         Trace theme:nvim()
-        execute 'highlight! FoldColumn guibg=NONE'
-        execute 'highlight! LineNr     guifg=NONE'
-        execute 'highlight! SignColumn guibg=NONE'
+        let $FZF_DEFAULT_OPTS = '--color=bg+:-1' " fzf term transparency
+        execute 'highlight fzf1       guibg=NONE guifg=#303030'
+        execute 'highlight fzf2       guifg=NONE guifg=#303030'
+        execute 'highlight fzf3       guibg=NONE guifg=#303030'
+        execute 'highlight CursorLine guibg=NONE guifg=cyan'
+        execute 'highlight FoldColumn guibg=NONE'
+        execute 'highlight LineNr     guifg=NONE'
+        execute 'highlight SignColumn guibg=NONE'
         call theme#Margin()
+        call s:noTilde()
       endfunction
 
   " Theme ______________________________________________________________________
@@ -189,8 +195,7 @@
     " ........................................................... Initialization
      
       function! theme#Theme()
-        call s:nvim()
-        if ! g:gui | return | endif
+        if ! g:gui | call s:nvim() | return | endif
         Trace theme#Theme()
         call s:highlights()
         call s:plugins()
@@ -203,6 +208,7 @@
     " ............................................................ Switch colour
 
       function! theme#ColorScheme(contrast)
+        Trace theme#ColorScheme()
         if a:contrast == 0
           let &background = 'light' " must set background before colorscheme for flatwhite colors
           execute 'colorscheme ' . g:lightscheme
@@ -273,6 +279,7 @@
     " ................................................................ Code view
 
       function! theme#CodeView()
+        Trace theme#CodeView()
         execute 'highlight LineNr guifg=' . s:dfm_fg_line
       endfunction
 
@@ -280,6 +287,7 @@
 
       " prose style
       function! theme#DfmView()
+        Trace theme#DfmView()
         if core#Prose() | execute 'highlight CursorLine gui=none guibg=' . s:dfm_bg . ' guifg=' . s:dfm_fg | endif
       endfunction
 
