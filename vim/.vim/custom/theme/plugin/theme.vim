@@ -99,7 +99,7 @@
 
     " ...................................................... Default colorscheme
 
-      if has("gui_running")
+      if g:gui
         if ! empty(glob('~/.session/nighttime')) | call theme#ColorScheme(1) " follow_the_sun on sunrise/sunset, see crontab
         else                                     | call theme#ColorScheme(0) | endif
 

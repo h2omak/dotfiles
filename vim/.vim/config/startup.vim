@@ -8,6 +8,8 @@
     " .................................................................... Setup
 
       set nocompatible " disable vi-compatibility
+      let g:gui  = has('gui_running') ? 1 : 0
+      let g:nvim = has('nvim') ? 1 : 0
 
     " ................................................................... System
 

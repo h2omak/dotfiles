@@ -174,13 +174,24 @@
         highlight   link SignifySignDelete SignifyLineDelete
       endfunction
 
+      " function! s:nvim()
+      function! s:nvim()
+        if ! g:nvim | return | endif
+        Trace theme:nvim()
+        execute 'highlight! FoldColumn guibg=NONE'
+        execute 'highlight! LineNr     guifg=NONE'
+        execute 'highlight! SignColumn guibg=NONE'
+        call theme#Margin()
+      endfunction
+
   " Theme ______________________________________________________________________
 
     " ........................................................... Initialization
      
       function! theme#Theme()
+        call s:nvim()
+        if ! g:gui | return | endif
         Trace theme#Theme()
-        if ! has("gui_running") | return | endif
         call s:highlights()
         call s:plugins()
         call theme#Indent()
