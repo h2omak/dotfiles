@@ -13,6 +13,7 @@ void lesser(qk_tap_dance_state_t *state, void *user_data);
 void lesser_reset(qk_tap_dance_state_t *state, void *user_data);
 void lt_shift(keyrecord_t *record, uint8_t shift, uint16_t keycode, uint8_t layer);
 bool map_shift(keyrecord_t *record, uint16_t shift_key, uint8_t shift, uint16_t keycode);
+bool mapc_shift(keyrecord_t *record, uint16_t shift_key, uint8_t shift, uint16_t keycode);
 bool mod_down(uint16_t keycode);
 void mod_t(keyrecord_t *record, uint16_t modifier, uint16_t keycode);
 void modifier(void (*f)(uint8_t));
@@ -27,6 +28,8 @@ bool raise_layer(keyrecord_t *record, uint8_t layer, uint8_t side, uint8_t toggl
 void register_shift(uint16_t keycode);
 void rolling_layer(keyrecord_t *record, uint8_t side, uint8_t shift, uint16_t keycode, uint8_t layer, uint8_t facing);
 void send(qk_tap_dance_state_t *state, void *user_data);
+void space(qk_tap_dance_state_t *state, void *user_data);
+void space_reset(qk_tap_dance_state_t *state, void *user_data);
 void steno(keyrecord_t *record);
 void tap_key(uint16_t keycode);
 void tap_layer(keyrecord_t *record, uint8_t layer);

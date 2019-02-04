@@ -16,7 +16,7 @@ static uint8_t mods = 0;
 
 void tap_mods(keyrecord_t *record, uint16_t keycode)
 {
-  if (record->event.pressed) { mods |= MOD_BIT(keycode); }
+  if (record->event.pressed) { mods |= MOD_BIT  (keycode); }
   else                       { mods &= ~(MOD_BIT(keycode)); }
 }
 
@@ -148,7 +148,7 @@ void mt_shift(keyrecord_t *record, uint16_t modifier, uint16_t modifier2, uint16
 
 // ................................................................. Map Keycode
 
-// remap keycode via shift for base and caps layers
+// remap keycode via shift for base and caps layers, see process_record_user()
 bool map_shift(keyrecord_t *record, uint16_t shift_key, uint8_t shift, uint16_t keycode)
 {
   if (mod_down(shift_key)) {
@@ -162,6 +162,26 @@ bool map_shift(keyrecord_t *record, uint16_t shift_key, uint8_t shift, uint16_t 
     }
     key_timer = 0; // clear home row shift, see process_record_user() and mod_t()
     return true;
+  }
+  return false;
+}
+
+// conditional map_shift pass through on keycode down, see process_record_user()
+bool mapc_shift(keyrecord_t *record, uint16_t shift_key, uint8_t shift, uint16_t keycode)
+{
+  if (mod_down(shift_key)) {
+    if (record->event.pressed) {
+      key_timer = timer_read();
+    }
+    else {
+      if (timer_elapsed(key_timer) < TAPPING_TERM) {
+        if (!shift) { unregister_code(shift_key); }              // in event of unshifted keycode
+        tap_key(keycode);
+        if (!shift) { register_code(shift_key); reshifted = 1; } // set SFT_T timing trap, process_record_user()
+      }
+      key_timer = 0; // clear home row shift, see process_record_user() and mod_t()
+      return true;
+    }
   }
   return false;
 }
@@ -243,7 +263,7 @@ void lesser(qk_tap_dance_state_t *state, void *user_data)
 void lesser_reset(qk_tap_dance_state_t *state, void *user_data)
 {
   unregister_shift(KC_COMM);
-  unregister_code(KC_LCTL);
+  unregister_code (KC_LCTL);
 }
 
 void greater(qk_tap_dance_state_t *state, void *user_data)

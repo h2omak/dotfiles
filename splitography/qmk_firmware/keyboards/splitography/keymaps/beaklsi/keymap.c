@@ -103,6 +103,7 @@ enum keyboard_keycodes {
  ,HS_GT  // pseudo SFT_T(S(KC_DOT))
 #endif
  ,LT_I   // pseudo LT   (_REGEX, KC_I)
+ ,LT_SPC // pseudo LT   (_SYMGUI, KC_SPC)
  ,ML_BSLS
  ,ML_EQL
  ,PLOVER
@@ -162,7 +163,7 @@ enum keyboard_keycodes {
 #define XPASTE  TD_XPASTE
 
 #define LT_BSPC LT  (_EDIT, KC_BSPC)
-#define LT_SPC  LT  (_SYMGUI, KC_SPC)
+// #define LT_SPC LT  (_SYMGUI, KC_SPC) // issues <spc><enter> with mapc_shift (?), use lt_shift()
 #define TT_SPC  LT  (_TTCURSOR, KC_SPC)
 #ifdef PLANCK
 #define LT_0    LT  (_ADJUST, KC_0)
@@ -297,8 +298,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #ifdef LEFT_SPACE
     if (map_shift  (record, KC_LSFT, NOSHIFT, KC_SPC)) { return false; }
 #endif
-    lt_shift       (record, mod_down(KC_RSFT) ? SHIFT : NOSHIFT, KC_I, _REGEX);
     tap_layer      (record, _REGEX);
+    lt_shift       (record, mod_down(KC_RSFT) ? SHIFT : NOSHIFT, KC_I, _REGEX);
     rolling_layer  (record, LEFT, 0, 0, _REGEX, _SYMGUI);
     break;
 #ifdef LEFT_SPACE
@@ -320,9 +321,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case LT_SPC:
     if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))      { return false; }
     if (leader_cap (record, _SYMGUI, down_punc, KC_SPC)) { return false; }                     // see KC_SPC for multi-tap
-    if (map_shift  (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_SYMGUI); return false; } // rolling cursor to enter
+    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_SYMGUI); return false; } // rolling cursor to enter
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
     tap_layer      (record, _SYMGUI);
+    lt_shift       (record, NOSHIFT, KC_SPC, _SYMGUI);
     rolling_layer  (record, RIGHT, 0, 0, _SYMGUI, _REGEX);
     break;
   case KC_SPC:
@@ -332,9 +334,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #ifdef THUMB_CAPS
     if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))      { return false; }
 #endif
-    if (map_shift  (record, KC_LSFT, NOSHIFT, KC_ENT))   { return false; }
+    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { return false; }
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
     tap_layer      (record, _SYMGUI);
+    lt_shift       (record, NOSHIFT, KC_SPC, _SYMGUI);
     break;
 
   case LT_BSPC:
