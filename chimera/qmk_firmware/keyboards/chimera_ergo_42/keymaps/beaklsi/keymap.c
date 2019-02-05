@@ -243,7 +243,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     if (map_shift(record, KC_RSFT, NOSHIFT, KC_TAB)) { return false; }
     base_layer(0); // exit TT layer
     return false;
-
   case LT_ESC:
     if (map_shift(record, KC_LSFT, SHIFT, KC_TAB))   { return false; }
     if (map_shift(record, KC_RSFT, NOSHIFT, KC_TAB)) { return false; }
@@ -274,7 +273,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     break;
   case KC_ENT:
     if (leader_cap(record, 0, down_punc, KC_ENT))       { return false; } // KC_ENT from LT_ENT -> enter enter* shift
-    tap_layer(record, _EDIT);
     break;
 
   case LT_SPC:
