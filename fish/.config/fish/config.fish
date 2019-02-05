@@ -80,7 +80,7 @@ set -x SELF_URL_PATH 'http://luna:8000/tt-rss/'
 
 # default editor
 # set -x EDITOR 'vi -e'
-set -x EDITOR 'gvim -f'
+set -x EDITOR 'vim'
 set -x VISUAL 'gvim -f'
 # fzf-vim theme
 set -x FZF_DEFAULT_OPTS "--cycle --reverse  --prompt='    ─────  ' --ansi --color=dark,hl:#dc322f,hl+:#dc322f,fg+:232,bg+:#fdf6e3,bg:#fdf6e3,marker:160,prompt:#268bd2,info:#268bd2"

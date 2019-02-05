@@ -18,7 +18,7 @@
       let g:source_font     = 'Iosevka\'
       let g:prose_font      = 'Iosevka-proof\'
       let g:font_type       = -1 " current font setting (0) source (1) prose
-      let g:font_step       = empty(glob('~/.session/font+')) ? 0 : 1 " increase (point size) for prose
+      let g:font_step       = empty(glob('~/.session/font_step')) ? 0 : 1 " increase (point size) for prose
 
     " .............................................................. Color codes
 
@@ -123,10 +123,6 @@
       nmap <silent><S-F9> :call theme#FontSize(g:font_type == 1 ? 0 : 1)<CR>
       imap <silent><S-F9> <C-o>:call theme#FontSize(g:font_type == 1 ? 0 : 1)<CR>
       vmap <silent><S-F9> :<C-u>call theme#FontSize(g:font_type == 1 ? 0 : 1)<CR>
-
-      nmap <silent><C-F9> :let g:font_step = g:font_step == 1 ? 0 : 1<CR>
-      imap <silent><C-F9> <C-o>:let g:font_step = g:font_step == 1 ? 0 : 1<CR>
-      vmap <silent><C-F9> :<C-u>let g:font_step = g:font_step == 1 ? 0 : 1<CR>
 
       let &cpo = s:save_cpo
       unlet s:save_cpo

@@ -19,9 +19,9 @@
 = file manager
 = ════════════
   ncdu
-  nnn
+# nnn
+  nnn-git
   ranger
-  vidir
   vifm
 
 
@@ -56,6 +56,7 @@
   expect
 # fasd
   fzf
+  moreutils
 # prezto-git
   pv
   ripgrep
