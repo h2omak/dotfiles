@@ -3,7 +3,7 @@
 
 static uint8_t  i         = 0; // inline for loop counter
 static uint16_t key_timer = 0; // global event timer
-static uint16_t reshifted = 0; // SFT_T timing trap, see map_shift(), process_record_user()
+static uint8_t reshifted  = 0; // SFT_T timing trap, see map_shift(), process_record_user()
 
 // Keycodes
 // ═════════════════════════════════════════════════════════════════════════════
