@@ -44,6 +44,7 @@ set -x PASSWORD_STORE_CLIP_TIME 60
 # unset to use qwerty keyboard wasd mappings
 set -x BEAKL true
 # set -x COLEMAK true
+set -x TERM xterm-256color
 
 # .......................................................... Network environment
 

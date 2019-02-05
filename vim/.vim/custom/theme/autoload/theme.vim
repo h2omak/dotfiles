@@ -177,14 +177,18 @@
       " simple console theme tweaks to maximize transparency
       function! s:console()
         Trace theme:console()
+        colorscheme pencil
+        set background=dark
         let $FZF_DEFAULT_OPTS = '--color=bg+:-1' " fzf term transparency
-        execute 'highlight fzf1       guibg=NONE guifg=#303030'
-        execute 'highlight fzf2       guifg=NONE guifg=#303030'
-        execute 'highlight fzf3       guibg=NONE guifg=#303030'
-        execute 'highlight CursorLine guibg=NONE guifg=cyan'
-        execute 'highlight FoldColumn guibg=NONE'
-        execute 'highlight LineNr     guifg=NONE'
-        execute 'highlight SignColumn guibg=NONE'
+        execute 'highlight fzf1         guibg=NONE guifg=#303030'
+        execute 'highlight fzf2         guifg=NONE guifg=#303030'
+        execute 'highlight fzf3         guibg=NONE guifg=#303030'
+        execute 'highlight CursorLine   guibg=NONE ctermbg=NONE guifg=yellow gui=bold cterm=bold'
+        execute 'highlight CursorLineNR guibg=NONE ctermbg=NONE'
+        execute 'highlight FoldColumn   guibg=NONE'
+        execute 'highlight LineNr       guibg=NONE'
+        execute 'highlight Normal       guibg=NONE'
+        execute 'highlight SignColumn   guibg=NONE'
         call theme#Margin()
         call s:noTilde()
       endfunction

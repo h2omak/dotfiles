@@ -29,6 +29,7 @@
     " .................................................................... Theme
 
       " Plug 'andreypopp/vim-colors-plain' " monochrome
+      Plug 'reedes/vim-colors-pencil'      " iaWriter theme (for console transparency)
       Plug 'kamwitsta/flatwhite-vim'       " atom light background theme
       Plug 'junegunn/limelight.vim'        " hyperfocus highlighting
       Plug 'bilalq/lite-dfm'               " distraction free mode
