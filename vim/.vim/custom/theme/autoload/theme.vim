@@ -175,9 +175,8 @@
       endfunction
 
       " simple console theme tweaks to maximize transparency
-      function! s:nvim()
-        if ! g:nvim | return | endif
-        Trace theme:nvim()
+      function! s:console()
+        Trace theme:console()
         let $FZF_DEFAULT_OPTS = '--color=bg+:-1' " fzf term transparency
         execute 'highlight fzf1       guibg=NONE guifg=#303030'
         execute 'highlight fzf2       guifg=NONE guifg=#303030'
@@ -195,7 +194,7 @@
     " ........................................................... Initialization
      
       function! theme#Theme()
-        if ! g:gui | call s:nvim() | return | endif
+        if ! g:gui | call s:console() | return | endif
         Trace theme#Theme()
         call s:highlights()
         call s:plugins()

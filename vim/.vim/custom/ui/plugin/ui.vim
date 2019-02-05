@@ -50,8 +50,10 @@
       imap <silent><C-F7> <C-o>:let g:detail = g:detail == 0 ? 1 : 0<CR>
       vmap <silent><C-F7> :<C-u>let g:detail = g:detail == 0 ? 1 : 0<CR>
 
-      autocmd ui InsertEnter * call ui#ToggleProof() | SignifyDisable
-      autocmd ui InsertLeave * call ui#ToggleProof() | SignifyEnable
+      if g:gui
+        autocmd ui InsertEnter * call ui#ToggleProof() | SignifyDisable
+        autocmd ui InsertLeave * call ui#ToggleProof() | SignifyEnable
+      endif
 
     " .............................................................. Switch mode
 
