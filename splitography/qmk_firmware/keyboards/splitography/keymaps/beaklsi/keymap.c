@@ -277,11 +277,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     tt_escape(record, keycode);
     break;
 
-  // ........................................................... Left Thumb Keys
+  // ...................................................... Outer Left Thumb Key
 
   case TT_ESC:
-    if (map_shift(record, KC_LSFT, SHIFT, KC_TAB))   { return false; }
-    if (map_shift(record, KC_RSFT, NOSHIFT, KC_TAB)) { return false; }
+    if (map_shift(record, KC_LSFT, SHIFT, KC_TAB))     { return false; }
+    if (map_shift(record, KC_RSFT, NOSHIFT, KC_TAB))   { return false; }
     base_layer(0); // exit TT layer
     return false;
 
@@ -292,6 +292,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     if (tt_keycode)                                    { base_layer(0); return false; }
     tap_layer(record, _NUMBER);
     break;
+
+  // ...................................................... Inner Left Thumb Key
 
   case LT_I:
     if (raise_layer(record, _FNCKEY, RIGHT, ONDOWN))   { return false; }
@@ -304,7 +306,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     break;
 #ifdef LEFT_SPACE
   case S(KC_I):
-    if (map_shift(record, KC_LSFT, NOSHIFT, KC_SPC)) { return false; }
+    if (map_shift(record, KC_LSFT, NOSHIFT, KC_SPC))   { return false; }
     break;
 #endif
   case ML_EQL:
@@ -312,7 +314,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     rolling_layer(record, LEFT, NOSHIFT, KC_EQL, _MOUSE, _SYMGUI);
     break;
 
-  // .......................................................... Right Thumb Keys
+  // ..................................................... Inner Right Thumb Key
 
   case ML_BSLS:
     tap_layer    (record, _MOUSE);
@@ -339,6 +341,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     tap_layer      (record, _SYMGUI);
     lt_shift       (record, NOSHIFT, KC_SPC, _SYMGUI);
     break;
+
+  // ..................................................... Outer Right Thumb Key
 
   case LT_BSPC:
     if (raise_layer(record, _TTCAPS, RIGHT, TOGGLE))   { return false; }

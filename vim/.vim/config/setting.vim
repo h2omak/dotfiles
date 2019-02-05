@@ -232,12 +232,16 @@
         return ''
       endfunction
 
-      let g:nv_search_paths        = ['./'] " default search from current directory
-      let g:nv_default_extension   = ''
-      let g:nv_main_directory      = './'   " create new notes in current directory
-      let g:nv_use_short_pathnames = 1
       let g:nv_create_note_window  = 'edit'
+      let g:nv_default_extension   = ''
+      let g:nv_expect_keys         = []
+      let g:nv_main_directory      = './'   " create new notes in current directory
+      let g:nv_preview_direction   = 'right'
       let g:nv_preview_width       = 45
+      let g:nv_search_paths        = ['./'] " default search from current directory
+      let g:nv_show_preview        = 1 " alt-p to toggle preview
+      let g:nv_use_short_pathnames = 1
+      let g:nv_wrap_preview_text   = 1
 
       " notational path rules: [regex, rootpath, ext]
       " note: regex magic is not enabled at this stage so force with '\v'
