@@ -113,7 +113,7 @@ if console ;then
   cpu arm && { pstat syncthing || { tmout ifno 'sync with syncthing' || wsync -s; };}
 else
   # already in X11 session
-  ditto 'window manager set to' $(cat $HOME/.windowmanager) 'for next xsession'
+  ditto 'window manager' "$(cat $HOME/.windowmanager) (next X session)"
 fi
 
 # vim: set ft=sh: #

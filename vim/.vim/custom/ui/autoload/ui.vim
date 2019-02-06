@@ -112,7 +112,8 @@
     " ........................................................ Statusline format
 
       function! ui#Detail()
-        return (g:detail == 0 ? info#Tag() : info#Atom()) . '  ' . info#SpecialChar()
+        let l:prefix = g:detail == 0 ? info#Tag() : info#Atom()
+        return l:prefix > '' ? l:prefix . '  ' . info#SpecialChar() : info#SpecialChar()
       endfunction
 
       " [path] .. filename | pos .. [details]
