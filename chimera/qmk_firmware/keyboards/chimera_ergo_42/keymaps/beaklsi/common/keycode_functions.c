@@ -89,18 +89,12 @@ void double_tap(uint8_t count, uint8_t shift, uint16_t keycode)
   if (count > 1) { shift ? tap_shift(keycode) : tap_key(keycode); }
 }
 
-// key press for rolling_layer() and lt_shift() macros
-void on_tap(uint8_t shift, uint16_t keycode)
-{
-  if (keycode && (timer_elapsed(key_timer) < TAPPING_TERM)) { tap_mod(shift, keycode); }
-}
-
 // ............................................................ Keycode Modifier
 
 #define SHIFT   1
 #define NOSHIFT 0
 
-void tap_mod(uint16_t modifier, uint16_t keycode)
+void mod_key(uint16_t modifier, uint16_t keycode)
 {
   switch (modifier) {
   case NOSHIFT:
@@ -314,9 +308,9 @@ void dot(qk_tap_dance_state_t *state, void *user_data)
 
 void paste(qk_tap_dance_state_t *state, void *user_data)
 {
-  if (state->count > 1)    { tap_mod(KC_LCTL, KC_V); IRC_ENTER; }
+  if (state->count > 1)    { mod_key(KC_LCTL, KC_V); IRC_ENTER; }
   else if (state->pressed) { register_code(KC_LCTL); register_code(KC_V); }
-  else                     { tap_mod(KC_LCTL, KC_V); } 
+  else                     { mod_key(KC_LCTL, KC_V); } 
   reset_tap_dance(state);
 }
 
@@ -400,21 +394,6 @@ void base_layer(uint8_t defer)
 void tap_layer(keyrecord_t *record, uint8_t layer)
 {
   record->event.pressed ? layer_on(layer) : layer_off(layer);
-}
-
-// extended LT macro for [shift] keycode layer
-void lt_shift(keyrecord_t *record, uint8_t shift, uint16_t keycode, uint8_t layer)
-{
-  if (record->event.pressed) {
-    key_timer = timer_read();
-    layer_on(layer);
-  }
-  else {
-    layer_off(layer);
-    on_tap   (shift, keycode); // for shifted keycodes, hence, LT_SHIFT
-    // clear_mods();
-    key_timer = 0;
-  }
 }
 
 // ............................................................ Double Key Layer

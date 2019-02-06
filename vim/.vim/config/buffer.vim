@@ -133,7 +133,7 @@
         nmap <silent>+        :CloseDiff<CR>:silent bnext<CR>
       endif
       " switch to previously edited/viewed buffer
-      
+      nmap <silent><BS>       :CloseDiff<CR>:silent edit #<CR>
 
   " Window actions _____________________________________________________________
 

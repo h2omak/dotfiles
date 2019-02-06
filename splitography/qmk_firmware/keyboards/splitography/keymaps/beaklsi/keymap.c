@@ -102,8 +102,7 @@ enum keyboard_keycodes {
  ,HS_LT  // pseudo CTL_T(S(KC_COMM))
  ,HS_GT  // pseudo SFT_T(S(KC_DOT))
 #endif
- ,LT_I   // pseudo LT   (_REGEX, KC_I)
- ,LT_SPC // pseudo LT   (_SYMGUI, KC_SPC)
+ ,LT_SPC // pseudo LT(_SYMGUI, KC_SPC)
  ,ML_BSLS
  ,ML_EQL
  ,PLOVER
@@ -111,6 +110,7 @@ enum keyboard_keycodes {
  ,SST_A  // pseudo SFT_T(S(KC_A))
  ,SST_T  // pseudo SFT_T(S(KC_T))
  ,TT_ESC
+ ,TT_SPC // pseudo LT(_TTCURSOR, KC_SPC)
 };
 
 // modifier keys
@@ -127,8 +127,6 @@ enum keyboard_keycodes {
 #define HOME_Q  GUI_T(KC_Q)
 #define HOME_H  CTL_T(KC_H)
 #define HOME_E  ALT_T(KC_E)
-// #define HOME_A  SFT_T(KC_A)
-// #define HOME_T  SFT_T(KC_T)
 #define HOME_R  ALT_T(KC_R)
 #define HOME_S  CTL_T(KC_S)
 #define HOME_W  GUI_T(KC_W)
@@ -144,11 +142,9 @@ enum keyboard_keycodes {
 #define _______ KC_NO
 
 #ifdef HASKELL
-// #define HS_COLN TD_COLN
 #define HS_LT   TD_LT
 #define HS_GT   TD_GT
 #else
-// #define HS_COLN KC_COLN
 #define HS_LT   KC_LT
 #define HS_GT   KC_GT
 #endif
@@ -163,8 +159,7 @@ enum keyboard_keycodes {
 #define XPASTE  TD_XPASTE
 
 #define LT_BSPC LT  (_EDIT, KC_BSPC)
-// #define LT_SPC LT  (_SYMGUI, KC_SPC) // issues <spc><enter> with mapc_shift (?), use lt_shift()
-#define TT_SPC  LT  (_TTCURSOR, KC_SPC)
+#define LT_I    LT  (_REGEX, KC_I)
 #ifdef PLANCK
 #define LT_0    LT  (_ADJUST, KC_0)
 #define LT_EQL  LT  (_ADJUST, KC_EQL)
@@ -301,7 +296,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     if (map_shift  (record, KC_LSFT, NOSHIFT, KC_SPC)) { return false; }
 #endif
     tap_layer      (record, _REGEX);
-    lt_shift       (record, mod_down(KC_RSFT) ? SHIFT : NOSHIFT, KC_I, _REGEX);
     rolling_layer  (record, LEFT, 0, 0, _REGEX, _SYMGUI);
     break;
 #ifdef LEFT_SPACE
@@ -323,10 +317,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case LT_SPC:
     if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))      { return false; }
     if (leader_cap (record, _SYMGUI, down_punc, KC_SPC)) { return false; }                     // see KC_SPC for multi-tap
-    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_SYMGUI); return false; } // rolling cursor to enter
+    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))  { layer_off(_SYMGUI); return false; } // rolling cursor to enter
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
     tap_layer      (record, _SYMGUI);
-    lt_shift       (record, NOSHIFT, KC_SPC, _SYMGUI);
+    lt             (record, _SYMGUI, KC_SPC); // because LT() issues <spc><enter> on mapc_shift()
     rolling_layer  (record, RIGHT, 0, 0, _SYMGUI, _REGEX);
     break;
   case KC_SPC:
@@ -336,10 +330,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #ifdef THUMB_CAPS
     if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))      { return false; }
 #endif
-    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { return false; }
+    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))  { layer_off(_TTCURSOR); return false; } // rolling cursor to enter
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
-    tap_layer      (record, _SYMGUI);
-    lt_shift       (record, NOSHIFT, KC_SPC, _SYMGUI);
+    tap_layer      (record, _TTCURSOR);
+    lt             (record, _TTCURSOR, KC_SPC); // because LT() issues <spc><enter> on mapc_shift()
     break;
 
   // ..................................................... Outer Right Thumb Key

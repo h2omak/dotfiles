@@ -80,7 +80,6 @@ enum keyboard_keycodes {
  ,HS_LT  // pseudo CTL_T(S(KC_COMM))
  ,HS_GT  // pseudo SFT_T(S(KC_DOT))
 #endif
- ,LT_I   // pseudo LT   (_REGEX, KC_I)
  ,AST_G  // pseudo MT   (MOD_LALT | MOD_LSFT, S(KC_G))
  ,SST_A  // pseudo SFT_T(S(KC_A))
  ,SST_T  // pseudo SFT_T(S(KC_T))
@@ -96,8 +95,6 @@ enum keyboard_keycodes {
 #define HOME_Q  GUI_T(KC_Q)
 #define HOME_H  CTL_T(KC_H)
 #define HOME_E  ALT_T(KC_E)
-// #define HOME_A  SFT_T(KC_A)
-// #define HOME_T  SFT_T(KC_T)
 #define HOME_R  ALT_T(KC_R)
 #define HOME_S  CTL_T(KC_S)
 #define HOME_W  GUI_T(KC_W)
@@ -113,11 +110,9 @@ enum keyboard_keycodes {
 #define _______ KC_NO
 
 #ifdef HASKELL
-// #define HS_COLN TD_COLN
 #define HS_LT   TD_LT
 #define HS_GT   TD_GT
 #else
-// #define HS_COLN KC_COLN
 #define HS_LT   KC_LT
 #define HS_GT   KC_GT
 #endif
@@ -134,6 +129,7 @@ enum keyboard_keycodes {
 #define LT_BSPC LT  (_MOUSE, KC_BSPC)
 #define LT_ENT  LT  (_EDIT, KC_ENT)
 #define LT_ESC  LT  (_NUMBER, KC_ESC)
+#define LT_I    LT  (_REGEX, KC_I)
 #define LT_SPC  LT  (_SYMGUI, KC_SPC)
 #define LT_TAB  LT  (_FNCKEY, KC_TAB)
 #define TT_SPC  LT  (_TTCURSOR, KC_SPC)
@@ -252,7 +248,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
   case LT_I:
     if (map_shift(record, KC_LSFT, NOSHIFT, KC_SPC)) { return false; }
-    lt_shift (record, mod_down(KC_RSFT) ? SHIFT : NOSHIFT, KC_I, _REGEX);
     tap_layer(record, _REGEX);
     break;
   case S(KC_I):
