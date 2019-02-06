@@ -18,7 +18,7 @@
       let g:source_font     = 'Iosevka\'
       let g:prose_font      = 'Iosevka-proof\'
       let g:font_type       = -1 " current font setting (0) source (1) prose
-      let g:font_step       = empty(glob('~/.session/font_step')) ? 0 : 1 " increase (point size) for prose
+      let g:font_step       = 1  " font size increase (point size) for prose
 
     " .............................................................. Color codes
 

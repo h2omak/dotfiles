@@ -177,7 +177,7 @@
       " simple console theme tweaks to maximize transparency
       function! s:console()
         Trace theme:console()
-        colorscheme pencil
+        colorscheme pencil " a theme that can be minimally tweaked for transparency
         set background=dark
         let $FZF_DEFAULT_OPTS = '--color=bg+:-1' " fzf term transparency
         execute 'highlight fzf1         guibg=NONE guifg=#303030'
