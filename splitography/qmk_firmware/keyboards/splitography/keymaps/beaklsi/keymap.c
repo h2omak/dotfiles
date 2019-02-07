@@ -317,10 +317,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case LT_SPC:
     if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))      { return false; }
     if (leader_cap (record, _SYMGUI, down_punc, KC_SPC)) { return false; }                     // see KC_SPC for multi-tap
-    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))  { layer_off(_SYMGUI); return false; } // rolling cursor to enter
+    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_SYMGUI); return false; } // rolling cursor to enter
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
     tap_layer      (record, _SYMGUI);
-    lt             (record, _SYMGUI, KC_SPC); // because LT() issues <spc><enter> on mapc_shift()
+    lt             (record, _SYMGUI, KC_SPC); // because LT() issues <spc> before <enter> on mapc_shift()
     rolling_layer  (record, RIGHT, 0, 0, _SYMGUI, _REGEX);
     break;
   case KC_SPC:
@@ -330,10 +330,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #ifdef THUMB_CAPS
     if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))      { return false; }
 #endif
-    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))  { layer_off(_TTCURSOR); return false; } // rolling cursor to enter
+    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_TTCURSOR); return false; } // rolling cursor to enter
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
     tap_layer      (record, _TTCURSOR);
-    lt             (record, _TTCURSOR, KC_SPC); // because LT() issues <spc><enter> on mapc_shift()
+    lt             (record, _TTCURSOR, KC_SPC); // because LT() issues <spc> before <enter> on mapc_shift()
     break;
 
   // ..................................................... Outer Right Thumb Key

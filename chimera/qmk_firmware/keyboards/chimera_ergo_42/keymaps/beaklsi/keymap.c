@@ -272,6 +272,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
   case LT_SPC:
     if (leader_cap(record, _SYMGUI, down_punc, KC_SPC)) { return false; } // KC_SPC -> space shift
+  case TT_SPC:
     tap_layer(record, _SYMGUI);
     break;
   case KC_SPC:
@@ -279,13 +280,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     break;
 
   case LT_BSPC:
+  case KC_BSPC:
     if (map_shift(record, KC_LSFT, NOSHIFT, KC_DEL))    { layer_off(_SYMGUI); return false; } // rolling cursor to del
     if (map_shift(record, KC_RSFT, NOSHIFT, KC_DEL))    { return false; }
     tap_layer(record, _MOUSE);
-    break;
-  case KC_BSPC:
-    if (map_shift(record, KC_LSFT, NOSHIFT, KC_DEL))    { return false; }
-    if (map_shift(record, KC_RSFT, NOSHIFT, KC_DEL))    { return false; }
     break;
 
   // ............................................................. Modifier Keys

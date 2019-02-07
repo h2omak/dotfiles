@@ -109,7 +109,7 @@ set -x STOW $HOME/stow
 
 set -x SESSION $HOME/.session
 # proxy override
-test -e $session/http_proxy ;and set -x HTTP_PROXY (cat $SESSION/http_proxy)
+test -e $SESSION/http_proxy ;and set -x HTTP_PROXY (cat $SESSION/http_proxy)
 
 set -x XDG_DOWNLOAD_DIR /net/downloads/http
 set -x NNTPSERVER news.sunnyusenet.com
