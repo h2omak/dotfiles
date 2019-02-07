@@ -87,14 +87,13 @@
         if &formatoptions =~ 't'
           NoPencil
           let &formatoptions = g:codeoptions
-          echo 'Automatic line wrap OFF'
         elseif &formatoptions == g:codeoptions
           Pencil
           set formatoptions=tqwan1
-          echo 'Automatic line wrap ON'
         else
           set formatoptions
         endif
+        call core#State('Automatic line wrap', &formatoptions =~ 't')
       endfunction
 
       nmap <silent><leader><CR> :call <SID>toggleWrap()<CR>
@@ -166,7 +165,7 @@
       function! s:toggleWrapSearch()
         let g:separator = g:separator == ' ' ? '\_s*' : ' '
         cnoremap <expr><space>  '/?' =~ getcmdtype() ? g:separator : ' '
-        echo g:separator == ' ' ? 'Wrap search OFF' : 'Wrap search ON'
+        call core#State('Wrap search', g:separator != ' ')
       endfunction
 
       nmap <silent><F6> :call <SID>toggleWrapSearch()<CR>

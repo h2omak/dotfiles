@@ -227,13 +227,12 @@
         if &list == 0
           match ExtraWhitespace /\%x00$/ " nolist by failing match with null character :)
           autocmd! invisible
-          echo 'List invisibles OFF'
         else
           match ExtraWhitespace /\s\+$/
           " list state propagates forward (on) but not backwards (off)? so auto reset buffer state!
           autocmd invisible BufLeave,WinLeave * call <SID>toggleWhiteSpace()
-          echo 'List invisibles ON'
         endif
+        call core#State('List invisibles', &list != ' ')
       endfunction
 
       nmap <silent><leader><Space> :call <SID>toggleWhiteSpace()<CR>

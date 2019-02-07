@@ -27,6 +27,12 @@
         endtry
       endfunction
 
+    " .................................................... Current state message
+    
+      function! core#State(message, state)
+        echo a:message . (a:state ? ' ON' : ' OFF')
+      endfunction
+
     " ............................................................. Numeric sort
 
       " sort compare by numeric (not string) value

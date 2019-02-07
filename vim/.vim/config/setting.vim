@@ -402,7 +402,7 @@
           iunmap ?<Space>
           iunmap !<Space>
         endif
-        echo 'Typography ' . (s:educate ? 'ON' : 'OFF')
+        call core#State('Typography', s:educate)
       endfunction
 
       nmap <silent><F11> :call <SID>toggleEducate()<CR>
