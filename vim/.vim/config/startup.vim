@@ -8,7 +8,7 @@
     " .................................................................... Setup
 
       set nocompatible " disable vi-compatibility
-      let g:gui  = has('gui_running') ? 1 : 0 " gvim or console
+      let g:gui = has('gui_running') ? 1 : 0 " gvim or console
 
     " ................................................................... System
 

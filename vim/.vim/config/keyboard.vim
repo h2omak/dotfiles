@@ -103,4 +103,13 @@
       " command mode insertion (paste) of current yank buffer
       cmap <F2> <C-r>"
 
+  " Abbreviations ______________________________________________________________
+  
+    " .................................................................. Writing
+    
+    autocmd kbd Filetype draft    iabbrev I i
+    autocmd kbd Filetype mail     iabbrev I i
+    autocmd kbd Filetype markdown iabbrev I i
+    autocmd kbd Filetype note     iabbrev I i
+
 " keyboard.vim

@@ -315,7 +315,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     rolling_layer(record, RIGHT, NOSHIFT, KC_BSLS, _MOUSE, _REGEX);
     break;
   case LT_SPC:
+#ifdef THUMB_CAPS
     if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))      { return false; }
+#endif
     if (leader_cap (record, _SYMGUI, down_punc, KC_SPC)) { return false; }                     // see KC_SPC for multi-tap
     if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_SYMGUI); return false; } // rolling cursor to enter
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
@@ -339,7 +341,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // ..................................................... Outer Right Thumb Key
 
   case LT_BSPC:
+#ifdef THUMB_CAPS
     if (raise_layer(record, _TTCAPS, RIGHT, TOGGLE))   { return false; }
+#endif
     if (map_shift  (record, KC_LSFT, NOSHIFT, KC_DEL)) { layer_off(_SYMGUI); return false; } // rolling cursor to del
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_DEL)) { return false; }
     if (leader_cap (record, _EDIT, down_punc, KC_ENT)) { return false; }                     // see KC_BSPC for multi-tap

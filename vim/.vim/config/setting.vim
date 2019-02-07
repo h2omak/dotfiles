@@ -237,7 +237,7 @@
       let g:nv_expect_keys         = []
       let g:nv_main_directory      = './'   " create new notes in current directory
       let g:nv_preview_direction   = 'right'
-      let g:nv_preview_width       = 45
+      let g:nv_preview_width       = 55
       let g:nv_search_paths        = ['./'] " default search from current directory
       let g:nv_show_preview        = 1 " alt-p to toggle preview
       let g:nv_use_short_pathnames = 1

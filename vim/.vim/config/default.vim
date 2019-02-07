@@ -135,7 +135,6 @@
       autocmd default Filetype markdown  setlocal spell wrap enc=utf-8 formatoptions=tqwan1 textwidth=72
       autocmd default Filetype note      setlocal spell wrap enc=utf-8 formatoptions=tqwan1 textwidth=72
 
-      autocmd default BufWinEnter *.vim  set filetype=vim
       autocmd default BufWinEnter *.wiki set filetype=markdown
 
   " Search / completion ________________________________________________________
