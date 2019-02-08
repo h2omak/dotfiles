@@ -11,7 +11,7 @@ usage() {
   exit 1
 }
 
-ignore='backups|debian|\.history|makepkg|nixos|plugged|plugged-custom|plugin|qmk_firmware|root|snippets|vps'
+ignore='backups|debian|\.history|makepkg|nixos|plugged-custom|qmk_firmware|root|snippets|vps'
 
 # ignore leading and trailing whitespace
 if [ "$1" = '-b' ] ;then
