@@ -232,7 +232,7 @@
           " list state propagates forward (on) but not backwards (off)? so auto reset buffer state!
           autocmd invisible BufLeave,WinLeave * call <SID>toggleWhiteSpace()
         endif
-        call core#State('List invisibles', &list != ' ')
+        call core#Status('List invisibles', &list != ' ')
       endfunction
 
       nmap <silent><leader><Space> :call <SID>toggleWhiteSpace()<CR>

@@ -29,7 +29,7 @@
 
     " .................................................... Current state message
     
-      function! core#State(message, state)
+      function! core#Status(message, state)
         echo a:message . (a:state ? ' ON' : ' OFF')
       endfunction
 

@@ -93,7 +93,7 @@
         else
           set formatoptions
         endif
-        call core#State('Automatic line wrap', &formatoptions =~ 't')
+        call core#Status('Automatic line wrap', &formatoptions =~ 't')
       endfunction
 
       nmap <silent><leader><CR> :call <SID>toggleWrap()<CR>
@@ -165,7 +165,7 @@
       function! s:toggleWrapSearch()
         let g:separator = g:separator == ' ' ? '\_s*' : ' '
         cnoremap <expr><space>  '/?' =~ getcmdtype() ? g:separator : ' '
-        call core#State('Wrap search', g:separator != ' ')
+        call core#Status('Wrap search', g:separator != ' ')
       endfunction
 
       nmap <silent><F6> :call <SID>toggleWrapSearch()<CR>

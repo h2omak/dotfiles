@@ -105,11 +105,16 @@
 
   " Abbreviations ______________________________________________________________
   
-    " .................................................................. Writing
+    " ................................................................. Personal
+
+      command! I call iabbrev I i
+
+      nmap <C-F6> :unabbrev I<CR>
+      imap <C-F6> <C-o>:unabbrev I<CR>
     
-    autocmd kbd Filetype draft    iabbrev I i
-    autocmd kbd Filetype mail     iabbrev I i
-    autocmd kbd Filetype markdown iabbrev I i
-    autocmd kbd Filetype note     iabbrev I i
+      autocmd kbd Filetype draft    iabbrev I i
+      autocmd kbd Filetype mail     iabbrev I i
+      autocmd kbd Filetype markdown iabbrev I i
+      autocmd kbd Filetype note     iabbrev I i
 
 " keyboard.vim
