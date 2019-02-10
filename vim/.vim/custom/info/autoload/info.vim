@@ -109,7 +109,7 @@
     " ............................................................... File state
 
       function! info#UnModified(show)
-        return &modified ? g:modified_ind : a:show == 1 ? g:unmodified_ind : ''
+        return &modifiable ? (&modified ? g:modified_ind : a:show == 1 ? g:unmodified_ind : '') : g:unmodifiable_ind
       endfunction
 
     " ................................................................ Left path

@@ -108,7 +108,8 @@
     " ............................................................... Modifiable
 
       " toggle modifiable attribute
-      nmap <silent><leader>- :let &modifiable = (&modifiable == 0 ? 1 : 0)<CR>:call core#Status('Modifiable', &modifiable)<CR>
+      " nmap <silent><leader>- :let &modifiable = (&modifiable == 0 ? 1 : 0)<CR>:call core#Status('Modifiable', &modifiable)<CR>
+      nmap <silent><leader>- :let &modifiable = (&modifiable == 0 ? 1 : 0)<CR>
 
       " protected help
       autocmd buffer BufWinEnter *.txt,*.txt.gz if &filetype == 'help' | set nomodifiable | endif

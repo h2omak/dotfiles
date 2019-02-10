@@ -12,6 +12,8 @@
 # alex
 # haddock
 # happy
+  haskell-shelly
+  haskell-turtle
 d pandoc
 # stack
 

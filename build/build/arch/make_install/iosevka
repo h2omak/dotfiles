@@ -10,7 +10,7 @@ usage() {
   exit 1
 }
 
-nerdfonts='--fontawesome --fontawesomeextension --octicons --powersymbols'
+nerdfonts='--fontawesome --fontawesomeextension --material --octicons --powersymbols'
 REPO=/net/depot/Iosevka
 FONT=$HOME/.fonts/iosevka
 
