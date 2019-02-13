@@ -8,13 +8,13 @@
 = ═══════
 # cabal-install
 # "ghc must be installed before other haskell packages"
-  ghc
+# ghc
 # alex
 # haddock
 # happy
-  haskell-shelly
-  haskell-turtle
-d pandoc
+# haskell-shelly
+# haskell-turtle
+# d pandoc
 # stack
 
 
@@ -22,6 +22,12 @@ d pandoc
 = ════
 # icedtea-web
 # jre7-openjdk
+
+
+= julia
+= ═════
+  julia
+  julia-docs
 
 
 = perl tool

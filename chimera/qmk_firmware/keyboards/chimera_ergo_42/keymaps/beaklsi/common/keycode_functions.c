@@ -16,7 +16,7 @@ static uint8_t mods = 0;
 
 void tap_mods(keyrecord_t *record, uint16_t keycode)
 {
-  if (record->event.pressed) { mods |= MOD_BIT(keycode); }
+  if (record->event.pressed) { mods |= MOD_BIT  (keycode); }
   else                       { mods &= ~(MOD_BIT(keycode)); }
 }
 
@@ -184,19 +184,19 @@ bool leader_cap(keyrecord_t *record, uint8_t layer, uint8_t autocap, uint16_t ke
 // .......................................................... Tap Dance Keycodes
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [_ASTR]   = ACTION_TAP_DANCE_FN         (asterisk)
- ,[_COMM]   = ACTION_TAP_DANCE_FN         (comma)
- ,[_DOT]    = ACTION_TAP_DANCE_FN         (dot)
- ,[_PASTE]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, paste, paste_reset)
- ,[_PERC]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, percent, percent_reset)
- ,[_PRIV]   = ACTION_TAP_DANCE_FN         (private)
- ,[_SEND]   = ACTION_TAP_DANCE_FN         (send)
- ,[_TILD]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tilde, tilde_reset)
- ,[_XPASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, xpaste, xpaste_reset)
+  [_ASTR]   = ACTION_TAP_DANCE_FN              (asterisk)
+ ,[_COMM]   = ACTION_TAP_DANCE_FN              (comma)
+ ,[_DOT]    = ACTION_TAP_DANCE_FN              (dot)
+ ,[_PASTE]  = ACTION_TAP_DANCE_FN_ADVANCED     (NULL, paste, paste_reset)
+ ,[_PERC]   = ACTION_TAP_DANCE_FN_ADVANCED     (NULL, percent, percent_reset)
+ ,[_PRIV]   = ACTION_TAP_DANCE_FN              (private)
+ ,[_SEND]   = ACTION_TAP_DANCE_FN              (send)
+ ,[_TILD]   = ACTION_TAP_DANCE_FN_ADVANCED     (NULL, tilde, tilde_reset)
+ ,[_XPASTE] = ACTION_TAP_DANCE_FN_ADVANCED     (NULL, xpaste, xpaste_reset)
 #ifdef HASKELL
- ,[_COLN]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, colon, colon_reset)
- ,[_LT]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lesser, lesser_reset)
- ,[_GT]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, greater, greater_reset)
+ ,[_COLN]   = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, colon, colon_reset, HASKELL_TERM)
+ ,[_LT]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, lesser, lesser_reset, HASKELL_TERM)
+ ,[_GT]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, greater, greater_reset, HASKELL_TERM)
 #endif
 };
 
@@ -204,11 +204,18 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 void colon(qk_tap_dance_state_t *state, void *user_data)
 {
-  if (state->count > 1) {
+  if (mod_down(KC_RSFT)) { // shift -> semicolon
+    if (state->count > 1) {
+      if (state->pressed)                     { register_code(KC_SCLN); }
+      else if (state->count == 2)             { send_string(":-"); }
+      else for (i = 0; i < state->count; i++) { tap_key(KC_SCLN); }
+    }
+    else { state->pressed ? register_code(KC_SCLN) : double_tap(state->count, NOSHIFT, KC_SCLN); }
+  }
+  else if (state->count > 1) {
     if (state->pressed)                     { register_shift(KC_SCLN); }
-    else if (state->count == 2)             { send_string(":-"); }
 #ifdef HASKELL
-    else if (state->count == 3)             { send_string(" :: "); }
+    else if (state->count == 2)             { send_string(" :: "); }
 #endif
     else for (i = 0; i < state->count; i++) { tap_shift(KC_SCLN); }
   }
@@ -219,36 +226,35 @@ void colon(qk_tap_dance_state_t *state, void *user_data)
 void colon_reset(qk_tap_dance_state_t *state, void *user_data)
 {
   unregister_shift(KC_SCLN);
+  if (mod_down(KC_RSFT)) { register_code(KC_RSFT); } // restore HOME_T, see process_record_user() TD_COLN
 }
 
 #ifdef HASKELL
 void lesser(qk_tap_dance_state_t *state, void *user_data)
 {
-  if (state->count > 2) {
+  if (state->count > 1) {
     if (state->pressed)                     { register_shift(KC_COMM); }
-    else if (state->count == 3)             { send_string(" <- "); }
+    else if (state->count == 2)             { send_string(" <- "); }
     else for (i = 0; i < state->count; i++) { tap_shift(KC_COMM); }
   }
-  else if ((state->count == 2) && state->pressed) { register_shift(KC_COMM); }
-  else { state->pressed                           ? register_code(KC_LCTL) : double_tap(state->count, SHIFT, KC_COMM); }
+  else { state->pressed ? register_code(KC_LCTL) : double_tap(state->count, SHIFT, KC_COMM); }
   reset_tap_dance(state);
 }
 
 void lesser_reset(qk_tap_dance_state_t *state, void *user_data)
 {
   unregister_shift(KC_COMM);
-  unregister_code(KC_LCTL);
+  unregister_code (KC_LCTL);
 }
 
 void greater(qk_tap_dance_state_t *state, void *user_data)
 {
-  if (state->count > 2) {
+  if (state->count > 1) {
     if (state->pressed)                     { register_shift(KC_DOT); }
-    else if (state->count == 3)             { send_string(" -> "); }
+    else if (state->count == 2)             { send_string(" -> "); }
     else for (i = 0; i < state->count; i++) { tap_shift(KC_DOT); }
   }
-  else if ((state->count == 2) && state->pressed) { register_shift(KC_DOT); }
-  else { state->pressed                           ? register_code(KC_LSFT) : double_tap(state->count, SHIFT, KC_DOT); }
+  else { state->pressed ? register_code(KC_LSFT) : double_tap(state->count, SHIFT, KC_DOT); }
   reset_tap_dance(state);
 }
 
@@ -261,11 +267,11 @@ void greater_reset(qk_tap_dance_state_t *state, void *user_data)
 
 void tilde(qk_tap_dance_state_t *state, void *user_data)
 {
-  if (mod_down(KC_RSFT)) { // dot, shift -> tilde, see process_record_user() TD_TILD
+  if (mod_down(KC_RSFT)) { // dot, shift -> tilde
     if (state->count > 1) {
       if (state->pressed)                     { register_shift(KC_GRV); }
       else if (state->count == 2)             { send_string("~/"); } 
-      else if (state->count == 3)             { send_string("=~"); } 
+      else if (state->count == 3)             { send_string("=~"); }
       else for (i = 0; i < state->count; i++) { tap_shift(KC_GRV); }
     }
     else { state->pressed ? register_shift(KC_GRV) : tap_shift(KC_GRV); }

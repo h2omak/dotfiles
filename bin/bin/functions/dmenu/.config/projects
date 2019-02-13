@@ -4,6 +4,7 @@ alacritty :: $(find $STOW/alacritty -type f)
 alot mail :: $HOME/.config/alot/config $HOME/.config/alot/themes/*
 arch bundle :: $HOME/build/arch/bundle/*
 arch install :: $HOME/build/arch/archlinux-*
+arch obarun bundle :: $HOME/build/arch/bundle/* $HOME/build/obarun/bundle/*
 arch pi :: $HOME/build/arch/archlinux-pi $HOME/build/arch/bundle/pi-*
 arch post-install :: $HOME/build/arch/post_install/*
 arch pre-install :: $HOME/build/arch/pre_install/*

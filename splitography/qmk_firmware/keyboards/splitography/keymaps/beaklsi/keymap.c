@@ -393,8 +393,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // ......................................................... Shift Mapped Keys
 
   case KC_COLN:
-  case TD_COLN:
     if (map_shift(record, KC_RSFT, NOSHIFT, KC_COLN))          { return false; }
+    break;
+  case TD_COLN:
+    if (mod_down(KC_RSFT)) { unregister_code(KC_RSFT); } // must un-shift before tap dance processing to register unshifted keycodes, see colon()
     break;
   case KC_COMM:
     down_punc = (record->event.pressed) ? 1 : 0; // dot/ques/exlm + space/enter + shift shortcut, see cap_lt()

@@ -120,6 +120,7 @@
       autocmd default Filetype conf      setlocal nospell expandtab   tabstop=2 shiftwidth=2 softtabstop=2
       autocmd default Filetype fish      setlocal nospell expandtab   tabstop=2 shiftwidth=2 softtabstop=2
       autocmd default Filetype haskell   setlocal nospell expandtab   tabstop=2 shiftwidth=2 softtabstop=2
+      autocmd default Filetype julia     setlocal nospell expandtab   tabstop=2 shiftwidth=2 softtabstop=2
       autocmd default Filetype lua       setlocal nospell expandtab   tabstop=2 shiftwidth=2 softtabstop=2
       autocmd default Filetype python    setlocal nospell expandtab   tabstop=4 shiftwidth=4 softtabstop=4
       autocmd default Filetype ruby      setlocal nospell expandtab   tabstop=2 shiftwidth=2 softtabstop=2
