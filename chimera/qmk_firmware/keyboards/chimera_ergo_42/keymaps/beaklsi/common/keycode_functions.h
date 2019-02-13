@@ -6,6 +6,8 @@ void colon_reset(qk_tap_dance_state_t *state, void *user_data);
 void comma(qk_tap_dance_state_t *state, void *user_data);
 void dot(qk_tap_dance_state_t *state, void *user_data);
 void double_tap(uint8_t count, uint8_t shift, uint16_t keycode);
+void equal(qk_tap_dance_state_t *state, void *user_data);
+void equal_reset(qk_tap_dance_state_t *state, void *user_data);
 void greater(qk_tap_dance_state_t *state, void *user_data);
 void greater_reset(qk_tap_dance_state_t *state, void *user_data);
 bool leader_cap(keyrecord_t *record, uint8_t layer, uint8_t autocap, uint16_t keycode);

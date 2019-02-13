@@ -187,6 +187,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [_ASTR]   = ACTION_TAP_DANCE_FN              (asterisk)
  ,[_COMM]   = ACTION_TAP_DANCE_FN              (comma)
  ,[_DOT]    = ACTION_TAP_DANCE_FN              (dot)
+ ,[_EQL]    = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, equal, equal_reset, HASKELL_TERM)
  ,[_PASTE]  = ACTION_TAP_DANCE_FN_ADVANCED     (NULL, paste, paste_reset)
  ,[_PERC]   = ACTION_TAP_DANCE_FN_ADVANCED     (NULL, percent, percent_reset)
  ,[_PRIV]   = ACTION_TAP_DANCE_FN              (private)
@@ -200,7 +201,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #endif
 };
 
-// ........................................................... Triple Tap Insert
+// ........................................................... Context Multi Tap
 
 void colon(qk_tap_dance_state_t *state, void *user_data)
 {
@@ -227,6 +228,23 @@ void colon_reset(qk_tap_dance_state_t *state, void *user_data)
 {
   unregister_shift(KC_SCLN);
   if (mod_down(KC_RSFT)) { register_code(KC_RSFT); } // restore HOME_T, see process_record_user() TD_COLN
+}
+
+void equal(qk_tap_dance_state_t *state, void *user_data)
+{
+  if (state->count > 1) {
+    if (state->pressed)                     { register_code(KC_EQL); }
+    else if (state->count == 2)             { send_string("=~"); } 
+    else for (i = 0; i < state->count; i++) { tap_key(KC_EQL); }
+  }
+  else { state->pressed ? register_code(KC_EQL) : double_tap(state->count, NOSHIFT, KC_EQL); }
+  reset_tap_dance(state);
+}
+
+void equal_reset(qk_tap_dance_state_t *state, void *user_data)
+{
+  unregister_shift(KC_EQL);
+  layer_off       (_MOUSE);
 }
 
 #ifdef HASKELL
@@ -271,7 +289,6 @@ void tilde(qk_tap_dance_state_t *state, void *user_data)
     if (state->count > 1) {
       if (state->pressed)                     { register_shift(KC_GRV); }
       else if (state->count == 2)             { send_string("~/"); } 
-      else if (state->count == 3)             { send_string("=~"); }
       else for (i = 0; i < state->count; i++) { tap_shift(KC_GRV); }
     }
     else { state->pressed ? register_shift(KC_GRV) : tap_shift(KC_GRV); }
@@ -288,7 +305,7 @@ void tilde_reset(qk_tap_dance_state_t *state, void *user_data)
   if (mod_down(KC_RSFT)) { register_code(KC_RSFT); } // restore HOME_T, see process_record_user() TD_TILD
 }
 
-// ........................................................... Double Tap Insert
+// ........................................................... Simple Double Tap
 
 void asterisk(qk_tap_dance_state_t *state, void *user_data)
 {

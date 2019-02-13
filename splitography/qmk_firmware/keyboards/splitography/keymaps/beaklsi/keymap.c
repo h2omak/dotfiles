@@ -104,7 +104,6 @@ enum keyboard_keycodes {
 #endif
  ,LT_SPC // pseudo LT(_SYMGUI, KC_SPC)
  ,ML_BSLS
- ,ML_EQL
  ,PLOVER
  ,AST_G  // pseudo MT   (MOD_LALT | MOD_LSFT, S(KC_G))
  ,SST_A  // pseudo SFT_T(S(KC_A))
@@ -303,9 +302,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     if (map_shift(record, KC_LSFT, NOSHIFT, KC_SPC))   { return false; }
     break;
 #endif
-  case ML_EQL:
+  case TD_EQL:
     tap_layer    (record, _MOUSE);
-    rolling_layer(record, LEFT, NOSHIFT, KC_EQL, _MOUSE, _SYMGUI);
+    rolling_layer(record, LEFT, 0, 0, _MOUSE, _SYMGUI);
     break;
 
   // ..................................................... Inner Right Thumb Key
