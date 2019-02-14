@@ -28,8 +28,8 @@ enum tap_dance {
 #define TD_SEND   TD(_SEND) // config.h defined macro string
 #define TD_TILD   TD(_TILD)
 #define TD_XPASTE TD(_XPASTE)
-#define TD_COLN   TD(_COLN)
 #ifdef HASKELL
+#define TD_COLN   TD(_COLN)
 #define TD_LT     TD(_LT)
 #define TD_GT     TD(_GT)
 #endif

@@ -160,6 +160,7 @@ bool map_shift(keyrecord_t *record, uint16_t shift_key, uint8_t shift, uint16_t 
   return false;
 }
 
+#ifndef CHIMERA
 // conditional map_shift pass through on keycode down to complete lt(), see process_record_user()
 bool mapc_shift(keyrecord_t *record, uint16_t shift_key, uint8_t shift, uint16_t keycode)
 {
@@ -179,6 +180,7 @@ bool mapc_shift(keyrecord_t *record, uint16_t shift_key, uint8_t shift, uint16_t
   }
   return false;
 }
+#endif
 
 // ....................................................... Leader Capitalization
 
@@ -257,7 +259,11 @@ void equal(qk_tap_dance_state_t *state, void *user_data)
     else if (state->count == 2)             { send_string("=~"); } 
     else for (i = 0; i < state->count; i++) { tap_key(KC_EQL); }
   }
+#ifdef CHIMERA
+  else { state->pressed ? register_code(KC_EQL) : double_tap(state->count, NOSHIFT, KC_EQL); }
+#else
   else { state->pressed ? layer_on(_MOUSE) : double_tap(state->count, NOSHIFT, KC_EQL); }
+#endif
   reset_tap_dance(state);
 }
 
@@ -392,7 +398,7 @@ void xpaste_reset(qk_tap_dance_state_t *state, void *user_data)
   unregister_code (KC_LCTL);
 }
 
-// compile time macro string, see functions/hardware splitography script
+// compile time macro string, see functions/hardware <keyboard> script
 void private(qk_tap_dance_state_t *state, void *user_data)
 {
   if (state->count > 1) { SEND_STRING(PRIVATE_STRING); }
@@ -427,13 +433,15 @@ void clear_layers(void)
 
 void base_layer(uint8_t defer)
 {
-  if (defer) { return; } // see process_record_user() CNTR_TL, CNTR_TR
+  if (defer) { return; } // see process_record_user() reset keys
 #ifdef AUDIO_ENABLE
   plover ? PLAY_SONG(song_plover_gb) : PLAY_SONG(song_qwerty);
 #endif
   clear_layers();
   set_single_persistent_default_layer(_BASE);
+#ifndef CHIMERA
   toggle_plover(0);
+#endif
 }
 
 // set layer asap to overcome macro latency errors, notably tap dance, LT usage and..
@@ -443,6 +451,7 @@ void tap_layer(keyrecord_t *record, uint8_t layer)
   record->event.pressed ? layer_on(layer) : layer_off(layer);
 }
 
+#ifndef CHIMERA
 // LT macro for mapc_shift(), see process_record_user()
 void lt(keyrecord_t *record, uint8_t layer, uint16_t keycode)
 {
@@ -457,6 +466,7 @@ void lt(keyrecord_t *record, uint8_t layer, uint16_t keycode)
     key_timer = 0;
   }
 }
+#endif
 
 // ............................................................ Double Key Layer
 
@@ -484,6 +494,7 @@ bool raise_layer(keyrecord_t *record, uint8_t layer, uint8_t side, uint8_t toggl
   return false;
 }
 
+#ifndef CHIMERA
 // .............................................................. Rolling Layers
 
 // rolling thumb combinations, see process_record_user()
@@ -547,3 +558,4 @@ void toggle_plover(uint8_t state)
     plover = state;
   }
 }
+#endif

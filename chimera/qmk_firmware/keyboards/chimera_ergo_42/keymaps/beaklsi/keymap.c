@@ -47,6 +47,8 @@
 // sudo CPATH=<keymap.c directory>/common make ...
 
 
+#define CHIMERA
+
 // #include "config.h"
 #include "chimera_ergo_42.h"
 // #include "action_layer.h"
