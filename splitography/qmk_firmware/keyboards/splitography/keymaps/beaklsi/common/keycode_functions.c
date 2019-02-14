@@ -269,8 +269,8 @@ void equal(qk_tap_dance_state_t *state, void *user_data)
 
 void equal_reset(qk_tap_dance_state_t *state, void *user_data)
 {
-  unregister_shift(KC_EQL);
-  layer_off       (_MOUSE);
+  unregister_code(KC_EQL);
+  layer_off      (_MOUSE);
 }
 
 #ifdef HASKELL
