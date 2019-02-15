@@ -12,6 +12,7 @@
 #define TAPPING_TOGGLE 1
 // tap dance key press termination interval
 #define TAPPING_TERM 250
+#define HASKELL_TERM 200
 
 // smooth mouse motion
 // #define MOUSEKEY_INTERVAL    20
@@ -30,7 +31,7 @@
 #define DT_SHIFT 1
 // number layer 0 position KEYPAD_0, THUMB_0
 #define THUMB_0
-// Haskell triple tap operator chords
+// Haskell tap dance operator chords
 #define HASKELL
 // equal key toggle layer (differs from splitography)
 #define EQL_LT _ADJUST

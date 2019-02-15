@@ -5,11 +5,11 @@
 
   [_BASE] = KEYMAP( 
   // ---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------
-      TD_COLN , KC_Y    , KC_O    , KC_U    , KC_Z    , CNTR_TL , CNTR_TR , KC_G    , KC_D    , KC_N    , KC_M    , KC_X    ,
+      TD_COLN , KC_Y    , KC_O    , KC_U    , KC_Z    , TGL_TL  , TGL_TR  , KC_G    , KC_D    , KC_N    , KC_M    , KC_X    ,
   // ---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------
-      HOME_Q  , HOME_H  , HOME_E  , HOME_A  , TD_TILD , CNTR_HL , CNTR_HR , KC_C    , HOME_T  , HOME_R  , HOME_S  , HOME_W  ,
+      HOME_Q  , HOME_H  , HOME_E  , HOME_A  , TD_TILD , TGL_HL  , TGL_HR  , KC_C    , HOME_T  , HOME_R  , HOME_S  , HOME_W  ,
   // ---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------
-      KC_J    , KC_MINS , KC_QUOT , KC_K    , KC_COMM , CNTR_BL , CNTR_BR , KC_B    , KC_P    , KC_L    , KC_F    , KC_V    ,
+      KC_J    , KC_MINS , KC_QUOT , KC_K    , KC_COMM , TGL_BL  , TGL_BR  , KC_B    , KC_P    , KC_L    , KC_F    , KC_V    ,
   // ---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------
 #ifdef SPLITOGRAPHY
       _______ , _______ , _______ , _______ , LT_ESC  , LT_I    , LT_SPC  , LT_BSPC , _______ , _______ , _______ , _______ 
