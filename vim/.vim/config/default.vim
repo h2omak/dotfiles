@@ -61,7 +61,18 @@
       " delete all marks in current buffer, see signature plugin
       " nmap <silent><leader>'' :delmarks!<CR>
 
-      " ................................................................. Macros
+    " ................................................................... Macros
+
+      " see https://www.reddit.com/r/vim/comments/aqmnaf/handy_shortcut_to_repeat_the_last_recorded_macro/
+      function! s:replayLastMacro()
+        try
+          normal @@
+        catch /E748/
+          normal @q
+        endtry
+      endfunction
+
+      nnoremap <silent><CR> :call <SID>replayLastMacro()<cr>
 
       " quick q macro
       nnoremap <C-q>     @q
