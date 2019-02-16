@@ -6,30 +6,36 @@
 # ...................................................................... iosevka
 
 usage() {
-  echo "usage: $(basename $0) iosevka [amphetype | code | proof] [double | single | patch | leading <height> | family <name>]*"
+  echo "usage: $(basename $0) iosevka [amphetype | code | proof] [double | single | futura | hooky | patch | leading <height> | family <name>]*"
   exit 1
 }
 
-nerdfonts='--fontawesome --fontawesomeextension --material --octicons --powersymbols'
 REPO=/net/depot/Iosevka
 FONT=$HOME/.fonts/iosevka
+futura="'v-i-line', 'v-j-line', 'v-l-line', 'v-q-straight', 'v-t-cross'"
+hooky="'v-i-hooky', 'v-l-hooky'"
+shape="'sans'"
+nerdfonts='--fontawesome --fontawesomeextension --material --octicons --powersymbols'
 
 shift # basename is make_install, $1 == iosevka
 
-storey=double
+storey=single
+style=$futura
 leading=1250
 descender=0
 
 while [ $1 ] ;do
   case $1 in
-    amphetype) storey=double; family=-amphetype; leading=1875 ;; # 1.5 spacing
-    code     ) storey=single; design="'ligset-haskell'" ;;       # default family
-    double   ) storey=double; family=-double ;;                  # "a"
-    family   ) family=$2;  shift ;;                              # font family
-    leading  ) leading=$2; shift ;;                              # line spacing
-    patch    ) patch=true ;;                                     # nerdfonts
-    proof    ) storey=single; family=-proof; leading=1875 ;;     # 1.5 spacing
-    single   ) storey=single; family=-single ;;                  # default "a"
+    amphetype) storey=double; style=$hooky ; family=-amphetype; leading=1875 ;; # 1.5 spacing
+    code     ) storey=single; design="'ligset-haskell'" ;;                      # default family
+    double   ) storey=double; family=-double ;;                                 # "a"
+    family   ) family=$2;  shift ;;                                             # font family
+    futura   ) style=$futura ;;                                                 # futura as can be!
+    hooky    ) style=$hooky ;;                                                  # top hook
+    leading  ) leading=$2; shift ;;                                             # line spacing
+    patch    ) patch=true ;;                                                    # nerdfonts
+    proof    ) storey=single; family=-proof; leading=1875 ;;                    # 1.5 spacing
+    single   ) storey=single; family=-single ;;                                 # default "a"
     *        ) usage ;;
   esac
   shift
@@ -54,13 +60,12 @@ if [ $leading -gt 1250 ] ;then
   leading=$(( $leading - $descender ))
 fi
 
-shape="'sans'"
-alpha="'v-l-hooky', 'v-i-hooky', 'v-f-straight', 'v-g-singlestorey', 'v-l-hooky', 'v-m-longleg', 'v-t-cross'"
+alpha="$style, 'v-g-singlestorey', 'v-m-longleg', 'v-y-straight'"
 math="'v-zero-slashed', 'v-one-hooky', 'v-tilde-low', 'v-asterisk-high', 'v-caret-high', 'v-brace-curly'"
 symbol="'v-paragraph-low', 'v-at-long', 'v-eszet-sulzbacher'"
 upright="$shape, $alpha, 'v-a-${storey}storey', $math, $symbol"
 design=${design:-$upright}
-italic="$shape, $alpha, 'v-a-singlestorey', 'v-f-straight', 'v-y-straight', $math, $symbol"
+italic="$shape, $alpha, 'v-a-singlestorey', $math, $symbol"
 oblique=$italic
 
 # build hooky [i l] single-storey [a g] character set
@@ -68,6 +73,7 @@ cd /net/depot
 if [ -d Iosevka ] ;then
   cd Iosevka
   rm -rf build dist
+  original parameters.toml # after manual git install
   cp parameters.toml.original parameters.toml
   ifno 'sync iosevka repo' || { git pull origin master; cd ../nerd-fonts; git pull origin master; cd -; }
 else
