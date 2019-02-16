@@ -19,23 +19,34 @@ nerdfonts='--fontawesome --fontawesomeextension --material --octicons --powersym
 
 shift # basename is make_install, $1 == iosevka
 
-storey=single
-style=$futura
-leading=1250
-descender=0
+hook() {
+  storey=single
+  style=$hooky
+  leading=1250 # default
+  descender=0
+  cap=735      # default
+}
+
+line() {
+  storey=single
+  style=$futura
+  leading=1250 # default
+  descender=0
+  cap=835
+}
 
 while [ $1 ] ;do
   case $1 in
-    amphetype) storey=double; style=$hooky ; family=-amphetype; leading=1875 ;; # 1.5 spacing
-    code     ) storey=single; design="'ligset-haskell'" ;;                      # default family
-    double   ) storey=double; family=-double ;;                                 # "a"
-    family   ) family=$2;  shift ;;                                             # font family
-    futura   ) style=$futura ;;                                                 # futura as can be!
-    hooky    ) style=$hooky ;;                                                  # top hook
-    leading  ) leading=$2; shift ;;                                             # line spacing
-    patch    ) patch=true ;;                                                    # nerdfonts
-    proof    ) storey=single; family=-proof; leading=1875 ;;                    # 1.5 spacing
-    single   ) storey=single; family=-single ;;                                 # default "a"
+    amphetype) hook; storey=double; family=-amphetype; leading=1875 ;; # 1.5 spacing
+    code     ) line; design="'ligset-haskell'" ;;                      # default family
+    double   ) storey=double; family=-double ;;                        # "a"
+    family   ) family=$2;  shift ;;                                    # font family
+    futura   ) line ;;                                                 # futura as can be!
+    hooky    ) hook ;;                                                 # top hook
+    leading  ) leading=$2; shift ;;                                    # line spacing
+    patch    ) patch=true ;;                                           # nerdfonts
+    proof    ) line; family=-proof; leading=1875 ;;                    # 1.5 spacing
+    single   ) storey=single; family=-single ;;                        # default "a"
     *        ) usage ;;
   esac
   shift
@@ -106,7 +117,7 @@ oblique = 'oblique'" >$REPO/private-build-plans.toml
 # ensure node.js is uptodate
 npm install
 
-sed -i -r "/^leading =/s/= ([0-9]*)/= $leading/; /^descenderPad =/s/= ([0-9]*)/= $descender/" $REPO/parameters.toml
+sed -i -r "/^cap =/s/= ([0-9]*)/= $cap/; /^leading =/s/= ([0-9]*)/= $leading/; /^descenderPad =/s/= ([0-9]*)/= $descender/" $REPO/parameters.toml
 
 # npm run build -- ttf:Iosevka$family upright:"$upright" italic:"$italic" oblique:"$oblique" design:"$design"
 npm run build -- ttf:iosevka$family
