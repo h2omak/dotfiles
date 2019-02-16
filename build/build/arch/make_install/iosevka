@@ -32,22 +32,22 @@ line() {
   style=$futura
   leading=1250 # default
   descender=0
-  cap=835
+  cap=835      # raise ascenders (affects caps, numbers and quotes)
 }
 
 while [ $1 ] ;do
   case $1 in
-    amphetype) hook; storey=double; family=-amphetype; leading=1875 ;; # 1.5 spacing
-    code     ) line; design="'ligset-haskell'" ;;                      # default family
-    double   ) storey=double; family=-double ;;                        # "a"
-    family   ) family=$2;  shift ;;                                    # font family
-    futura   ) line ;;                                                 # futura as can be!
-    hooky    ) hook ;;                                                 # top hook
-    leading  ) leading=$2; shift ;;                                    # line spacing
-    patch    ) patch=true ;;                                           # nerdfonts
-    proof    ) line; family=-proof; leading=1875 ;;                    # 1.5 spacing
-    single   ) storey=single; family=-single ;;                        # default "a"
-    *        ) usage ;;
+  amphetype) hook; storey=double; family=-amphetype; leading=1875 ;; # 1.5 spacing
+  code     ) line; design="'ligset-haskell'" ;;                      # default family
+  double   ) storey=double; family=-double ;;                        # "a"
+  family   ) family=$2;  shift ;;                                    # font family
+  futura   ) line ;;                                                 # futura as can be!
+  hooky    ) hook ;;                                                 # top hook
+  leading  ) leading=$2; shift ;;                                    # line spacing
+  patch    ) patch=true ;;                                           # nerdfonts
+  proof    ) line; family=-proof; leading=1875 ;;                    # 1.5 spacing
+  single   ) storey=single; family=-single ;;                        # default "a"
+  *        ) usage ;;
   esac
   shift
 done
@@ -71,7 +71,7 @@ if [ $leading -gt 1250 ] ;then
   leading=$(( $leading - $descender ))
 fi
 
-alpha="$style, 'v-g-singlestorey', 'v-m-longleg', 'v-y-straight'"
+alpha="$style, 'v-f-straight', 'v-g-singlestorey', 'v-m-longleg', 'v-y-straight'"
 math="'v-zero-slashed', 'v-one-hooky', 'v-tilde-low', 'v-asterisk-high', 'v-caret-high', 'v-brace-curly'"
 symbol="'v-paragraph-low', 'v-at-long', 'v-eszet-sulzbacher'"
 upright="$shape, $alpha, 'v-a-${storey}storey', $math, $symbol"
