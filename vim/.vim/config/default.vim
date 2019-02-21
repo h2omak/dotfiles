@@ -72,7 +72,7 @@
         endtry
       endfunction
 
-      nnoremap <silent><CR> :call <SID>replayLastMacro()<cr>
+      nnoremap <silent><leader>@ :call <SID>replayLastMacro()<cr>
 
       " quick q macro
       nnoremap <C-q>     @q

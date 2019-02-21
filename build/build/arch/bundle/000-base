@@ -7,11 +7,9 @@
 # install aur package managers FIRST !!
 = aur package manager
 = ═══════════════════
-# m pakku
-  m yay
+p auracle-git
+p pacaur
   package-query
-  cower
-  pacaur
   pkg-config
 
 

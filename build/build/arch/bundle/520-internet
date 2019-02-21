@@ -50,7 +50,7 @@ d * znc           [server]
 # newsbeuter
   php-gd
 # php-mcrypt
-d php70-mcrypt
+# d php70-mcrypt
 d tt-rss
 # ttaurter
 # surfraw

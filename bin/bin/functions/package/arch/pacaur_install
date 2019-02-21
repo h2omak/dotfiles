@@ -11,9 +11,11 @@ usage() {
   exit 1
 }
 
+wrappaur=pacaur
+
 [ $1 ] || usage
 package=$1
-cd $HOME/.cache/yay/$package 2>/dev/null || cd $HOME/.cache/pacaur/$package 2>/dev/null || exit
+cd $HOME/.cache/$wrappaur/$package 2>/dev/null || exit
 
 v -f PKGBUILD
 makepkg -Acfs

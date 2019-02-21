@@ -7,6 +7,7 @@
 # ........................................................... pacman maintenance
 
 # maximum number of package versions
+wrappaur=pacaur
 depth=4
 
 sudo paccache -rk$depth
@@ -15,7 +16,7 @@ exists pacman-optimize && sudo pacman-optimize
 
 ifno 'remove ALL local archived packages' || {
   sudo pacman -Sc --noconfirm
-  rm -rf $HOME/.cache/yay/*
+  rm -rf $HOME/.cache/$wrappaur/*
 }
 
 # vim: set ft=sh: #

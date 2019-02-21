@@ -32,7 +32,7 @@ line() {
   style=$futura
   leading=1250 # default
   descender=0
-  cap=835      # raise ascenders (affects caps, numbers and quotes)
+  cap=830      # lengthen ascenders (also stretches caps, numbers and quotes)
 }
 
 while [ $1 ] ;do

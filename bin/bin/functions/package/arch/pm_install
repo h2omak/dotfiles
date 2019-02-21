@@ -8,11 +8,14 @@
 
 # ......................................................... Distribution install
 
-# Usage: pm_install [--confirm | S] <package>
+# Usage: pm_install [--confirm | --init] <package>
+
+wrappaur=pacaur
+options='--noconfirm --noedit'
 
 case $1 in
-  --confirm) confirm=true; shift ;;
-  --init   ) init=true;    shift ;;
+  --confirm) unset options; shift ;;
+  --init   ) init=true;     shift ;;
 esac
 
 if ! pm_query $@ ;then
@@ -20,12 +23,10 @@ if ! pm_query $@ ;then
   time=$(date +%s)
   pre_install $@
   if pacman -Ss $@ | grep -q --regex="/$@ " ;then
-    [ $confirm ] && sudo pacman -S $@ || sudo pacman -S --noconfirm $@
+    sudo pacman -S $options $@
   else
     echo "${__GREEN}@aur${NOCOLOR}"
-    [ $confirm ] && options='--noanswerclean --noanswerdiff --noansweredit --noanswerupgrade' || 
-      options='--answerclean=N --answerdiff=N --answeredit=N --answerupgrade=N --noconfirm'
-    yay -S --noprovides $options $@
+    $wrappaur -S $options $@
   fi
   post_install $@
   echo "${__GREEN}@elapsed $(chrono $time)${NOCOLOR}"

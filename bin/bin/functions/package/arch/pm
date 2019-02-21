@@ -11,12 +11,15 @@ usage() {
   exit 1
 }
 
+wrappaur=pacaur
+options='--noconfirm --noedit'
+
 [ $1 ] || usage
 
 # default (no options) to package query
 
 if [ $# -eq 1 ] ;then
-  pacman -Qs $@ || yay -Ss $@
+  pacman -Qs $@ || $wrappaur -Ss $@
 else
   action=$1
   shift
@@ -25,9 +28,8 @@ else
     sudo pacman -Rns --noconfirm $@
   else
     # no dash option shorthand for noconfirm :-)
-    echo $action | grep -q '^-' && action="$action --noanswerclean --noanswerdiff --noansweredit --noanswerupgrade" || 
-      action="-$action --answerclean=N --answerdiff=N --answeredit=N --answerupgrade=N --noconfirm"
-    yay $action --noprovides $@
+    echo $action | grep -q '^-' && { action="$action"; unset options; } || action="-$action"
+    $wrappaur $action $options $@
   fi
 fi
 

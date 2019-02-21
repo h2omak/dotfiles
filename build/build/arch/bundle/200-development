@@ -16,6 +16,7 @@
 # haskell-turtle
 # d pandoc
 # stack
+  stack-bin
 
 
 = java

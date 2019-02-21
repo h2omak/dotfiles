@@ -1,14 +1,10 @@
 # sdothum - 2016 (c) wtfpl
 
-# Make
+# Post_install
 # ══════════════════════════════════════════════════════════════════════════════
 
-# ........................................................................ pakku
+# ........................................................................ stack
 
-[ -d /net/depot ] && cd /net/depot || cd /tmp
-[ -d pakku ] || git clone https://aur.archlinux.org/pakku.git
-cd pakku
-makepkg -si
-pakku -Sy
+stack setup
 
 # vim: set ft=sh: #

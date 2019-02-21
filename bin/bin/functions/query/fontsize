@@ -19,7 +19,7 @@ FONTSIZE=$SESSION/fontsize
 if cpu arm ;then
   size=8
 elif gpu intel ;then
-  size=10
+  size=9
 elif cpu celeron ;then
   size=10
 elif gpu macbook ;then
