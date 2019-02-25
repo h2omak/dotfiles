@@ -7,7 +7,7 @@
 
     " .................................................................... Setup
 
-      let mapleader   = "\<Space>" " remap <leader> a la spacemacs
+      let mapleader   = "\<Space>"    " remap <leader> a la spacemacs
       let g:mapleader = "\<Space>"
 
       augroup kbd | autocmd! | augroup END
@@ -16,8 +16,8 @@
 
     " ....................................................... Backspace settings
 
-      set backspace=indent,eol,start " allow backspace in insert mode
-      set whichwrap=b,s,h,l,<,>,[,]  " backspace and cursor keys wrap
+      set backspace=indent,eol,start  " allow backspace in insert mode
+      set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap
 
     " ......................................................... Cursor movements
 

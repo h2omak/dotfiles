@@ -28,11 +28,12 @@
 = ═══════════
 # darktable
 # dcraw                      [server]
-d digikam
+# d digikam
 # dispcalgui                 [server]
   displaycal                 [server]
   gimp                       [server]
   gimp-plugin-resynthesizer  [server]
+  gthumb
 # kdebase-workspace          [server]
 # kipi-plugins               [server]
 # photivo-hg                 [server]

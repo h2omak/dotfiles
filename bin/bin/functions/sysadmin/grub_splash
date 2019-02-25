@@ -11,7 +11,7 @@ usage() {
   exit 1
 }
 
-theme=enterprise # default images/grub/<theme>
+theme=enterprise  # default images/grub/<theme>
 
 [ -e "$1" ] && splash=$1
 [ -e "$HOME/images/grub/$1" ] && splash=$HOME/images/grub/$1
@@ -26,7 +26,7 @@ if [ ! "$splash" ] ;then
   *1366) rez=-1366x768 ;;
   *1680) rez=-1680x1050 ;;
   *1920) rez=-1920x1080 ;;
-  *3440) rez=-1680x1050 ;; # 3440x1440 multihead setup boots to 1680x1050
+  *3440) rez=-1680x1050 ;;  # 3440x1440 multihead setup boots to 1680x1050
   esac
 
   [ -e "$HOME/images/grub/$splash$rez.png" ] && splash="$HOME/images/grub/$splash$rez.png" || splash="$HOME/images/grub/$splash.png"

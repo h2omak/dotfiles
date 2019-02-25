@@ -83,7 +83,7 @@ brokeln rm
 
 clean() {
   [ -d "$vacuum/$file" ] && rm -r "$vacuum/$file"
-  target=$(dirname "$file") # [ $(dirname) = . ] is always true!
+  target=$(dirname "$file")  # [ $(dirname) = . ] is always true!
   [ "$target" = . ] && target=$vacuum || target="$vacuum/$target"
   [ -d "$target"  ] || mkdir -p "$target"
   sudo mv -f "$file" $target

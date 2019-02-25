@@ -37,11 +37,11 @@ palette() {
             -e "s/^(Tint) Color Variation/\1\n/" \
             -e "s/^.*adding gray.*less saturated color.*most s(aturated one)./S\1\n/" \
             -e "s/^(Tone) Color Variation/\1\n/" |
-        sed -e ":a;/^#/{N;s/\n#/ #/;ba}" |                 # join hexcode color sets
+        sed -e ":a;/^#/{N;s/\n#/ #/;ba}" |                  # join hexcode color sets
         sed -e "s/^ //" |
-        sed -re ":a;/^#/{N;s/(.*)\n($COLORS)/\2 \1/;ba}" | # prepend labels to color sets
+        sed -re ":a;/^#/{N;s/(.*)\n($COLORS)/\2 \1/;ba}" |  # prepend labels to color sets
         sed -e "s/#//g" |
-        egrep "^($COLORS) " | egrep -vi '^Shade .* (Information|Preview)' | # select and drop strays
+        egrep "^($COLORS) " | egrep -vi '^Shade .* (Information|Preview)' |               # select and drop strays
         awk '{ while(++i<=NF) printf (!a[$i]++) ? $i FS : ""; i=split("",a); print "" }'  # remove duplicate values (css labels)
 }
 

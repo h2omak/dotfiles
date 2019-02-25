@@ -9,7 +9,7 @@ EDIT='[ edit menu ]'
 
 # run list format: <command> [# <comment>]
 #             e.g. term 'title' program
-#                  program # description
+#                  program  # description
 
 pgms=$CONFIG/apps
 

@@ -1,9 +1,9 @@
 
 #include "keycode_functions.h"
 
-static uint8_t  i         = 0; // inline for loop counter
-static uint16_t key_timer = 0; // global event timer
-static uint8_t reshifted  = 0; // SFT_T timing trap, see map_shift(), process_record_user()
+static uint8_t  i         = 0;  // inline for loop counter
+static uint16_t key_timer = 0;  // global event timer
+static uint8_t reshifted  = 0;  // SFT_T timing trap, see map_shift(), process_record_user()
 
 // Keycodes
 // ═════════════════════════════════════════════════════════════════════════════
@@ -27,7 +27,7 @@ void modifier(void (*f)(uint8_t))
   if (mods & MOD_BIT(KC_LGUI)) { f(KC_LGUI); }
   if (mods & MOD_BIT(KC_LALT)) { f(KC_LALT); }
   if (mods & MOD_BIT(KC_LSFT)) { f(KC_LSFT); }
-  if (mods & MOD_BIT(KC_RSFT)) { f(KC_RSFT); } // note: qmk macros all use left modifiers
+  if (mods & MOD_BIT(KC_RSFT)) { f(KC_RSFT); }  // note: qmk macros all use left modifiers
 }
 
 // base layer modifier
@@ -35,17 +35,17 @@ bool mod_down(uint16_t key_code)
 {
   // return (mods && ((mods & MOD_BIT(key_code)) == mods) && (biton32(layer_state) == _BASE || biton32(layer_state) == _TTCAPS));
   // return (mods && ((mods & MOD_BIT(key_code)) == mods));
-  return mods & MOD_BIT(key_code); // relax timing on home row modifiers
+  return mods & MOD_BIT(key_code);  // relax timing on home row modifiers
 }
 
 // .................................................................. Key event
 
-static uint16_t tt_keycode = 0; // current TT keycode
+static uint16_t tt_keycode = 0;     // current TT keycode
 
 // alternate escape for TT layers, see process_record_user()
 void tt_escape(keyrecord_t *record, uint16_t keycode)
 {
-  if (tt_keycode != keycode && tt_keycode) { base_layer(0); } // if different TT layer selected
+  if (tt_keycode != keycode && tt_keycode) { base_layer(0); }  // if different TT layer selected
   if (record->event.pressed)               { key_timer = timer_read(); }
   else {
     if (timer_elapsed(key_timer) < TAPPING_TERM) { tt_keycode = keycode; }
@@ -147,14 +147,14 @@ bool map_shift(keyrecord_t *record, uint16_t shift_key, uint8_t shift, uint16_t 
 {
   if (mod_down(shift_key)) {
     if (record->event.pressed) {
-      if (!shift) { unregister_code(shift_key); }              // in event of unshifted keycode
+      if (!shift) { unregister_code(shift_key); }               // in event of unshifted keycode
       register_code(keycode);
     }
     else {
       unregister_code(keycode);
-      if (!shift) { register_code(shift_key); reshifted = 1; } // set SFT_T timing trap, process_record_user()
+      if (!shift) { register_code(shift_key); reshifted = 1; }  // set SFT_T timing trap, process_record_user()
     }
-    key_timer = 0; // clear home row shift, see process_record_user() and mod_t()
+    key_timer = 0;  // clear home row shift, see process_record_user() and mod_t()
     return true;
   }
   return false;
@@ -170,11 +170,11 @@ bool mapc_shift(keyrecord_t *record, uint16_t shift_key, uint8_t shift, uint16_t
     }
     else {
       if (timer_elapsed(key_timer) < TAPPING_TERM) {
-        if (!shift) { unregister_code(shift_key); }              // in event of unshifted keycode
+        if (!shift) { unregister_code(shift_key); }               // in event of unshifted keycode
         tap_key(keycode);
-        if (!shift) { register_code(shift_key); reshifted = 1; } // set SFT_T timing trap, process_record_user()
+        if (!shift) { register_code(shift_key); reshifted = 1; }  // set SFT_T timing trap, process_record_user()
       }
-      key_timer = 0; // clear home row shift, see process_record_user() and mod_t()
+      key_timer = 0;  // clear home row shift, see process_record_user() and mod_t()
       return true;
     }
   }
@@ -191,7 +191,7 @@ bool leader_cap(keyrecord_t *record, uint8_t layer, uint8_t autocap, uint16_t ke
     if (!record->event.pressed) { 
       tap_key(keycode);
       if (layer) { layer_off(layer); }
-      layer_on                 (_SHIFT); // sentence/paragraph capitalization
+      layer_on                 (_SHIFT);  // sentence/paragraph capitalization
       set_oneshot_layer        (_SHIFT, ONESHOT_START);
       clear_oneshot_layer_state(ONESHOT_PRESSED);
     }
@@ -227,7 +227,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 void colon(qk_tap_dance_state_t *state, void *user_data)
 {
-  if (mod_down(KC_RSFT)) { // shift -> semicolon
+  if (mod_down(KC_RSFT)) {  // shift -> semicolon
     if (state->count > 1) {
       if (state->pressed)                     { register_code(KC_SCLN); }
       else if (state->count == 2)             { send_string(":-"); }
@@ -249,7 +249,7 @@ void colon(qk_tap_dance_state_t *state, void *user_data)
 void colon_reset(qk_tap_dance_state_t *state, void *user_data)
 {
   unregister_shift(KC_SCLN);
-  if (mod_down(KC_RSFT)) { register_code(KC_RSFT); } // restore HOME_T, see process_record_user() TD_COLN
+  if (mod_down(KC_RSFT)) { register_code(KC_RSFT); }  // restore HOME_T, see process_record_user() TD_COLN
 }
 
 void equal(qk_tap_dance_state_t *state, void *user_data)
@@ -311,7 +311,7 @@ void greater_reset(qk_tap_dance_state_t *state, void *user_data)
 
 void tilde(qk_tap_dance_state_t *state, void *user_data)
 {
-  if (mod_down(KC_RSFT)) { // dot, shift -> tilde
+  if (mod_down(KC_RSFT)) {  // dot, shift -> tilde
     if (state->count > 1) {
       if (state->pressed)                     { register_shift(KC_GRV); }
       else if (state->count == 2)             { send_string("~/"); } 
@@ -328,7 +328,7 @@ void tilde_reset(qk_tap_dance_state_t *state, void *user_data)
 {
   unregister_shift(KC_GRV);
   unregister_code (KC_DOT);
-  if (mod_down(KC_RSFT)) { register_code(KC_RSFT); } // restore HOME_T, see process_record_user() TD_TILD
+  if (mod_down(KC_RSFT)) { register_code(KC_RSFT); }  // restore HOME_T, see process_record_user() TD_TILD
 }
 
 // ........................................................... Simple Double Tap
@@ -433,7 +433,7 @@ void clear_layers(void)
 
 void base_layer(uint8_t defer)
 {
-  if (defer) { return; } // see process_record_user() reset keys
+  if (defer) { return; }  // see process_record_user() reset keys
 #ifdef AUDIO_ENABLE
   plover ? PLAY_SONG(song_plover_gb) : PLAY_SONG(song_qwerty);
 #endif
@@ -489,7 +489,7 @@ bool raise_layer(keyrecord_t *record, uint8_t layer, uint8_t side, uint8_t toggl
   }
   else {
     double_key &= ~side;
-    if (!(double_key || toggle)) { layer_off(layer); } // allow single key to continue on layer :-)
+    if (!(double_key || toggle)) { layer_off(layer); }  // allow single key to continue on layer :-)
   }
   return false;
 }
@@ -547,7 +547,7 @@ void steno(keyrecord_t *record)
   }
 }
 
-static uint8_t plover = 0; // plover application run state (0) off (1) on, see wm keybinds
+static uint8_t plover = 0;  // plover application run state (0) off (1) on, see wm keybinds
 
 void toggle_plover(uint8_t state)
 {

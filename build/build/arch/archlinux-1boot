@@ -194,7 +194,7 @@ if [ ! -d /home/$user/stow ] ;then
   [ -d /net/archive/home/$user ] && rsync -av /net/archive/home/$user /home/
   # assume usb image is contains most upto date scripts
   rsync -av /media/home/$user /home/
-  rm -f /home/$user/.conky*               # discard other configuration settings
+  rm -f /home/$user/.conky*  # discard other configuration settings
   rm -f /home/$user/.session/*
   touch /home/$user/.session/panel:ticker
   touch /home/$user/.session/panel:weather

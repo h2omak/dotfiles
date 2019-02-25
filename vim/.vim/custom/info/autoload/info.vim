@@ -23,11 +23,11 @@
       let s:ascii = '\(\d\|\a\|\s\|[`~!@#$%^&*()_\-+={}\[\]\\|;:\",\.<>/?]\)'
 
       function! info#SpecialChar()
-        if mode() == 'n' " getline() test fails on switch into insert mode
+        if mode() == 'n'  " getline() test fails on switch into insert mode
           try
-            if getline(line('.')) != '' " ignore newline (is NUL)
+            if getline(line('.')) != ''  " ignore newline (is NUL)
               let l:char        = getline('.')[col('.')-1]
-              if l:char !~ s:ascii && l:char != "'" " show hex value, not interested in ascii keyboard characters
+              if l:char !~ s:ascii && l:char != "'"  " show hex value, not interested in ascii keyboard characters
                 let l:statusmsg = v:statusmsg
                 normal! ga
                 let l:hex       = 'U+' . matchstr(split(v:statusmsg)[3], '[^,]*')
@@ -37,7 +37,7 @@
                 return l:hex
               endif
             endif
-          catch /.*/ " discard messages
+          catch /.*/  " discard messages
           endtry
         endif
         return ''
@@ -65,7 +65,7 @@
       function! s:rootPath()
         let l:root = substitute(s:rootPrefix(), '[^/]*$', '', '')
         let l:root = substitute(l:root, '\([/][.]*[^/]\)[^/]*', '\1', 'g')
-        return substitute(l:root, '[/]', '', 'g') " abbreviate path prefix and drop slash
+        return substitute(l:root, '[/]', '', 'g')  " abbreviate path prefix and drop slash
       endfunction
 
       function! s:rootName()
@@ -90,17 +90,17 @@
 
       " null return for non-prose or empty new buffer, see http://stackoverflow.com/questions/114431/fast-word-count-function-in-vim
       function! s:wordCount()
-        if expand('%:t') == 'ControlP' || mode() =~ '[vV]' | return '' | endif " trap buffer window, visual mode (gives incorrect word count)
-        try " trap error caused by snippet expansion involving substition placeholders
+        if expand('%:t') == 'ControlP' || mode() =~ '[vV]' | return '' | endif  " trap buffer window, visual mode (gives incorrect word count)
+        try  " trap error caused by snippet expansion involving substition placeholders
           let b:wordcount = ''
           let l:statusmsg = v:statusmsg
           let l:position  = getpos('.')
           execute "silent normal! g\<C-g>"
           if v:statusmsg != '--No lines in buffer--' | let b:wordcount = str2nr(split(v:statusmsg)[11]) | endif
           let v:statusmsg   = l:statusmsg
-          call setpos('.', l:position) " go back (to EOL if need be)
+          call setpos('.', l:position)  " go back (to EOL if need be)
           return b:wordcount
-        catch /.*/ " discard messages
+        catch /.*/  " discard messages
         endtry
       endfunction
 

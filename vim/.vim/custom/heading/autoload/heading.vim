@@ -20,7 +20,7 @@
       " ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
       function! heading#Drawline(delimiter)
         call heading#Underline(a:delimiter)
-        if virtcol('.') < g:linewidth " for mirrored left/right margin spacing
+        if virtcol('.') < g:linewidth  " for mirrored left/right margin spacing
           let l:col   = g:linewidth - virtcol('.')
           execute 'normal! ' . l:col . 'a' . a:delimiter
         endif
@@ -33,13 +33,13 @@
 
       function! heading#AppendTrailer(delimiter)
         if core#NonblankLine()
-          if matchstr(getline(line('.')), '\s[' . a:delimiter . ']\+$') > '' " remove existing trailer
+          if matchstr(getline(line('.')), '\s[' . a:delimiter . ']\+$') > ''  " remove existing trailer
             normal! $bhD
           endif
           normal! $
           let l:col = g:linewidth - virtcol('.') - 1
           if l:col > 0
-            set formatoptions-=c " suppress potential comment line wrapping
+            set formatoptions-=c  " suppress potential comment line wrapping
             execute 'normal! a '
             execute 'normal! ' . l:col . 'a' . a:delimiter
             set formatoptions+=c
@@ -60,7 +60,7 @@
 
       function! heading#InsertLeader(delimiter)
         if core#NonblankLine()
-          if matchstr(getline(line('.')), '\S\s\+[' . a:delimiter . ']\+\s') > '' | execute 'normal! ^wdf ' | endif " remove existing leader
+          if matchstr(getline(line('.')), '\S\s\+[' . a:delimiter . ']\+\s') > '' | execute 'normal! ^wdf ' | endif  " remove existing leader
           call heading#AppendTrailer(a:delimiter)
           " cut trailer and insert as leader!
           normal! $bhD^whP

@@ -9,13 +9,13 @@
 
       " insert line while disabling auto-commenting OR break (prose) line
       function! s:smartWrap()
-        if core#Prose() " override Pencil mode (the default state for prose)
+        if core#Prose()  " override Pencil mode (the default state for prose)
           set paste
           execute "normal! i\<CR>"
           set nopaste
           execute 'startinsert'
-        else " append EOL wrap from any col position 
-          let l:formatoptions = &formatoptions " disable auto commenting
+        else  " append EOL wrap from any col position
+          let l:formatoptions = &formatoptions  " disable auto commenting
           set formatoptions-=c
           set formatoptions-=r
           set formatoptions-=o

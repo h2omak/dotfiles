@@ -60,6 +60,6 @@ alarm() {
   done
 }
 
-alarm & # if invoked from command line..
+alarm &  # if invoked from command line..
 
 # vim: set ft=sh: #

@@ -34,14 +34,14 @@
 
 [ $1 ] || exit
 console && export VISUAL='vim -f'
-unset HTTP_PROXY # ignore local network proxy
+unset HTTP_PROXY      # ignore local network proxy
 
 # distro package manager
 if exists pacman ;then
-  INSTALL=pm_install # arch
+  INSTALL=pm_install  # arch
   QUERY='pacman -Q'
 else
-  INSTALL=xb_install # void
+  INSTALL=xb_install  # void
   QUERY=xbps-query
 fi
 

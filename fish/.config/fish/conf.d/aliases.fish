@@ -122,7 +122,11 @@ alias vdbackup 'dirdiff ./ /net/backup(pp)'
 
 # .................................................................. Development
  
-alias ghc 'ghc -dynamic'
+# alias ghc 'ghc -dynamic'  # arch repo only
+alias ghc 'stack ghc'
+alias ghcc 'stack build'
+alias ghcx 'stack runghc'
+alias ghci 'stack exec ghci'
 alias git1 'git clone --depth 1'
 alias mysql 'mysql -h localhost -u root -p'
 

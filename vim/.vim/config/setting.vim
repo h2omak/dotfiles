@@ -27,10 +27,10 @@
 
     " ............................................................... Auto-pairs
 
-      let g:AutoPairsMapBS                = 1 " auto delete symbol pairs
-      " let g:AutoPairsMapSpace           = 1 " disable to make iabbrev work!
-      " let g:AutoPairsFlyMode            = 1 " auto pair jumping
-      let g:AutoPairsShortcutBackInsert = '<C-BS>' " undo auto pair jump -> close pair
+      let g:AutoPairsMapBS                = 1       " auto delete symbol pairs
+      " let g:AutoPairsMapSpace           = 1       " disable to make iabbrev work!
+      " let g:AutoPairsFlyMode            = 1       " auto pair jumping
+      let g:AutoPairsShortcutBackInsert = '<C-BS>'  " undo auto pair jump -> close pair
 
     " ............................................................... Easy-align
 
@@ -42,10 +42,13 @@
           \, ')' : { 'pattern' : ')',        'left_margin' : 0 }
           \, '[' : { 'pattern' : '[',        'left_margin' : 1, 'right_margin' : 0 }
           \, ']' : { 'pattern' : ']',        'left_margin' : 1 }
-          \, '/' : { 'pattern' : '//',       'left_margin' : 1 }
+          \, '/' : { 'pattern' : '//',       'left_margin' : 2 }
+          \, '-' : { 'pattern' : '-',        'left_margin' : 2 }
+          \, '#' : { 'pattern' : '#',        'left_margin' : 2 }
+          \, '"' : { 'pattern' : '"',        'left_margin' : 2 }
           \}
 
-      let g:easy_align_ignore_groups = [] " process comments
+      let g:easy_align_ignore_groups = []  " process comments
 
       vmap <Enter>   <Plug>(EasyAlign)
       nmap <leader>a <Plug>(EasyAlign)
@@ -102,17 +105,17 @@
       nmap <silent><leader>b :CloseDiff<CR>:Buffers<CR>
       nmap <silent><leader>l :Lines<CR>
       nmap <silent><leader>m :Marks<CR>
-      " nmap <leader>f       :FZF<CR> " see notational-fzf for extended content search
+      " nmap <leader>f       :FZF<CR>  " see notational-fzf for extended content search
 
     " ........................................................... Graphical undo
 
       let g:gundo_width           = 30
       let g:gundo_preview_bottom  = 1
       let g:gundo_preview_height  = 20
-      let g:gundo_close_on_revert = 1 " automatically close windows
+      let g:gundo_close_on_revert = 1  " automatically close windows
 
       function! s:toggleUndo()
-        let l:filetype = &filetype    " gundo alters markdown filetype to conf (autocmd buffer side-effect?)
+        let l:filetype = &filetype  " gundo alters markdown filetype to conf (autocmd buffer side-effect?)
         GundoToggle
         let &filetype = l:filetype
       endfunction
@@ -126,15 +129,15 @@
 
     " ............................................................ Indent guides
 
-      let g:indent_guides_auto_colors = 0 " highlight even indents, see core#ToggleColumn(), theme#Indent()
+      let g:indent_guides_auto_colors = 0  " highlight even indents, see core#ToggleColumn(), theme#Indent()
 
       nmap <silent><leader><Bar> :IndentGuidesToggle<CR>
 
     " ................................................................ Limelight
 
       " let g:limelight_default_coefficient = 0.8
-      let g:limelight_paragraph_span = 0 " include preceding/following paragraphs
-      let g:limelight_priority       = 1 " -1 to hlsearch highlight all paragraphs, 1 per paragraph
+      let g:limelight_paragraph_span = 0  " include preceding/following paragraphs
+      let g:limelight_priority       = 1  " -1 to hlsearch highlight all paragraphs, 1 per paragraph
 
     " .............................................................. Litecorrect
 
@@ -158,16 +161,16 @@
 
     " .................................................................. LiteDFM
 
-      let g:lite_dfm_left_offset = 22 " see theme#Margin()
+      let g:lite_dfm_left_offset = 22    " see theme#Margin()
 
     " ............................................................ Narrow region
 
-      let g:nrrw_rgn_vert          = 0  " open in horizontal split buffer
+      let g:nrrw_rgn_vert          = 0   " open in horizontal split buffer
       let g:nrrw_topbot_leftright  = 'botright'
-      let g:nrrw_rgn_nomap_nr      = 1  " disable nr mappings
+      let g:nrrw_rgn_nomap_nr      = 1   " disable nr mappings
       let g:nrrw_rgn_nomap_Nr      = 1
       let g:nrrw_rgn_resize_window = 'relative'
-      let g:nrrw_rgn_rel_min       = 50 " relative window size
+      let g:nrrw_rgn_rel_min       = 50  " relative window size
 
       function! s:closeNR()
         if expand('%t') =~ 'NrrwRgn' | execute ':wq' | endif
@@ -184,7 +187,7 @@
       let g:neocomplete#sources#syntax#min_keyword_length = 3
 
       " inoremap <expr><Tab>  neocomplete#start_manual_complete()
-      " inoremap <expr><TAB>  pumvisible() ? "\<Down>" :
+      " inoremap <expr><TAB>  pumvisible() ?  "\<Down>" :
       "   \ neocomplete#start_manual_complete()
 
       function! s:check_back_space() abort
@@ -200,7 +203,7 @@
 
       let g:neosnippet#snippets_directory            = '~/.vim/snippets'
       let g:neosnippet#enable_snipmate_compatibility = 1
-      let g:neosnippet#disable_runtime_snippets      = { '_' : 1 } " disable all runtime snippets
+      let g:neosnippet#disable_runtime_snippets      = { '_' : 1 }  " disable all runtime snippets
       " see core#CheckFiletype()
       let g:neosnippet#scope_aliases =
           \{
@@ -213,12 +216,12 @@
 
     " ............................................................ Nerdcommenter
 
-      let g:NERDSpaceDelims            = 1 " space after comment delimiter
-      let g:NERDCompactSexyComs        = 1 " prettify multi-line
+      let g:NERDSpaceDelims            = 1  " space after comment delimiter
+      let g:NERDCompactSexyComs        = 1  " prettify multi-line
       let g:NERDDefaultAlign           = 'left'
       let g:NERDCustomDelimiters       = { 'c' : { 'left' : '//', 'right' : '' } }
-      let g:NERDCommentEmptyLines      = 1 " comment blank lines
-      let g:NERDTrimTrailingWhitespace = 1 " trim trailing whitespace
+      let g:NERDCommentEmptyLines      = 1  " comment blank lines
+      let g:NERDTrimTrailingWhitespace = 1  " trim trailing whitespace
 
       " <leader>cs to force commenting of first line comment
       map  <leader>c <Plug>NERDCommenterToggle
@@ -235,11 +238,11 @@
       let g:nv_create_note_window  = 'edit'
       let g:nv_default_extension   = ''
       let g:nv_expect_keys         = []
-      let g:nv_main_directory      = './'   " create new notes in current directory
+      let g:nv_main_directory      = './'    " create new notes in current directory
       let g:nv_preview_direction   = 'right'
       let g:nv_preview_width       = 55
-      let g:nv_search_paths        = ['./'] " default search from current directory
-      let g:nv_show_preview        = 1 " alt-p to toggle preview
+      let g:nv_search_paths        = ['./']  " default search from current directory
+      let g:nv_show_preview        = 1       " alt-p to toggle preview
       let g:nv_use_short_pathnames = 1
       let g:nv_wrap_preview_text   = 1
 
@@ -266,11 +269,11 @@
 
     " ................................................................... Pencil
 
-      let g:pencil#wrapModeDefault = 'hard' " 'hard' (def), 'soft'
-      let g:pencil#textwidth       = 72     " 74 (def)
-      let g:pencil#joinspaces      = 0      " 0=one_space (def), 1=two_spaces
-      let g:pencil#cursorwrap      = 1      " 0=disable, 1=enable (def)
-      let g:pencil#autoformat      = 1      " 0=manual, 1=auto (def)
+      let g:pencil#wrapModeDefault = 'hard'  " 'hard' (def), 'soft'
+      let g:pencil#textwidth       = 72      " 74 (def)
+      let g:pencil#joinspaces      = 0       " 0=one_space (def), 1=two_spaces
+      let g:pencil#cursorwrap      = 1       " 0=disable, 1=enable (def)
+      let g:pencil#autoformat      = 1       " 0=manual, 1=auto (def)
       let g:pencil#mode_indicators =
           \{
           \  'hard' : 'Hard Pencil'
@@ -286,7 +289,7 @@
 
     " .................................................................. Quantum
 
-      let g:quantum_italics=1 " italicize comments
+      let g:quantum_italics=1  " italicize comments
 
     " ................................................................ Signature
 
@@ -319,17 +322,17 @@
     " .................................................................. Signify
 
       let g:signify_vcs_list = ['hg']
-      let g:signify_realtime = 1 " async updates
+      let g:signify_realtime = 1      " async updates
 
     " .................................................................... Sneak
 
       " by default, use cc, cl for s, S
-      let g:sneak#streak       = 1   " streak mode
-      let g:sneak#s_next       = 1   " clever next, use s S for ; .
-      let g:sneak#absolute_dir = 0   " next follows direction of invocation
-      let g:sneak#use_ic_scs   = 1   " use vim case setting
-      let g:sneak#prompt       = '>' " prompt
-      let g:sneak#label        = 1   " label mode
+      let g:sneak#streak       = 1    " streak mode
+      let g:sneak#s_next       = 1    " clever next, use s S for ; .
+      let g:sneak#absolute_dir = 0    " next follows direction of invocation
+      let g:sneak#use_ic_scs   = 1    " use vim case setting
+      let g:sneak#prompt       = '>'  " prompt
+      let g:sneak#label        = 1    " label mode
 
       " " remap sneak_s to preserve s
       " function! s:sneak_f()
@@ -366,15 +369,15 @@
 
     " ................................................................ Solarized
 
-      let g:solarized_termtrans = 1 " terminal transparency (0) off (1) on
-      set termguicolors             " for neovim
+      let g:solarized_termtrans = 1  " terminal transparency (0) off (1) on
+      set termguicolors              " for neovim
 
       syntax enable
 
     " ................................................................... Tagbar
 
       " let g:tagbar_ctags_bin    = 'ctags-exuberant'
-      let g:tagbar_map_togglesort = 'r' " preserve sneak s
+      let g:tagbar_map_togglesort = 'r'  " preserve sneak s
 
       nmap <silent><leader>t :TagbarOpenAutoClose<CR>
 
@@ -385,9 +388,9 @@
       " typographical mode for prose (and html content editing)
       function! s:toggleEducate()
         let s:educate = s:educate ? 0 : 1
-        if s:educate " html <p> content shortcuts
+        if s:educate  " html <p> content shortcuts
           Educate
-          " ToggleColumnWrap 0 " disable line wrap column highlight to show spelling errors
+          " ToggleColumnWrap 0  " disable line wrap column highlight to show spelling errors
           imap ...      …<Space>
           imap --       <Space>&ndash;<Space>
           imap .<Space> .<Space><CR>
@@ -395,7 +398,7 @@
           imap !<Space> !<Space><CR>
         else
           NoEducate
-          " ToggleColumnWrap 1 " restore line wrap column highlight
+          " ToggleColumnWrap 1  " restore line wrap column highlight
           iunmap ...
           iunmap --
           iunmap .<Space>
@@ -417,12 +420,12 @@
 
     " ................................................................. Yankring
 
-      let g:yankring_default_menu_mode  = 1  " menu on with no shortcut
-      let g:yankring_dot_repeat_yank    = 1  " allow repeating yankring action
-      let g:yankring_enabled            = 1  " disable yankring because of macro conflict
-      let g:yankring_min_element_length = 5  " minimum yankring size
-      let g:yankring_window_height      = 30 " horizontal window height
-      let g:yankring_zap_keys           = '' " disable (conflicts with sneak)
+      let g:yankring_default_menu_mode  = 1   " menu on with no shortcut
+      let g:yankring_dot_repeat_yank    = 1   " allow repeating yankring action
+      let g:yankring_enabled            = 1   " disable yankring because of macro conflict
+      let g:yankring_min_element_length = 5   " minimum yankring size
+      let g:yankring_window_height      = 30  " horizontal window height
+      let g:yankring_zap_keys           = ''  " disable (conflicts with sneak)
 
       nmap <silent>Y         :<C-U>YRYankCount 'y$'<CR>
       nmap <silent><leader>y :YRShow<CR>

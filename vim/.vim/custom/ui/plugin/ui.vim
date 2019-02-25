@@ -12,10 +12,10 @@
       let s:save_cpo  = &cpo
       set cpo&vim
 
-      let g:detail    = 0      " at cursor (0) tag (1) atom
-      let g:view      = 1      " initial view mode (0) info (1) dfm
-      let g:pad_inner = '    ' " statusline padding
-      let g:pad_outer = '   '  " expanded statusline padding
+      let g:detail    = 0       " at cursor (0) tag (1) atom
+      let g:view      = 1       " initial view mode (0) info (1) dfm
+      let g:pad_inner = '    '  " statusline padding
+      let g:pad_outer = '   '   " expanded statusline padding
 
       augroup ui | autocmd! | augroup END
 
@@ -42,8 +42,8 @@
 
       " toggle statusline details
       nmap <silent><F7>   :call ui#ToggleInfo()<CR>
-      imap <silent><F7>   <C-o>:call ui#ToggleInfo()<CR>
-      vmap <silent><F7>   :<C-u>call ui#ToggleInfo()<CR>
+      imap <silent><F7>   <C-o>:call ui#ToggleInfo(core#Prose())<CR>
+      vmap <silent><F7>   :<C-u>call ui#ToggleInfo(core#Prose())<CR>
 
       " toggle tag, line details
       nmap <silent><C-F7> :let g:detail = g:detail == 0 ? 1 : 0<CR>

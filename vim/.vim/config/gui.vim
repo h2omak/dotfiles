@@ -9,10 +9,10 @@
 
       augroup gui | autocmd! | augroup END
 
-      let g:ruler     = 0      " colorcolumn mode, see theme.vim
-      let s:wraplight = 0      " highlight linewrap (0) off (1) on
+      let g:ruler     = 0       " colorcolumn mode, see theme.vim
+      let s:wraplight = 0       " highlight linewrap (0) off (1) on
       let s:breakchar = '→'
-      let s:delay     = '200m' " redraw delay, see theme#FontSize()
+      let s:delay     = '200m'  " redraw delay, see theme#FontSize()
 
     " ............................................................... Toggle gui
 
@@ -33,12 +33,12 @@
         call s:toggleGui()
         execute 'sleep ' . s:delay
         call s:toggleGui()
-        Quietly Retheme " fix line wrap highlighting
+        Quietly Retheme  " fix line wrap highlighting
       endfunction
       
       command! RedrawGui call <SID>redrawGui()
 
-      if $DISPLAY > '' " initial refresh to fill window (correct status line position)
+      if $DISPLAY > ''  " initial refresh to fill window (correct status line position)
         autocmd gui VimEnter * RedrawGui
       endif
 
@@ -50,20 +50,20 @@
 
     " ................................................................... Screen
 
-      set gcr=a:blinkon0        " disable cursor blink
-      set mousehide             " hide mouse when typing
-      set t_Co=256              " 256 color support
+      set gcr=a:blinkon0          " disable cursor blink
+      set mousehide               " hide mouse when typing
+      set t_Co=256                " 256 color support
       set viewoptions=folds,options,cursor,unix,slash
-      set virtualedit=block     " allow virtual editing in Visual block mode
-      " set virtualedit=onemore " allow for cursor beyond last character
-      set winminheight=0        " windows can be 0 line high
-      set wrap                  " wrap lines for viewing
+      set virtualedit=block       " allow virtual editing in Visual block mode
+      " set virtualedit=onemore   " allow for cursor beyond last character
+      set winminheight=0          " windows can be 0 line high
+      set wrap                    " wrap lines for viewing
 
     " ................................................................... Alerts
 
-      set noerrorbells           " don't beep
-      set shortmess+=filmnrxoOtT " abbrev. of messages (avoids "hit enter")
-      set visualbell             " no sounds
+      set noerrorbells            " don't beep
+      set shortmess+=filmnrxoOtT  " abbrev. of messages (avoids "hit enter")
+      set visualbell              " no sounds
 
       " recover last error message
       nmap <leader>e :echo errmsg<CR>
@@ -76,7 +76,7 @@
       if $HOST == 'monad' | set scrolloff=3
       else                | set scrolloff=5 | endif
       let g:scrolloff = &scrolloff
-      set sidescroll=1   " smooth scrolling by 1 column
+      set sidescroll=1  " smooth scrolling by 1 column
       set sidescrolloff=1
 
       " horizontal scrolling
@@ -94,13 +94,13 @@
     " ..................................................................... Font
 
       scriptencoding utf-8
-      set encoding=utf-8 " necessary to show unicode glyphs
+      set encoding=utf-8     " necessary to show unicode glyphs
 
     " ................................................................... Cursor
 
-      set cursorline        " highlight current line
+      set cursorline         " highlight current line
 
-      set guicursor=a:block " mode aware cursors
+      set guicursor=a:block  " mode aware cursors
       set guicursor+=o:hor50-Cursor
       set guicursor+=n:Cursor
       set guicursor+=i-ci-sm:ver25-InsertCursor
@@ -111,10 +111,10 @@
 
     " ............................... Gvim Options (make it look like terminal!)
 
-      set guioptions+=LlRrb " hide scrollbars
+      set guioptions+=LlRrb  " hide scrollbars
       set guioptions-=LlRrb
-      set guioptions-=m     " no menubar
-      set guioptions-=T     " no toolbar
+      set guioptions-=m      " no menubar
+      set guioptions-=T      " no toolbar
 
   " Look _______________________________________________________________________
 
@@ -122,7 +122,7 @@
 
       augroup column | autocmd! | augroup END
 
-      set colorcolumn=0 " highlight column
+      set colorcolumn=0  " highlight column
 
       " toggle colorcolumn modes, see theme#Indent()
       function! s:toggleColumn()
@@ -139,7 +139,7 @@
           ColumnWrap
         endif
         call theme#Indent()
-        let g:column = 1 " flash column position, see autocmd info.vim
+        let g:column = 1  " flash column position, see autocmd info.vim
       endfunction
 
       nmap <silent><Bar> :call <SID>toggleColumn()<CR>
@@ -190,24 +190,24 @@
 
     " ................................................... Status / command lines
 
-      set laststatus=2 " always show status line
-      set ruler        " show cursor position in status line
-      set noshowcmd    " show incomplete cmds in command line
-      set noshowmode   " show current mode in command line
+      set laststatus=2  " always show status line
+      set ruler         " show cursor position in status line
+      set noshowcmd     " show incomplete cmds in command line
+      set noshowmode    " show current mode in command line
 
   " Highlighting _______________________________________________________________
 
     " ...................................................... Syntax highlighting
 
       set omnifunc=syntaxcomplete#Complete
-      syntax on " turn on syntax highlighting
+      syntax on  " turn on syntax highlighting
 
       " refresh highlighting on arm
       autocmd gui CursorHold * if ! core#Prose() && &filetype != '' | execute 'set filetype=' . &filetype | endif
 
     " ...................................................... White space markers
 
-      set nolist " display tabs and trailing spaces visually
+      set nolist  " display tabs and trailing spaces visually
       set listchars="tab:▸\<Space>"
 
       " set listchars+=trail:_
@@ -225,7 +225,7 @@
       function! s:toggleWhiteSpace()
         set list!
         if &list == 0
-          match ExtraWhitespace /\%x00$/ " nolist by failing match with null character :)
+          match ExtraWhitespace /\%x00$/  " nolist by failing match with null character :)
           autocmd! invisible
         else
           match ExtraWhitespace /\s\+$/

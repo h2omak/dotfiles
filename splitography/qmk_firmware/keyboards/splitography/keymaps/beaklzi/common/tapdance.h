@@ -24,8 +24,8 @@ enum tap_dance {
 #define TD_EQL    TD(_EQL)
 #define TD_PASTE  TD(_PASTE)
 #define TD_PERC   TD(_PERC)
-#define TD_PRIV   TD(_PRIV) // compile time macro string, provided in private_string.h
-#define TD_SEND   TD(_SEND) // config.h defined macro string
+#define TD_PRIV   TD(_PRIV)  // compile time macro string, provided in private_string.h
+#define TD_SEND   TD(_SEND)  // config.h defined macro string
 #define TD_TILD   TD(_TILD)
 #define TD_XPASTE TD(_XPASTE)
 #ifdef HASKELL

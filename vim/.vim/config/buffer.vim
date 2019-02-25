@@ -7,11 +7,11 @@
 
     " .................................................................... Setup
 
-      set autoread    " reload files changed outside vim
-      " set autowrite " automatically write a modified buffer on leaving
-      set hidden      " allow hidden background buffers
+      set autoread     " reload files changed outside vim
+      " set autowrite  " automatically write a modified buffer on leaving
+      set hidden       " allow hidden background buffers
 
-      let s:repo = $HOME . '/stow/' " directory to auto backup
+      let s:repo = $HOME . '/stow/'  " directory to auto backup
 
       augroup buffer | autocmd! | augroup END
 
@@ -30,11 +30,11 @@
 
       " delete any new diff buffer
       function! s:closeDiff()
-        if &diff    " caution: wincmd resets active window (affects :Buffer)
+        if &diff  " caution: wincmd resets active window (affects :Buffer)
           wincmd h
           if expand('%') == ''
             bdelete!
-            diffoff " restore pre-diff settings or subsequent OpenDiff will be *off*
+            diffoff  " restore pre-diff settings or subsequent OpenDiff will be *off*
             return 1
           endif
         endif
@@ -68,7 +68,7 @@
 
       " queue files written for vhg (may contain repeated update entries)
       function! s:queueFile()
-        let l:path = resolve(expand('%:p')) " see v script (sets QUEUE and invokes vhg)
+        let l:path = resolve(expand('%:p'))  " see v script (sets QUEUE and invokes vhg)
         if l:path =~ s:repo && $QUEUE > ''
           let l:file = substitute(l:path, s:repo, '', '')
           let l:cmd  = 'echo ' . l:file . ' >>' . $HOME . '/.vim/job/' . $QUEUE
@@ -176,21 +176,21 @@
 
     " ............................................................. Fold methods
 
-      set foldenable           " fold by default
-      set foldlevelstart=10    " open most folds by default
+      set foldenable            " fold by default
+      set foldlevelstart=10     " open most folds by default
       " set foldlevelstart=1
-      set foldnestmax=10       " 10 nested fold max
-      " set foldmethod=indent  " fold based on indent
-      set foldmethod=syntax    " folding based on syntax
+      set foldnestmax=10        " 10 nested fold max
+      " set foldmethod=indent   " fold based on indent
+      set foldmethod=syntax     " folding based on syntax
 
-      let javaScript_fold=1    " JavaScript
-      let perl_fold=1          " Perl
-      let php_folding=1        " PHP
-      let r_syntax_folding=1   " R
-      let ruby_fold=1          " Ruby
-      let sh_fold_enabled=1    " sh
-      let vimsyn_folding='af'  " Vim script
-      let xml_syntax_folding=1 " XML
+      let javaScript_fold=1     " JavaScript
+      let perl_fold=1           " Perl
+      let php_folding=1         " PHP
+      let r_syntax_folding=1    " R
+      let ruby_fold=1           " Ruby
+      let sh_fold_enabled=1     " sh
+      let vimsyn_folding='af'   " Vim script
+      let xml_syntax_folding=1  " XML
 
       " toggle fold tag / open all
       " noremap <leader>z         za

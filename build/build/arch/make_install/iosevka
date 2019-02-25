@@ -17,36 +17,36 @@ hooky="'v-i-hooky', 'v-l-hooky'"
 shape="'sans'"
 nerdfonts='--fontawesome --fontawesomeextension --material --octicons --powersymbols'
 
-shift # basename is make_install, $1 == iosevka
+shift  # basename is make_install, $1 == iosevka
 
 hook() {
   storey=single
   style=$hooky
-  leading=1250 # default
+  leading=1250  # default
   descender=0
-  cap=735      # default
+  cap=735       # default
 }
 
 line() {
   storey=single
   style=$futura
-  leading=1250 # default
+  leading=1250  # default
   descender=0
-  cap=830      # lengthen ascenders (also stretches caps, numbers and quotes)
+  cap=830       # lengthen ascenders (also stretches caps, numbers and quotes)
 }
 
 while [ $1 ] ;do
   case $1 in
-  amphetype) hook; storey=double; family=-amphetype; leading=1875 ;; # 1.5 spacing
-  code     ) line; design="'ligset-haskell'" ;;                      # default family
-  double   ) storey=double; family=-double ;;                        # "a"
-  family   ) family=$2;  shift ;;                                    # font family
-  futura   ) line ;;                                                 # futura as can be!
-  hooky    ) hook ;;                                                 # top hook
-  leading  ) leading=$2; shift ;;                                    # line spacing
-  patch    ) patch=true ;;                                           # nerdfonts
-  proof    ) line; family=-proof; leading=1875 ;;                    # 1.5 spacing
-  single   ) storey=single; family=-single ;;                        # default "a"
+  amphetype) hook; storey=double; family=-amphetype; leading=1875 ;;  # 1.5 spacing
+  code     ) line; design="'ligset-haskell'" ;;                       # default family
+  double   ) storey=double; family=-double ;;                         # "a"
+  family   ) family=$2;  shift ;;                                     # font family
+  futura   ) line ;;                                                  # futura as can be!
+  hooky    ) hook ;;                                                  # top hook
+  leading  ) leading=$2; shift ;;                                     # line spacing
+  patch    ) patch=true ;;                                            # nerdfonts
+  proof    ) line; family=-proof; leading=1875 ;;                     # 1.5 spacing
+  single   ) storey=single; family=-single ;;                         # default "a"
   *        ) usage ;;
   esac
   shift
@@ -84,7 +84,7 @@ cd /net/depot
 if [ -d Iosevka ] ;then
   cd Iosevka
   rm -rf build dist
-  original parameters.toml # after manual git install
+  original parameters.toml  # after manual git install
   cp parameters.toml.original parameters.toml
   ifno 'sync iosevka repo' || { git pull origin master; cd ../nerd-fonts; git pull origin master; cd -; }
 else

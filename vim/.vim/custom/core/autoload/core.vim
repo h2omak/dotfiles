@@ -23,7 +23,7 @@
       function! core#Quietly(command)
         try
           execute a:command
-        catch /.*/ " discard messages
+        catch /.*/  " discard messages
         endtry
       endfunction
 

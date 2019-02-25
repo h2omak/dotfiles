@@ -11,7 +11,7 @@
 # complete package configuration
 if [ -s $HOME/build/$(dist)/post_install/$1 ] ;then
   echo "${__GREEN}@post_install $1${NOCOLOR}"
-  . $HOME/build/$(dist)/post_install/$@ # manual post_install to pass optional parameters
+  . $HOME/build/$(dist)/post_install/$@  # manual post_install to pass optional parameters
 fi
 
 user_install $1

@@ -96,20 +96,20 @@ enum keyboard_keycodes {
   BASE = SAFE_RANGE
  ,BASE1
  ,BASE2
- ,HOME_A // pseudo SFT_T(KC_A) disables auto repeat for shift
- ,HOME_T // pseudo SFT_T(KC_T) disables auto repeat for shift
+ ,HOME_A  // pseudo SFT_T(KC_A) disables auto repeat for shift
+ ,HOME_T  // pseudo SFT_T(KC_T) disables auto repeat for shift
 #ifndef HASKELL
- ,HS_LT  // pseudo CTL_T(S(KC_COMM))
- ,HS_GT  // pseudo SFT_T(S(KC_DOT))
+ ,HS_LT   // pseudo CTL_T(S(KC_COMM))
+ ,HS_GT   // pseudo SFT_T(S(KC_DOT))
 #endif
- ,LT_SPC // pseudo LT(_SYMGUI, KC_SPC)
+ ,LT_SPC  // pseudo LT(_SYMGUI, KC_SPC)
  ,ML_BSLS
  ,PLOVER
- ,AST_G  // pseudo MT   (MOD_LALT | MOD_LSFT, S(KC_G))
- ,SST_A  // pseudo SFT_T(S(KC_A))
- ,SST_T  // pseudo SFT_T(S(KC_T))
+ ,AST_G   // pseudo MT   (MOD_LALT | MOD_LSFT, S(KC_G))
+ ,SST_A   // pseudo SFT_T(S(KC_A))
+ ,SST_T   // pseudo SFT_T(S(KC_T))
  ,TT_ESC
- ,TT_SPC // pseudo LT(_TTCURSOR, KC_SPC)
+ ,TT_SPC  // pseudo LT(_TTCURSOR, KC_SPC)
 };
 
 // modifier keys
@@ -173,7 +173,7 @@ enum keyboard_keycodes {
 #define OS_SFT  OSM (MOD_LSFT)
 
 #define TGL_TL  TT  (_TTFNCKEY)
-#define TGL_TR  TT  (_TTCAPS) // pseudo capslock to avoid TT key_timer conflicts
+#define TGL_TR  TT  (_TTCAPS)  // pseudo capslock to avoid TT key_timer conflicts
 #define TGL_HL  TT  (_TTCURSOR)
 #define TGL_HR  TT  (_TTMOUSE)
 #define TGL_BL  TT  (_TTNUMBER)
@@ -214,12 +214,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #include "keycode_functions.c"
 
-static uint8_t down_punc = 0; // substitute (0) keycode (1) leader + one shot shift, see cap_lt()
-static uint8_t dual_down = 0; // dual keys down (2 -> 1 -> 0) reset on last up stroke, see TGL_TL, TGL_TR
+static uint8_t down_punc = 0;  // substitute (0) keycode (1) leader + one shot shift, see cap_lt()
+static uint8_t dual_down = 0;  // dual keys down (2 -> 1 -> 0) reset on last up stroke, see TGL_TL, TGL_TR
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
-  if (reshifted && !mod_down(KC_LSFT)) { unregister_code(KC_LSFT); reshifted = 0; } // see map_shift()
+  if (reshifted && !mod_down(KC_LSFT)) { unregister_code(KC_LSFT); reshifted = 0; }  // see map_shift()
 
   // ........................................................ Home Row Modifiers
 
@@ -239,28 +239,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case OS_ALT:
     tap_mods(record, KC_LALT);
     break;
-  case HS_GT:                        // for rolling cursor to enter, del
+  case HS_GT:                         // for rolling cursor to enter, del
   case OS_SFT:
     tap_mods(record, KC_LSFT);
     break;
   case HOME_A:
     tap_mods(record, KC_LSFT);
-    mod_t   (record, KC_LSFT, KC_A); // SFT_T replacement to circumvent auto repeat latency side effect
+    mod_t   (record, KC_LSFT, KC_A);  // SFT_T replacement to circumvent auto repeat latency side effect
     break;
   case HOME_T:
     tap_mods(record, KC_RSFT);
-    mod_t   (record, KC_RSFT, KC_T); // SFT_T replacement to circumvent auto repeat latency side effect
+    mod_t   (record, KC_RSFT, KC_T);  // SFT_T replacement to circumvent auto repeat latency side effect
     break;
 
   // ...................................................... Center Toggle Layers
 
   case TGL_TL:
-    if (raise_layer(record, 0, LEFT, TOGGLE))  { dual_down = 2; return false; } // defer reset!
+    if (raise_layer(record, 0, LEFT, TOGGLE))  { dual_down = 2; return false; }  // defer reset!
     if (dual_down)                             { dual_down--; base_layer(dual_down); return false; }
     tt_escape(record, keycode);
     break;
   case TGL_TR:
-    if (raise_layer(record, 0, RIGHT, TOGGLE)) { dual_down = 2; return false; } // defer reset!
+    if (raise_layer(record, 0, RIGHT, TOGGLE)) { dual_down = 2; return false; }  // defer reset!
     if (dual_down)                             { dual_down--; base_layer(dual_down); return false; }
     tt_escape(record, keycode);
     break;
@@ -276,7 +276,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case TT_ESC:
     if (map_shift(record, KC_LSFT, SHIFT, KC_TAB))     { return false; }
     if (map_shift(record, KC_RSFT, NOSHIFT, KC_TAB))   { return false; }
-    base_layer(0); // exit TT layer
+    base_layer(0);  // exit TT layer
     return false;
 
   case LT_ESC:
@@ -317,24 +317,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #ifdef THUMB_CAPS
     if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))      { return false; }
 #endif
-    if (leader_cap (record, _SYMGUI, down_punc, KC_SPC)) { return false; }                     // see KC_SPC for multi-tap
-    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_SYMGUI); return false; } // rolling cursor to enter
+    if (leader_cap (record, _SYMGUI, down_punc, KC_SPC)) { return false; }                      // see KC_SPC for multi-tap
+    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_SYMGUI); return false; }  // rolling cursor to enter
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
     tap_layer      (record, _SYMGUI);
-    lt             (record, _SYMGUI, KC_SPC); // because LT() issues <spc> before <enter> on mapc_shift()
+    lt             (record, _SYMGUI, KC_SPC);  // because LT() issues <spc> before <enter> on mapc_shift()
     rolling_layer  (record, RIGHT, 0, 0, _SYMGUI, _REGEX);
     break;
   case KC_SPC:
-    if (leader_cap(record, 0, down_punc, KC_SPC))        { return false; } // KC_SPC from LT_SPC -> (space)* space shift
+    if (leader_cap(record, 0, down_punc, KC_SPC))        { return false; }  // KC_SPC from LT_SPC -> (space)* space shift
     break;
   case TT_SPC:
 #ifdef THUMB_CAPS
     if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))      { return false; }
 #endif
-    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_TTCURSOR); return false; } // rolling cursor to enter
+    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_TTCURSOR); return false; }  // rolling cursor to enter
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
     tap_layer      (record, _TTCURSOR);
-    lt             (record, _TTCURSOR, KC_SPC); // because LT() issues <spc> before <enter> on mapc_shift()
+    lt             (record, _TTCURSOR, KC_SPC);  // because LT() issues <spc> before <enter> on mapc_shift()
     break;
 
   // ..................................................... Outer Right Thumb Key
@@ -343,9 +343,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #ifdef THUMB_CAPS
     if (raise_layer(record, _TTCAPS, RIGHT, TOGGLE))   { return false; }
 #endif
-    if (map_shift  (record, KC_LSFT, NOSHIFT, KC_DEL)) { layer_off(_SYMGUI); return false; } // rolling cursor to del
+    if (map_shift  (record, KC_LSFT, NOSHIFT, KC_DEL)) { layer_off(_SYMGUI); return false; }  // rolling cursor to del
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_DEL)) { return false; }
-    if (leader_cap (record, _EDIT, down_punc, KC_ENT)) { return false; }                     // see KC_BSPC for multi-tap
+    if (leader_cap (record, _EDIT, down_punc, KC_ENT)) { return false; }                      // see KC_BSPC for multi-tap
     tap_layer      (record, _EDIT);
     break;
   case KC_BSPC:
@@ -354,11 +354,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #endif
     if (map_shift  (record, KC_LSFT, NOSHIFT, KC_DEL)) { return false; }
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_DEL)) { return false; }
-    if (leader_cap (record, 0, down_punc, KC_ENT))     { return false; } // KC_BSPC from LT_BSPC -> (enter)* enter shift
+    if (leader_cap (record, 0, down_punc, KC_ENT))     { return false; }  // KC_BSPC from LT_BSPC -> (enter)* enter shift
 #ifdef THUMB_CAPS
     if (record->event.pressed)                         { key_timer = timer_read(); }
     else if (timer_elapsed(key_timer) < TAPPING_TERM)  { tap_key(KC_BSPC); }
-    return false; // capslock toggling trap, use shift bspc -> del for auto repeat
+    return false;  // capslock toggling trap, use shift bspc -> del for auto repeat
 #else
     break;
 #endif
@@ -395,15 +395,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     if (map_shift(record, KC_RSFT, NOSHIFT, KC_COLN))          { return false; }
     break;
   case TD_COLN:
-    if (mod_down(KC_RSFT)) { unregister_code(KC_RSFT); } // must un-shift before tap dance processing to register unshifted keycodes, see colon()
+    if (mod_down(KC_RSFT)) { unregister_code(KC_RSFT); }  // must un-shift before tap dance processing to register unshifted keycodes, see colon()
     break;
   case KC_COMM:
-    down_punc = (record->event.pressed) ? 1 : 0; // dot/ques/exlm + space/enter + shift shortcut, see cap_lt()
+    down_punc = (record->event.pressed) ? 1 : 0;  // dot/ques/exlm + space/enter + shift shortcut, see cap_lt()
     if (tt_keycode && map_shift(record, KC_RSFT, SHIFT, KC_1)) { return false; }
     if (map_shift(record, KC_RSFT, NOSHIFT, KC_GRV))           { return false; }
     break;
   case KC_DOT:
-    down_punc = (record->event.pressed) ? 1 : 0; // dot/ques/exlm + space/enter + shift shortcut, see cap_lt()
+    down_punc = (record->event.pressed) ? 1 : 0;  // dot/ques/exlm + space/enter + shift shortcut, see cap_lt()
     if (map_shift(record, KC_RSFT, SHIFT, KC_SLSH))            { return false; }
     if (map_shift(record, KC_LSFT, SHIFT, KC_SLSH))            { return false; }
     break;
@@ -411,10 +411,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // ..................................................... Leader Capitalization
   
   case TD_TILD:
-    if (mod_down(KC_RSFT)) { unregister_code(KC_RSFT); } // must un-shift before tap dance processing to register unshifted keycodes, see tilde()
+    if (mod_down(KC_RSFT)) { unregister_code(KC_RSFT); }  // must un-shift before tap dance processing to register unshifted keycodes, see tilde()
   case KC_EXLM:
   case KC_QUES:
-    down_punc = (record->event.pressed) ? 1 : 0;       // dot/ques/exlm + space/enter + shift shortcut, see cap_lt()
+    down_punc = (record->event.pressed) ? 1 : 0;          // dot/ques/exlm + space/enter + shift shortcut, see cap_lt()
     break;
 
   // ..................................................... Thumb Row Cursor Keys
@@ -446,7 +446,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // ................................................................ Other Keys
 
   default:
-    key_timer = 0; // regular keycode, clear timer in keycode_functions.h
+    key_timer = 0;  // regular keycode, clear timer in keycode_functions.h
   }
   return true;
 }

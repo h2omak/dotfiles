@@ -46,9 +46,9 @@ playlist() {
 # ......................................................................... Main
 
 # global dmenu functions
-sortlist() { [ $1 ] && echo 'sort by name' || echo 'sort by date'; } # playlist order
-previous() { echo | mhistory $1 | head -1; } # most recent (app) history
-unquote()  { echo $@ | sed "s/'//g"; } # remove single quotes for subword match
+sortlist() { [ $1 ] && echo 'sort by name' || echo 'sort by date'; }  # playlist order
+previous() { echo | mhistory $1 | head -1; }  # most recent (app) history
+unquote()  { echo $@ | sed "s/'//g"; }        # remove single quotes for subword match
 
 # if not sourced, execute dmenu message
 trap 'unset TERMINAL' EXIT

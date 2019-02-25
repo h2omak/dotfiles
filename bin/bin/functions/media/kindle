@@ -13,10 +13,10 @@ kindle=/run/media/$USER/Kindle
 kindle=$kindle/documents/
 
 # em spacing
-em_indent=1.75         # paragraph
-em_linespace=0.50,0.75 # indent,noindent
-em_indent=1.66         # paragraph
-em_linespace=0.33,0.75 # indent,noindent
+em_indent=1.75          # paragraph
+em_linespace=0.50,0.75  # indent,noindent
+em_indent=1.66          # paragraph
+em_linespace=0.33,0.75  # indent,noindent
 
 file=$1
 name=$(basename "${file%.*}")
