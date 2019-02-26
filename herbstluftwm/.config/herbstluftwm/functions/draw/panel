@@ -284,6 +284,7 @@ tape() {
 
 weather() {
   conky weather panel >$WEATHER &
+  touch $WEATHER  # have to access file for test -s to return expected result, see current_conditions()
   unset update_weather
 }
 
@@ -307,15 +308,16 @@ current_conditions() {
     esac
   fi
 
-  # refresh every 10 minutes
+  # refresh weather every 10 minutes
   if [ -e $WEATHER ] ;then
-    minute=${line#*:?}
-    case ${minute%%\%*} in
+    minute=${line#*:?}    # hh:mm:ss.* -> m:ss.*
+    case ${minute%:*} in  #            -> m
     0) [ $update_weather ] && weather ;;
     *) update_weather=true ;;
     esac
   fi
-  line="${line%%^*}$(cat $WEATHER)${line#*^}"
+  [ -s $WEATHER ] && current_weather=$(cat $WEATHER)  # prevent blanking during update, see weather()
+  line="${line%%^*}$current_weather${line#*^}"
 
   line="${line%%|*}$clock%{F-}${line##*|}"
   system="%{F$DEFAULT_FG}%{B$DEFAULT_BG}${line#?}%{B-}%{F-}"
