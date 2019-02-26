@@ -225,6 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // ........................................................ Home Row Modifiers
 
   switch (keycode) {
+
   case HOME_Q:
   case HOME_W:
   case OS_GUI:
@@ -301,12 +302,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     tap_layer      (record, _REGEX);
     lt             (record, _REGEX, SHIFT, KC_I);
     break;
-// #ifdef LEFT_SPACE
-//   case S(KC_I):
-//     if (map_shift(record, KC_LSFT, NOSHIFT, KC_SPC))   { return false; }
-//     break;
-// #endif
+
   case TD_EQL:
+    if (tt_keycode) { break; }  // no thumb mouse layer on toggle layer
     tap_layer      (record, _MOUSE);
     rolling_layer  (record, LEFT, 0, 0, _MOUSE, _SYMGUI);
     break;
@@ -317,6 +315,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     tap_layer      (record, _MOUSE);
     rolling_layer  (record, RIGHT, NOSHIFT, KC_BSLS, _MOUSE, _REGEX);
     break;
+
   case LT_SPC:
 #ifdef THUMB_CAPS
     if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))      { return false; }
@@ -396,25 +395,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // ......................................................... Shift Mapped Keys
 
   case KC_COLN:
-    if (map_shift(record, KC_RSFT, NOSHIFT, KC_COLN))               { return false; }
+    if (map_shift(record, KC_RSFT, NOSHIFT, KC_COLN)) { return false; }
     break;
   case TD_COLN:
-    if (mod_down(KC_RSFT))                                          { unregister_code(KC_RSFT); }  // must un-shift before tap dance processing to register unshifted keycodes, see colon()
+    if (mod_down(KC_RSFT))                            { unregister_code(KC_RSFT); }  // *must* un-shift before tap dance processing to register unshifted keycodes
     break;
+
   case KC_COMM:
     down_punc = (record->event.pressed) ? 1 : 0;  // dot/ques/exlm + space/enter + shift shortcut, see cap_lt()
-    if (tt_keycode && map_shift(record, KC_RSFT, NOSHIFT, KC_COMM)) { return false; }  // caps
-    if (map_shift(record, KC_RSFT, NOSHIFT, KC_GRV))                { return false; }
+    if (map_shift(record, KC_RSFT, NOSHIFT, KC_GRV))  { return false; }
     break;
   case KC_DOT:
     down_punc = (record->event.pressed) ? 1 : 0;  // dot/ques/exlm + space/enter + shift shortcut, see cap_lt()
-    if (map_shift(record, KC_RSFT, NOSHIFT, KC_DOT))                { return false; }  // caps
+    if (map_shift(record, KC_RSFT, SHIFT, KC_GRV))    { return false; }
     break;
 
   // ..................................................... Leader Capitalization
   
   case TD_TILD:
-    if (mod_down(KC_RSFT)) { unregister_code(KC_RSFT); }  // must un-shift before tap dance processing to register unshifted keycodes, see tilde()
+    if (mod_down(KC_RSFT)) { unregister_code(KC_RSFT); }  // *must* un-shift before tap dance processing to register unshifted keycodes
   case KC_EXLM:
   case KC_QUES:
     down_punc = (record->event.pressed) ? 1 : 0;          // dot/ques/exlm + space/enter + shift shortcut, see cap_lt()
