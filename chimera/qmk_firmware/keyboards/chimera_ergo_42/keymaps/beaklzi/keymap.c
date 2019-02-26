@@ -316,20 +316,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // ......................................................... Shift Mapped Keys
 
   case KC_COLN:
-    if (map_shift(record, KC_RSFT, NOSHIFT, KC_COLN))          { return false; }
+    if (map_shift(record, KC_RSFT, NOSHIFT, KC_COLN))               { return false; }
     break;
   case TD_COLN:
-    if (mod_down(KC_RSFT)) { unregister_code(KC_RSFT); }  // must un-shift before tap dance processing to register unshifted keycodes, see colon()
+    if (mod_down(KC_RSFT))                                          { unregister_code(KC_RSFT); }  // must un-shift before tap dance processing to register unshifted keycodes, see colon()
     break;
   case KC_COMM:
     down_punc = (record->event.pressed) ? 1 : 0;  // exlm + space/enter + shift shortcut, see cap_lt()
-    if (tt_keycode && map_shift(record, KC_RSFT, SHIFT, KC_1)) { return false; }
-    if (map_shift(record, KC_RSFT, NOSHIFT, KC_GRV))           { return false; }
+    if (tt_keycode && map_shift(record, KC_RSFT, NOSHIFT, KC_COMM)) { return false; }  // caps
+    if (map_shift(record, KC_RSFT, NOSHIFT, KC_GRV))                { return false; }
     break;
   case KC_DOT:
     down_punc = (record->event.pressed) ? 1 : 0;  // dot + space/enter + shift shortcut, see cap_lt()
-    if (map_shift(record, KC_RSFT, SHIFT, KC_SLSH))            { return false; }
-    if (map_shift(record, KC_LSFT, SHIFT, KC_SLSH))            { return false; }
+    if (map_shift(record, KC_RSFT, NOSHIFT, KC_DOT))                { return false; }  // caps
     break;
 
   // ..................................................... Leader Capitalization
