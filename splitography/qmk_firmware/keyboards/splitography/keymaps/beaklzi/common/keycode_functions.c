@@ -53,6 +53,15 @@ void tt_escape(keyrecord_t *record, uint16_t keycode)
   }
 }
 
+// tapped or not?
+bool key_press(keyrecord_t *record)
+{
+  if (record->event.pressed)                        { key_timer = timer_read(); }
+  else if (timer_elapsed(key_timer) < TAPPING_TERM) { key_timer = 0; return true; }
+  else                                              { key_timer = 0; }
+  return false;
+}
+
 // .......................................................... Keycode Primitives
 
 // register shift keycode
@@ -451,9 +460,8 @@ void tap_layer(keyrecord_t *record, uint8_t layer)
   record->event.pressed ? layer_on(layer) : layer_off(layer);
 }
 
-#ifndef CHIMERA
 // LT macro for mapc_shift(), see process_record_user()
-void lt(keyrecord_t *record, uint8_t layer, uint16_t keycode)
+void lt(keyrecord_t *record, uint8_t layer, uint8_t shift, uint16_t keycode)
 {
   if (record->event.pressed) {
     key_timer = timer_read();
@@ -461,12 +469,11 @@ void lt(keyrecord_t *record, uint8_t layer, uint16_t keycode)
   }
   else {
     layer_off(layer);
-    if (timer_elapsed(key_timer) < TAPPING_TERM) { tap_key(keycode); }
+    if (timer_elapsed(key_timer) < TAPPING_TERM) { mod_key(shift, keycode); }
     // clear_mods();
     key_timer = 0;
   }
 }
-#endif
 
 // ............................................................ Double Key Layer
 

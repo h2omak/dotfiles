@@ -59,13 +59,13 @@
 enum keyboard_layers {
   _BASE = 0
  ,_SHIFT
+ ,_TTCAPS
  ,_SYMGUI
  ,_REGEX
  ,_MOUSE
  ,_NUMBER
  ,_FNCKEY
  ,_EDIT
- ,_TTCAPS
  ,_TTFNCKEY
  ,_TTCURSOR
  ,_TTMOUSE
@@ -86,6 +86,8 @@ enum keyboard_keycodes {
  ,SST_A   // pseudo SFT_T(S(KC_A))
  ,SST_T   // pseudo SFT_T(S(KC_T))
  ,TT_ESC
+ ,TT_I    // pseudo LT(_REGEX, S(KC_I))
+ ,TT_SPC  // pseudo LT(_SYMGUI, KC_SPC)
 };
 
 // modifier keys
@@ -134,7 +136,7 @@ enum keyboard_keycodes {
 #define LT_I    LT  (_REGEX, KC_I)
 #define LT_SPC  LT  (_SYMGUI, KC_SPC)
 #define LT_TAB  LT  (_FNCKEY, KC_TAB)
-#define TT_SPC  LT  (_TTCURSOR, KC_SPC)
+#define TT_TAB  LT  (_NUMBER, KC_TAB)
 #define OS_ALT  OSM (MOD_LALT)
 #define OS_CTL  OSM (MOD_LCTL)
 #define OS_GUI  OSM (MOD_LGUI)
@@ -252,6 +254,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     if (map_shift(record, KC_LSFT, NOSHIFT, KC_SPC)) { return false; }
     tap_layer(record, _REGEX);
     break;
+  case TT_I:
+    tap_layer(record, _REGEX);
+    lt       (record, _REGEX, SHIFT, KC_I);
+    break;
   case S(KC_I):
     if (map_shift(record, KC_LSFT, NOSHIFT, KC_SPC)) { return false; }
     break;
@@ -274,8 +280,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
   case LT_SPC:
     if (leader_cap(record, _SYMGUI, down_punc, KC_SPC)) { return false; }  // KC_SPC -> space shift
+    tap_layer(record, _SYMGUI);
+    break;
   case TT_SPC:
     tap_layer(record, _SYMGUI);
+    lt       (record, _SYMGUI, NOSHIFT, KC_SPC);
     break;
   case KC_SPC:
     if (leader_cap(record, 0, down_punc, KC_SPC))       { return false; }  // KC_SPC from LT_SPC -> space space* shift

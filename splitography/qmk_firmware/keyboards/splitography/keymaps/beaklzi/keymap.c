@@ -73,13 +73,13 @@ extern keymap_config_t keymap_config;
 enum keyboard_layers {
   _BASE = 0
  ,_SHIFT
+ ,_TTCAPS
  ,_SYMGUI
  ,_REGEX
  ,_MOUSE
  ,_NUMBER
  ,_FNCKEY
  ,_EDIT
- ,_TTCAPS
  ,_TTFNCKEY
  ,_TTCURSOR
  ,_TTMOUSE
@@ -108,8 +108,8 @@ enum keyboard_keycodes {
  ,AST_G   // pseudo MT   (MOD_LALT | MOD_LSFT, S(KC_G))
  ,SST_A   // pseudo SFT_T(S(KC_A))
  ,SST_T   // pseudo SFT_T(S(KC_T))
- ,TT_ESC
- ,TT_SPC  // pseudo LT(_TTCURSOR, KC_SPC)
+ ,TT_I    // pseudo LT(_REGEX, S(KC_I))
+ ,TT_SPC  // pseudo LT(_SYMGUI, KC_SPC)
 };
 
 // modifier keys
@@ -178,6 +178,7 @@ enum keyboard_keycodes {
 #define TGL_HR  TT  (_TTMOUSE)
 #define TGL_BL  TT  (_TTNUMBER)
 #define TGL_BR  TT  (_TTREGEX)
+#define TT_ESC  MO  (_NUMBER)
 
 // ........................................................ Default Alpha Layout
 
@@ -274,11 +275,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // ...................................................... Outer Left Thumb Key
 
   case TT_ESC:
-    if (map_shift(record, KC_LSFT, SHIFT, KC_TAB))     { return false; }
-    if (map_shift(record, KC_RSFT, NOSHIFT, KC_TAB))   { return false; }
-    base_layer(0);  // exit TT layer
-    return false;
-
+    if (map_shift  (record, KC_LSFT, SHIFT, KC_TAB))   { return false; }
+    if (map_shift  (record, KC_RSFT, NOSHIFT, KC_TAB)) { return false; }
+    if (key_press  (record))                           { base_layer(0); return false; }  // exit TT layer
+    break;
   case LT_ESC:
     if (raise_layer(record, _FNCKEY, LEFT, ONDOWN))    { return false; }
     if (map_shift  (record, KC_LSFT, SHIFT, KC_TAB))   { return false; }
@@ -297,21 +297,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     tap_layer      (record, _REGEX);
     rolling_layer  (record, LEFT, 0, 0, _REGEX, _SYMGUI);
     break;
-#ifdef LEFT_SPACE
-  case S(KC_I):
-    if (map_shift(record, KC_LSFT, NOSHIFT, KC_SPC))   { return false; }
+  case TT_I:
+    tap_layer      (record, _REGEX);
+    lt             (record, _REGEX, SHIFT, KC_I);
     break;
-#endif
+// #ifdef LEFT_SPACE
+//   case S(KC_I):
+//     if (map_shift(record, KC_LSFT, NOSHIFT, KC_SPC))   { return false; }
+//     break;
+// #endif
   case TD_EQL:
-    tap_layer    (record, _MOUSE);
-    rolling_layer(record, LEFT, 0, 0, _MOUSE, _SYMGUI);
+    tap_layer      (record, _MOUSE);
+    rolling_layer  (record, LEFT, 0, 0, _MOUSE, _SYMGUI);
     break;
 
   // ..................................................... Inner Right Thumb Key
 
   case ML_BSLS:
-    tap_layer    (record, _MOUSE);
-    rolling_layer(record, RIGHT, NOSHIFT, KC_BSLS, _MOUSE, _REGEX);
+    tap_layer      (record, _MOUSE);
+    rolling_layer  (record, RIGHT, NOSHIFT, KC_BSLS, _MOUSE, _REGEX);
     break;
   case LT_SPC:
 #ifdef THUMB_CAPS
@@ -321,11 +325,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_SYMGUI); return false; }  // rolling cursor to enter
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
     tap_layer      (record, _SYMGUI);
-    lt             (record, _SYMGUI, KC_SPC);  // because LT() issues <spc> before <enter> on mapc_shift()
+    lt             (record, _SYMGUI, NOSHIFT, KC_SPC);  // because LT() issues <spc> before <enter> on mapc_shift()
     rolling_layer  (record, RIGHT, 0, 0, _SYMGUI, _REGEX);
     break;
   case KC_SPC:
-    if (leader_cap(record, 0, down_punc, KC_SPC))        { return false; }  // KC_SPC from LT_SPC -> (space)* space shift
+    if (leader_cap (record, 0, down_punc, KC_SPC))       { return false; }  // KC_SPC from LT_SPC -> (space)* space shift
     break;
   case TT_SPC:
 #ifdef THUMB_CAPS
@@ -333,8 +337,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #endif
     if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_TTCURSOR); return false; }  // rolling cursor to enter
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
-    tap_layer      (record, _TTCURSOR);
-    lt             (record, _TTCURSOR, KC_SPC);  // because LT() issues <spc> before <enter> on mapc_shift()
+    tap_layer      (record, _SYMGUI);
+    lt             (record, _SYMGUI, NOSHIFT, KC_SPC);  // because LT() issues <spc> before <enter> on mapc_shift()
     break;
 
   // ..................................................... Outer Right Thumb Key
