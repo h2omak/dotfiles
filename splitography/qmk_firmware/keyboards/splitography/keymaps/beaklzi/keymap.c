@@ -334,7 +334,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #ifdef THUMB_CAPS
     if (raise_layer(record, _TTCAPS, LEFT, TOGGLE))      { return false; }
 #endif
-    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_TTCURSOR); return false; }  // rolling cursor to enter
+    if (mapc_shift (record, KC_LSFT, NOSHIFT, KC_ENT))   { layer_off(_SYMGUI); return false; }  // rolling cursor to enter
     if (map_shift  (record, KC_RSFT, NOSHIFT, KC_ENT))   { return false; }
     tap_layer      (record, _SYMGUI);
     lt             (record, _SYMGUI, NOSHIFT, KC_SPC);  // because LT() issues <spc> before <enter> on mapc_shift()
